@@ -67,11 +67,11 @@ function Layout() {
  
 return (
   <div >
-  
+    
 
         
         
-          <MoviesSliderContainer>
+        <MoviesSliderContainer>
 
         </MoviesSliderContainer>
        
