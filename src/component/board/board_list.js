@@ -56,6 +56,11 @@ const BoardSlider = styled.div`
     margin: 0px 8px;
   }
 
+  a:link { color: black; text-decoration: none;}
+  a:visited { color: black; text-decoration: none;}
+  a:hover { color: black; text-decoration: none;}
+ 
+
   .Board,
   img {
     border-radius: 5px;
@@ -75,6 +80,10 @@ const BoardSlider = styled.div`
 
   .BoardInfo__price {
     color: #555765;
+  }
+
+  p {
+    margin: 0;
   }
 
   .slick-prev:before,
@@ -118,7 +127,7 @@ function BoardList( ){
       return (
         <BoardBox>
           <div className="Category">
-            <p>최신 물품</p>
+            <p>물품 목록</p>
           </div>
 
           <BoardSlider>
@@ -136,8 +145,6 @@ function BoardList( ){
 }
 
 export default BoardList;
-
-
 
 /*
 

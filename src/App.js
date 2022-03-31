@@ -1,76 +1,84 @@
+
 import * as React from "react";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-import Home from "./component/home";
+import Headers from './component/Headers';
+import EventContainer from './component/EventContainer';
+import MarketList from './component/MarketList';
+import styled from "styled-components";
+import './App.css';
+import "./CSS/reset.css";
+import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
+import BoardList from'./component/board/board_list';
 
-export default function App() {
+
+const MarketContainer = styled.section`
+  margin: 60px 0 0 auto;
+  width: 100%;
+
+`;
+
+const MainPageContainer = styled.div`
+  margin: 0 auto;
+  width: 70%;
+  animation: backColor 1s;
+
+  @keyframes backColor {
+    0% {
+      opacity: 0;
+      display: block;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      display: none;
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 90%;
+  }
+`;
+
+function App() {
   return (
-    <div>
-      <h1>Basic Example</h1>
+    <>
+      <div className="App">
+          <Headers></Headers>
+          <MainPageContainer>
 
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
-    </div>
+           <MarketContainer>
+            <Routes>
+              <Route path="/"  element={<Layout />} />
+              <Route path="board" element={<BoardList />} />
+            </Routes>
+           </MarketContainer>
+
+        </MainPageContainer>
+      </div>
+    </>
   );
 }
 
 function Layout() {
-  return (
-    <div>
-      {/* A "layout route" is a good place to put markup you want to
-          share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
-      </nav>
-
-      <hr />
-      <Outlet />
-    </div>
-  );
+ 
+return (
+  <div >
+      <EventContainer></EventContainer>
+      <MarketList>
+      </MarketList>
+    <Outlet/>
+  </div>
+);
 }
 
 
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
+export default App;
 
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
 
-function NoMatch() {
-  return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
-    </div>
-  );
-}
+/*
+useHistory
+useLocation
+useRouteMatch
+useParams
+
+*/

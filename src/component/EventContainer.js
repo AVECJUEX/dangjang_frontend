@@ -188,7 +188,6 @@ function MoviesSliderContainer() {
     <button type="button" data-bs-target="#demo" data-bs-slide-to="4"></button>
   </div>
         <EventBox>
-          <div className="a">
           <br></br>
           <p>이벤트</p>
         
@@ -209,7 +208,6 @@ function MoviesSliderContainer() {
               <img src={event5} alt="New York" class="d-block w-100"/>
           </div>
          </div>
-          </div>
         </EventBox>
           <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
     <span class="carousel-control-prev-icon"></span>
