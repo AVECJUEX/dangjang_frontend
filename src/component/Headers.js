@@ -55,7 +55,7 @@ const HeaderBox = styled.div`
     list-style: none;
     white-space: nowrap;
     color: #292a32;
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 900;
     letter-spacing: -0.4px;
     line-height: 30px;
@@ -67,7 +67,7 @@ const HeaderBox = styled.div`
     list-style: none;
     white-space: nowrap;
     color: #292a32;
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 900;
     letter-spacing: -0.4px;
     line-height: 30px;
@@ -165,9 +165,10 @@ function Home() {
               </Link>
               
             </li>
-            <li><Link to="/board" className="Link">마켓</Link></li>
-            <li>왁자지껄</li>
-            <li>채팅</li>
+            <li>🛒<Link to="/board" className="Link"> 마켓</Link></li>
+            <li>👨‍👨‍👧‍👧<Link to="/"      className="Link"> 왁자지껄</Link></li>
+            <li>🗨️<Link to="/"      className="Link"> 채팅</Link>   </li>
+            <li>❕❔<Link to="/qna"   className="Link"> 질문</Link></li>
          
             <div className="right-content">
               <ul className="MainUl">
