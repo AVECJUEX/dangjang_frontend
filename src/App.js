@@ -8,6 +8,9 @@ import './App.css';
 import "./CSS/reset.css";
 import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
 import BoardList from'./component/board/board_list';
+import QnaList from "./component/qna/qna_list"
+import QnaView from'./component/qna/qna_view';
+import QnaWrite from'./component/qna/qna_write';
 
 
 const MarketContainer = styled.section`
@@ -42,7 +45,7 @@ const MainPageContainer = styled.div`
 function App() {
   return (
     <>
-      <div className="App">
+      <div className="App">``
           <Headers></Headers>
           <MainPageContainer>
 
@@ -50,7 +53,12 @@ function App() {
             <Routes>
               <Route path="/"  element={<Layout />} />
               <Route path="board" element={<BoardList />} />
+              <Route path="qna" element={<QnaList/>}/>
+              <Route path="qna/write" element={<QnaWrite/>}/>
+              <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
+            
             </Routes>
+
            </MarketContainer>
 
         </MainPageContainer>
