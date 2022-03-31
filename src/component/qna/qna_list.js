@@ -190,7 +190,7 @@ function QnaList( ){
 
           <Link to='/'  className="qnamenu"  onMouseOver={onMouse} onMouseLeave={mouseDown} style={{color:'#6667ab', fontSize:'24px'}}>질문 TOP</Link>
           <Link to='/'  className="qnamenu" onMouseOver={onMouse} onMouseLeave={mouseDown}>운영정책</Link>
-          <Link to='/'  className="qnamenu" onMouseOver={onMouse} onMouseLeave={mouseDown} >계정/인정</Link>
+          <Link to='/'  className="qnamenu" onMouseOver={onMouse} onMouseLeave={mouseDown} >계정/인증</Link>
           <Link to='/'  className="qnamenu" onMouseOver={onMouse} onMouseLeave={mouseDown} >구매/판매</Link>
           <Link to='/'  className="qnamenu" onMouseOver={onMouse} onMouseLeave={mouseDown} >거래품목</Link>
           <Link to='/'  className="qnamenu" onMouseOver={onMouse} onMouseLeave={mouseDown} >거래매너</Link>
