@@ -1,14 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Slider from "react-slick";
-
-import event1 from "../IMG/event1.jpg";
-import event2 from "../IMG/event2.jpg";
-import event3 from "../IMG/event3.jpg";
-import event4 from "../IMG/event4.jpg";
-import event5 from "../IMG/event5.jpg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -139,7 +131,7 @@ const MoviesSlider = styled.div`
   }
 `;
 
-function MoviesSliderContainer() {
+function MarketList() {
 
 
   const settings = {
@@ -195,4 +187,4 @@ function MoviesSliderContainer() {
   );
 }
 
-export default MoviesSliderContainer;
+export default MarketList;

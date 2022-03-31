@@ -2,9 +2,10 @@
 import TableRow from './TableRow'
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Routes } from "react-router-dom";
 import Axios from "axios";
 import "../../page.css";
+import BoardWrite from '../board/board_write';
 
 const BoardBox = styled.div`
   .Category {

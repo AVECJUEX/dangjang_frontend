@@ -28,7 +28,7 @@ function TableRow(props){
     return (
       <div className="list" key={props.obj.board_seq}>
         <li>
-          <Link to={`/boardview${props.obj.board_seq}`}>
+          <Link to={`/board/view/${props.obj.board_seq}`}>
             <div className="Board">
               <img src={props.obj.image1} alt={props.obj.image1}></img>
               
