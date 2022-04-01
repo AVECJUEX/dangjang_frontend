@@ -1,141 +1,18 @@
 
+import TableRow from './TableRow'
 import React, { useState, useEffect} from "react";
-import {  Link, Outlet, Route, Routes } from "react-router-dom";
+import {  Link, Route, Routes } from "react-router-dom";
 import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";
 import styled from "styled-components";
-import QnaHeader from "./qna_header";
-import QnaFree from "./qna_free";
-import QnaTop from "./qna_top";
-import QnaMenu from "./qna_menu";
 
 
 
-const QnaContainer = styled.div`
- h1{
-  font-size: 24px;
-  line-height: 32px;
-  margin-bottom: 30px;
-  text-decoration: none;
-  list-style: none;
-  white-space: nowrap;
-  color: #292a32;
-  font-weight: 900;
-  letter-spacing: -0.4px;
-  line-height: 30px;
-  
- }
- aside{
-  display: inline-block; 
-  vertical-align: top;
-  width: 15%;
- }
- 
- a{
-  
-  line-height: 32px;
-  margin-bottom: 30px;
-  text-decoration: none;
-  list-style: none;
-  white-space: nowrap;
-  color: #8b95a1;
-  letter-spacing: -0.4px;
-  line-height: 30px;
-  font-size: 18px;
-  font-weight: 600;
-  
-  vertical-align: baseline;
-  border-radius: 10px;
-  display : block;
-  
-  padding:0px;
-  
- }
- 
- 
-
- .qnamenu{
-  display: flex;
-  width: 100%;
-  align-items: center;
-  padding: 12px 16px;
- 
-  outline: none;
-  border: none;
-  margin: 0;
-  overflow: visible;
-  text-decoration: none;
-  
-  
- }
- 
- .qnamenu-active{
-  display: flex;
-  width: 100%;
-  align-items: center;
-  padding: 12px 16px;
- 
-  outline: none;
-  border: none;
-  margin: 0;
-  overflow: visible;
-  text-decoration: none;
-  color : #6667ab;
-   font-size : 24px;
-  
-  
- }
- 
-    
- .qnamenu:active,
- .qnamenu:hover{
-   color : #6667ab;
-   font-size : 24px;
-   background-color:#e5e8eb;
-  }
-  
-  .qnalist{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: 12px 16px;
-    outline: none;
-    border: none;
-    margin: 0;
-    overflow: visible;
-    text-decoration: none;
-  }
-  .qnalist:active,
-  .qnalist:hover{
-    font-size : 24px;
-    background-color:#e5e8eb;
-  }
- 
-  .qnaBtn{
-    display: flex;
-    
-    align-items: center;
-    padding: 12px 16px;
-    
-    outline: none;
-    border: none;
-    margin: 0;
-    overflow: visible;
-    text-decoration: none;
-    background-color : white;
-    border-radius: 10px;
-  margin-left:80%
- }
- .qnaBtn:hover{
-  background-color:#e5e8eb;
- }
- 
-
-`;
 
 
-function QnaList( ){
+
+function QnaFree(){
       
     
   
@@ -201,37 +78,43 @@ function QnaList( ){
      
       
       return (
-        <QnaContainer>
-          <QnaHeader></QnaHeader>
-          <QnaMenu></QnaMenu>
-            <Routes>
-              
-              <Route  path="/"  element={<QnaContents />} />
-              <Route path="qna/qna/qnatop"  element={<QnaTop />} />
-              <Route path="qna/qna/qnafree"  element={<QnaFree />} />
-            </Routes>
-            
-       
-         
-            </QnaContainer>
-      );
-    }
-    
-    function QnaContents(){
-      return(
-        <div>
+    <div style={{display : 'inline-block', width : '78%', marginLeft:'7%', padding : '0px', verticalAlign: 'top'}}>
 
-          <Outlet/>          
-        </div>
+        {
+          qna.map(function(object, i){
+            return<TableRow obj={object} key={i} totalCnt={totalCnt}/>
+          })
+        }
+         {/*
+          pagenation : npm install react-js-pagination 한거임
+          페이징을 다 처리 할 수 있다
+          activePage : 현재페이지값
+          itemCountPerPage : 한페이지에 몇개씩 나타낼 것 인가
+          totalItemsCount : 전체데이터 개수
+          pageRangeDisplayed : 한번에 보여지는 페이지 개서 1~5 6~10
+          onChange : 페이지를 눌렀을 때 호출될 함수
+        */}
         
-        
-  )
+          <Pagination className="page1"
+            activePage={page}
+            itemsCountPerPage={10}
+            totalItemsCount={totalCnt}
+            pageRangeDisplayed={5}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+            />
+         
+          <button className="qnaBtn" to="/qna/write" > ✏️글쓰기</button>
+    </div>
+    
+   
+     );
 }
 
 
 
-
-export default QnaList;
+export default QnaFree;
 
 
 
