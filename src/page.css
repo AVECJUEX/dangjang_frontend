@@ -1,22 +1,25 @@
+
 .pagination {
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    
   }
   
   ul {
     list-style: none;
     padding: 0;
+    
   }
   
   ul.pagination li {
     display: inline-block;
     width: 30px;
     height: 30px;
-    border: 1px solid #e2e2e2;
+    
     display: flex;
     justify-content: center;
-    align-items: center;
+   
     font-size: 1rem;
   }
 
@@ -30,26 +33,34 @@
   
   ul.pagination li a {
     text-decoration: none;
-    color: #337ab7;
-    font-size: 1rem;
+    color: #8b95a1;
+    font-size: 20px;
   }
   
   ul.pagination li.active a {
-    color: white;
+    color: black;
+    
   }
 
+  /* 
+  선택된 칸 색깔
+  */
   ul.pagination li.active {
-    background-color: #337ab7;
-  }
+  background-color: #8b95a1;  
+  border-radius: 30%;
+  } 
   
   ul.pagination li a:hover,
   ul.pagination li a.active {
-    color: blue;
+    color: black;
+    
+    
   }
   
   .page-selection {
     width: 48px;
     height: 30px;
-    color: #337ab7;
+    color: #8b95a1;
+    
   }
  

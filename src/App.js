@@ -13,6 +13,8 @@ import BoardView from "./component/board/board_view";
 import QnaList from "./component/qna/qna_list"
 import QnaView from'./component/qna/qna_view';
 import QnaWrite from'./component/qna/qna_write';
+import QnaTop from "./component/qna/qna_top";
+import QnaFree from "./component/qna/qna_free";
 
 
 
@@ -54,13 +56,18 @@ function App() {
 
            <MarketContainer>
             <Routes>
-              <Route path="/"  element={<Layout />} />
+              <Route exact path="/"  element={<Layout />} />
               <Route path="board" element={<BoardList />} />
+
               <Route path="board/write" element={<BoardWrite />} />
               <Route path="board/view/:board_seq" element={<BoardView />} />
               <Route path="qna" element={<QnaList/>}/>
+
+              <Route exact path="qna/*" element={<QnaList/>}/>
+
               <Route path="qna/write" element={<QnaWrite/>}/>
               <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
+            
             
             </Routes>
 
@@ -83,6 +90,8 @@ return (
   </div>
 );
 }
+
+
 
 
 export default App;

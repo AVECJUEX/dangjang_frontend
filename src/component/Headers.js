@@ -61,7 +61,7 @@ const HeaderBox = styled.div`
     line-height: 30px;
     //color : #6667AB;
   }
- .Link {
+ .Header-Menu {
     text-decoration: none;
     margin-left: 24px;
     list-style: none;
@@ -71,7 +71,21 @@ const HeaderBox = styled.div`
     font-weight: 900;
     letter-spacing: -0.4px;
     line-height: 30px;
-    //color : #6667AB;
+  }
+  .Header-Menu:hover{
+    font-size:24px;
+  }
+  .Header-Menu-Active{
+    text-decoration: none;
+    margin-left: 24px;
+    list-style: none;
+    white-space: nowrap;
+    color: #292a32;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    line-height: 30px;
+    font-size : 24px;
+
   }
 
 
@@ -148,7 +162,10 @@ const HeaderBox = styled.div`
   li,label{
     backgroundColor :#E6E6FA;
   }
+
+ 
 `;
+
 
 
 function Home() {
@@ -165,10 +182,10 @@ function Home() {
               </Link>
               
             </li>
-            <li>🛒<Link to="/board" className="Link"> 마켓</Link></li>
-            <li>👨‍👨‍👧‍👧<Link to="/"      className="Link"> 왁자지껄</Link></li>
-            <li>🗨️<Link to="/"      className="Link"> 채팅</Link>   </li>
-            <li>❕❔<Link to="/qna"   className="Link"> 질문</Link></li>
+            <li>🛒 <NavLink to="/board" className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 마켓</NavLink></li>
+            <li>👨‍👨‍👧‍👧<NavLink to="/"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 왁자지껄</NavLink></li>
+            <li>🗨️ <NavLink to="/"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 채팅</NavLink>   </li>
+            <li>❕❔ <NavLink to="/qna/qna/qna/qnaTop"   className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 질문</NavLink></li>
          
             <div className="right-content">
               <ul className="MainUl">

@@ -11,7 +11,7 @@ const Paging = () => {
   };
 
   return (
-    <Pagination
+    <Pagination 
       activePage={page}
       itemsCountPerPage={10}
       totalItemsCount={450}
