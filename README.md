@@ -15,3 +15,4 @@
   - 왁자지껄 리스트 페이지 수정 (리액트 실행 전 npm install 한 번 부탁드립니다! )
 - [혁주] 마켓 상세페이지 수정중 #7 22-04-01
   - board_view, top info, main info, production 수정중
+- [한우]용환님 게시판 살짝 ,qna 제작중
