@@ -13,7 +13,7 @@ const ProductionContainer = styled.div`
     li {
       display: flex;
       width: 30%;
-      height: 100px;
+      height: 200px;
       margin: 0 15px;
     }
 
@@ -42,8 +42,8 @@ const ProductionContainer = styled.div`
     }
 
     li img {
-      width: 56px;
-      width: 56px;
+      width: 90%;
+      height: 90%;
       border-radius: 7px;
     }
 
@@ -91,7 +91,7 @@ function Production(props, { match }) {
                   console.log(res.data);  //f12 눌러서 확인하기 
                   setInputs({
                     board_seq:board_seq,
-                    imgae1:res.data.imgae1,
+                    image1:res.data.image1,
                     image2:res.data.image2,
                     image3:res.data.image3,
                     image4:res.data.image4,
@@ -131,12 +131,12 @@ function Production(props, { match }) {
           <ul>
             <li>
               <div className="character-box">
-                <img src={inputs.image1} alt=""></img>
+                <img src={inputs.image1} alt={inputs.image1}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={inputs.image2} alt=""></img>
+                <img src={inputs.image2} alt={inputs.image2}></img>
               </div>
             </li>
             <li>

@@ -42,7 +42,6 @@ function BoardView({ match }) {
           </div>
         </div>
       </Main>
-      <MainInfo match={match} />
     </>
   );
 }
