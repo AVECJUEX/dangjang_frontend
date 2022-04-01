@@ -58,13 +58,13 @@ function App() {
             <Routes>
               <Route exact path="/"  element={<Layout />} />
               <Route path="board" element={<BoardList />} />
-<<<<<<< Updated upstream
+
               <Route path="board/write" element={<BoardWrite />} />
               <Route path="board/view/:board_seq" element={<BoardView />} />
               <Route path="qna" element={<QnaList/>}/>
-=======
+
               <Route exact path="qna/*" element={<QnaList/>}/>
->>>>>>> Stashed changes
+
               <Route path="qna/write" element={<QnaWrite/>}/>
               <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
             

@@ -183,8 +183,8 @@ function Home() {
               
             </li>
             <li>🛒 <NavLink to="/board" className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 마켓</NavLink></li>
-            <li>👨‍👨‍👧‍👧<NavLink to="/"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 왁자지껄</NavLink></li>
-            <li>🗨️ <NavLink to="/"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 채팅</NavLink>   </li>
+            <li>👨‍👨‍👧‍👧<NavLink to="/"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 왁자지껄</NavLink></li>
+            <li>🗨️ <NavLink to="/"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 채팅</NavLink>   </li>
             <li>❕❔ <NavLink to="/qna/qna/qna/qnaTop"   className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 질문</NavLink></li>
          
             <div className="right-content">
