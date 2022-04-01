@@ -8,12 +8,12 @@ import Pagination from "react-js-pagination";
 import styled from "styled-components";
 
 
-
-function QnaTop() {
+function QnaId() {
  
+  
   const [qna, setQna] = useState([]) //게시글
 
-  const [category, setCategory] = useState('00');   //페이징 정보
+  const [category, setCategory] = useState('01');   //페이징 정보
   const [totalCnt, setTotalCnt] = useState(0); //전체 레코드 개수
   const [loading, setLoading]=useState(false); //로딩 중을 띄우고싶었지만 안씀
 
@@ -82,4 +82,4 @@ function QnaTop() {
   );
 }
 
-export default QnaTop;
+export default QnaId;

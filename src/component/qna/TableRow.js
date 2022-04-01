@@ -26,7 +26,7 @@ function TableRow(props){
   
  
     return (
-      <Link to="/" className="qnalist" >Q. {props.obj.title}</Link>
+      <Link to={"/qna/qna/view/"+props.obj.qna_seq} className="qnalist" >Q. {props.obj.title}</Link>
        
     );
   }

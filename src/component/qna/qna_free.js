@@ -1,7 +1,7 @@
 
 import TableRow from './TableRow'
 import React, { useState, useEffect} from "react";
-import {  Link, Route, Routes } from "react-router-dom";
+import {  Link, NavLink, Route, Routes } from "react-router-dom";
 import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";
@@ -19,6 +19,7 @@ function QnaFree(){
 
      const [qna, setQna] = useState([]) //게시글
      const [page, setPage] = useState(1);   //페이징 정보
+     const [category, setCategory] = useState('09'); 
      const [totalCnt, setTotalCnt] = useState(0); //전체 레코드 개수
      const [loading, setLoading]=useState(false); //로딩 중을 띄우고싶었지만 안씀
 
@@ -54,7 +55,7 @@ function QnaFree(){
         setLoading(true);
         //비동기모드를 동기모드로 바꾸어서 데이터가 올 때 까지 기다리게 만들었음
         //그래서 값이 반환 될 때까지 기다린다.
-        const res = await Axios.get('http://localhost:9090/dangjang/qna/list/'+page);
+        const res = await Axios.get('http://localhost:9090/dangjang/qna/list/'+page+'/'+category);
         console.log(res.data);
         setTotalCnt(res.data.totalCnt);
         setQna(res.data.list);
@@ -73,6 +74,8 @@ function QnaFree(){
       const handlePageChange = (page) => {
         setPage(page);
         loadData(page);
+        setCategory('09')
+        console.log(category)
       };
       
      
@@ -95,7 +98,7 @@ function QnaFree(){
           onChange : 페이지를 눌렀을 때 호출될 함수
         */}
         
-          <Pagination className="page1"
+          <Pagination
             activePage={page}
             itemsCountPerPage={10}
             totalItemsCount={totalCnt}
@@ -105,7 +108,7 @@ function QnaFree(){
             onChange={handlePageChange}
             />
          
-          <button className="qnaBtn" to="/qna/write" > ✏️글쓰기</button>
+          <NavLink className="qnaBtn" to="/qna/write" > ✏️글쓰기</NavLink>
     </div>
     
    

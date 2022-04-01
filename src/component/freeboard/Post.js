@@ -6,6 +6,7 @@ import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineO
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import { ExpandMoreOutlined } from "@material-ui/icons";
+import { Link } from 'react-router-dom';
 
 function Post({profilePic, image, username, timestamp, message }) {
     return (
@@ -34,7 +35,7 @@ function Post({profilePic, image, username, timestamp, message }) {
 
                 <div className="post__option">
                     <ChatBubbleOutlineOutlinedIcon/>
-                    <p>Comment</p>
+                   <Link to="freeboard/view"> <p>Comment</p></Link>
                 </div>
 
                 <div className="post__option">

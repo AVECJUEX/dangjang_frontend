@@ -8,9 +8,9 @@ import Pagination from "react-js-pagination";
 import styled from "styled-components";
 
 
-
-function QnaTop() {
+function QnaOper() {
  
+  
   const [qna, setQna] = useState([]) //게시글
 
   const [category, setCategory] = useState('00');   //페이징 정보
@@ -82,4 +82,4 @@ function QnaTop() {
   );
 }
 
-export default QnaTop;
+export default QnaOper;

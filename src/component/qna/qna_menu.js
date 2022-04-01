@@ -26,8 +26,8 @@ function QnaMenu() {
     <div style={{display : 'inline-block', width : '15%', padding : '0px'}}>
 
     <NavLink className={({ isActive }) => 'qnamenu'+ (isActive ? '-active' : '')} to="qna/qna/qnatop">질문 TOP</NavLink>
-    <NavLink to='/'  className="qnamenu" >운영정책</NavLink>
-    <NavLink to='/'  className="qnamenu" >계정/인증</NavLink>
+    <NavLink className={({ isActive }) => 'qnamenu'+ (isActive ? '-active' : '')} to="qna/qna/qnaoper" >운영정책</NavLink>
+    <NavLink className={({ isActive }) => 'qnamenu'+ (isActive ? '-active' : '')} to="qna/qna/qnaid" >계정/인증</NavLink>
     <NavLink to='/'  className="qnamenu" >구매/판매</NavLink>
     <NavLink to='/'  className="qnamenu" >거래품목</NavLink>
     <NavLink to='/'  className="qnamenu" >거래매너</NavLink>

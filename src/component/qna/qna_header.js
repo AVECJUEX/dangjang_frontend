@@ -15,11 +15,12 @@ function QnaHeader() {
     <div>
     <h1>자주 묻는 질문</h1>
     <Label width="100%" padding="12px 15px 11px 46px">
-        <Input
+        <Input 
           name="search"
           placeholder="질문을 해보세요."
         />
     </Label>
+    <br></br>
     <br></br>
    
     </div>
