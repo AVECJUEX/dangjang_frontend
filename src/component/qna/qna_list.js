@@ -9,19 +9,21 @@ import QnaHeader from "./qna_header";
 import QnaFree from "./qna_free";
 import QnaTop from "./qna_top";
 import QnaMenu from "./qna_menu";
+import QnaView from "./qna_view"
+import QnaOper from "./qna_oper";
+import QnaId from "./qna_id";
 
 
 
 const QnaContainer = styled.div`
  h1{
-  font-size: 24px;
   line-height: 32px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   text-decoration: none;
   list-style: none;
   white-space: nowrap;
   color: #292a32;
-  font-weight: 900;
+  font-weight: bolder;
   letter-spacing: -0.4px;
   line-height: 30px;
   
@@ -82,6 +84,7 @@ const QnaContainer = styled.div`
   overflow: visible;
   text-decoration: none;
   color : #6667ab;
+  font-weight : bolder;
    font-size : 24px;
   
   
@@ -93,6 +96,7 @@ const QnaContainer = styled.div`
    color : #6667ab;
    font-size : 24px;
    background-color:#e5e8eb;
+   font-weight : bolder;
   }
   
   .qnalist{
@@ -105,31 +109,58 @@ const QnaContainer = styled.div`
     margin: 0;
     overflow: visible;
     text-decoration: none;
+    font-weight : bolder;
   }
   .qnalist:active,
   .qnalist:hover{
     font-size : 24px;
     background-color:#e5e8eb;
+    font-weight : bolder;
   }
  
   .qnaBtn{
-    display: flex;
-    
-    align-items: center;
-    padding: 12px 16px;
-    
-    outline: none;
-    border: none;
-    margin: 0;
-    overflow: visible;
-    text-decoration: none;
-    background-color : white;
-    border-radius: 10px;
-  margin-left:80%
+    line-height: 32px;
+    margin-bottom: 40px;
+    margin-top : 20px;
+    white-space: nowrap;
+    color: #292a32;
+    font-weight: bolder;
+    letter-spacing: -0.4px;
+    line-height: 30px;
+    font-size : 19px;
+    width : auto;
+    padding : 8px;
+    text-align : center;  
+    margin-left:87%
  }
  .qnaBtn:hover{
   background-color:#e5e8eb;
+ 
  }
+ .qnalist-title{
+  line-height: 32px;
+  margin-bottom: 40px;
+  margin-top : 20px;
+  white-space: nowrap;
+  color: #292a32;
+  font-weight: bolder;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+ }
+ .qnalist-contents{
+  line-height: 32px;
+  margin-bottom: 40px;
+  margin-top : 20px;
+  white-space: nomal;
+  color: #292a32;
+  font-weight: bolder;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size : 19px;
+  
+ }
+ }
+ 
  
 
 `;
@@ -209,6 +240,10 @@ function QnaList( ){
               <Route  path="/"  element={<QnaContents />} />
               <Route path="qna/qna/qnatop"  element={<QnaTop />} />
               <Route path="qna/qna/qnafree"  element={<QnaFree />} />
+              <Route path="qna/qna/qnaoper"  element={<QnaOper />} />
+              <Route path="qna/qna/qnaoid"  element={<QnaId />} />
+              <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
+              
             </Routes>
             
        

@@ -118,12 +118,7 @@ function FreeBoardView(props, {match} ){
               </div>
           </form>
 
-        <div>
-          <b>값: </b>
-          {title} <br/>
-          {writer} <br/>
-          {contents} <br/>
-        </div>
+      
       </div>
     );
   }

@@ -1,5 +1,5 @@
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import Axios from "axios";
 
@@ -42,7 +42,7 @@ function BoardView(props, {match} ){
                     title: res.data.title,
                     user_seq: res.data.user_seq,
                     content:res.data.content,
-                 
+                    category_code :res.data.category_code,
                     image:res.data.image,
                   });
               }
@@ -71,61 +71,25 @@ function BoardView(props, {match} ){
               }
             );
     }
+    
   
     return (
-      <div>
+      <div style={{display : 'inline-block', width : '78%', marginLeft:'7%', padding : '0px', verticalAlign: 'top'}}>
+    
         <form name="myform" onSubmit={onSubmit}>
-              <div className="form-group">    
-                  <label>제목:  </label>
-                  <input 
-                    type="text" 
-                    className="form-control" 
-                    name="title"
-                    value={inputs.title}
-                    onChange={onChange}
-                    />
-              </div>
-              <div className="form-group">
-                  <label>이름: </label>
-                  <input type="text" 
-                    className="form-control"
-                    name="user_seq"
-                    value={inputs.user_seq}
-                    onChange={onChange}
-                    />
-              </div>
-              <div className="form-group">
-                  <label>내용: </label>
-                  <input type="text"
-                    name="content" 
-                    className="form-control"
-                    value={inputs.content}
-                    onChange={onChange}
-                    />
-              </div>
-              <div className="form-group">
-                  <label>file: </label>
-                  <input type="file"
-                    name="filename" 
-                    className="form-control"
-                   
-                    onChange={onChange}
-                    />
-                  <img src={inputs.image} alt={inputs.filename}/>
+          <h2 className="qnalist-title">Q. {inputs.title}</h2>
 
-              </div>
-              
-              <div className="form-group">
-                  <input type="submit" value="등록 " className="btn btn-primary"/>
-              </div>
+          <div className="qnalist-contents">
+            {inputs.content}
+
+
+          </div>
+          {console.log("카테고리코드 : " + inputs.category_code)}
+          {inputs.category_code === '09' ? <NavLink className="qnaBtn" to="/qna/write" > ✏️수정</NavLink>:  '' }
+          
           </form>
 
-        <div>
-          <b>값: </b>
-          {title} <br/>
-          {user_seq} <br/>
-          {content} <br/>
-        </div>
+       
       </div>
     );
   }

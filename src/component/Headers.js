@@ -26,17 +26,14 @@ const HeaderBox = styled.div`
   margin: 0 auto;
   width: 70%;
   height: 100%;
-
   @media ${(props) => props.theme.tablet} {
     width: 90%;
     margin: 0 auto;
   }
-
   .Category {
     position: relative;
     height: 100%;
   }
-
   .MainUl {
     display: flex;
     align-items: center;
@@ -45,11 +42,9 @@ const HeaderBox = styled.div`
     padding: 0;
     list-style: none;
   }
-
   ul :first-child {
     margin-left: 0px;
   }
-
   li {
     margin-left: 24px;
     list-style: none;
@@ -85,11 +80,7 @@ const HeaderBox = styled.div`
     letter-spacing: -0.4px;
     line-height: 30px;
     font-size : 24px;
-
   }
-
-
-
   .right-content {
     display: flex;
     position: absolute;
@@ -97,7 +88,6 @@ const HeaderBox = styled.div`
     width: 50%;
     right: 0px;
   }
-
   button {
     cursor: pointer;
     background: transparent;
@@ -107,11 +97,9 @@ const HeaderBox = styled.div`
     width: auto;
     padding: 0px;
     border: 0px;
-
     
   }
   
-
   button.mainButton {
     cursor: pointer;
     display: inline-block;
@@ -138,7 +126,6 @@ const HeaderBox = styled.div`
       ease-in-out;
     
   }
-
   button.sign-up {
     text-align: center;
     border-radius: 6px;
@@ -153,7 +140,6 @@ const HeaderBox = styled.div`
     border: 1px solid rgba(116, 116, 123, 0.5);
   
   }
-
   img {
     object-fit: cover;
     width: 151px;
@@ -162,7 +148,6 @@ const HeaderBox = styled.div`
   li,label{
     backgroundColor :#E6E6FA;
   }
-
  
 `;
 
@@ -182,9 +167,9 @@ function Home() {
               </Link>
               
             </li>
-            <li>🛒 <NavLink to="/board" className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 마켓</NavLink></li>
-            <li>👨‍👨‍👧‍👧<NavLink to="/freeboard"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 왁자지껄</NavLink></li>
-            <li>🗨️ <NavLink to="/"      className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 채팅</NavLink>   </li>
+            <li>🛒 <NavLink to="/board"                className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 마켓</NavLink></li>
+            <li>👨‍👨‍👧‍👧<NavLink to="/freeboard"            className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 왁자지껄</NavLink></li>
+            <li>🗨️ <NavLink to="/"                     className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 채팅</NavLink>   </li>
             <li>❕❔ <NavLink to="/qna/qna/qna/qnaTop"   className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 질문</NavLink></li>
          
             <div className="right-content">

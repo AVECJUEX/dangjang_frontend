@@ -1,7 +1,8 @@
 
 import TableRow from './TableRow'
 import React, { useState, useEffect} from "react";
-import {  Link } from "react-router-dom";
+import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
+import FreeBoardView from './freeboard_view'
 import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";
@@ -67,34 +68,45 @@ function FreeBoardList( ){
       
       return (
         <div>
-          <Link className="btn btn-danger" to="/freeboard/write">글쓰기</Link>
-          
-            <Feed/>
-
-                 {
-                    // freeboard.map((object, i) => {
-                    //     return <TableRow obj={object} key={i} totalCnt={totalCnt} />
-                        /*key : 반복적인것을 넘길 떄 반드기 주고, 동일한 값이 입력되면 안된다
-                          obj : props 라는 객체를 이용해 부모 컴포넌트가 자식 컴포넌트 한테 값을 줄 수 있다. 맘대로 */
-                    //})
-                 }                                                               
-            
-          
-
-       {/*
-          pagenation : npm install react-js-pagination 한거임
-                      페이징을 다 처리 할 수 있다
-                      activePage : 현재페이지값
-                      itemCountPerPage : 한페이지에 몇개씩 나타낼 것 인가
-                      totalItemsCount : 전체데이터 개수
-                      pageRangeDisplayed : 한번에 보여지는 페이지 개서 1~5 6~10
-                      onChange : 페이지를 눌렀을 때 호출될 함수
-                      */}
-          
-          
-          
+          <Routes>
+              <Route path="/" element={<Freeboardlist/>}></Route>
+             <Route path="/freeboard/view" element={<FreeBoardView/>}></Route>
+          </Routes>
         </div>
       );
+}
+
+function Freeboardlist(){
+  return(
+    <div>
+    <Link className="btn btn-danger" to="/freeboard/write">글쓰기</Link>
+    
+      <Feed/>
+
+           {
+              // freeboard.map((object, i) => {
+              //     return <TableRow obj={object} key={i} totalCnt={totalCnt} />
+                  /*key : 반복적인것을 넘길 떄 반드기 주고, 동일한 값이 입력되면 안된다
+                    obj : props 라는 객체를 이용해 부모 컴포넌트가 자식 컴포넌트 한테 값을 줄 수 있다. 맘대로 */
+              //})
+           }                                                               
+      
+    
+
+ {/*
+    pagenation : npm install react-js-pagination 한거임
+                페이징을 다 처리 할 수 있다
+                activePage : 현재페이지값
+                itemCountPerPage : 한페이지에 몇개씩 나타낼 것 인가
+                totalItemsCount : 전체데이터 개수
+                pageRangeDisplayed : 한번에 보여지는 페이지 개서 1~5 6~10
+                onChange : 페이지를 눌렀을 때 호출될 함수
+                */}
+    
+    
+    
+  </div>
+  )
 }
 
 
