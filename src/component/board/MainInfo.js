@@ -33,10 +33,6 @@ const MainInfoContainer = styled.div`
     list-style: none;
   }
 
-  p {
-    margin: 10px 0px;
-  }
-
   .content-box {
     width: 95%;
     padding-bottom: 15px;
@@ -50,7 +46,7 @@ const MainInfoContainer = styled.div`
 
   .content-box .basic-information {
     position: relative;
-    margin: 5px;
+    margin-top: 5px;
     display: flex;
     align-items: center;
   }
@@ -155,11 +151,12 @@ function MainInfo(porps, { match }) {
         </div>
         <div className="content-box">
           <div className="basic-information">
-            <h3><strong>{title}</strong></h3>
+            <h3><strong>[ {title} ]</strong></h3>
           </div>
           <div className="basic-infomation__detail">
-            <p>[{category_name}] ・ [{price}원]</p>
-            <h4><strong>내용</strong></h4>
+            <p><strong>종류 : </strong>{category_name}</p>
+            <p><strong>가격 : </strong>{price}원</p>
+            <h4><strong>[ 내용 ]</strong></h4>
             <p>{content}</p>
           </div>
         </div>

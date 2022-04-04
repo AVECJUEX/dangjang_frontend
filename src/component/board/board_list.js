@@ -1,8 +1,9 @@
 
 import TableRow from './TableRow'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, Fragment } from "react";
 import styled from "styled-components";
 import { Link, Routes } from "react-router-dom";
+import { useInView } from "react-intersection-observer"
 import Axios from "axios";
 import "../../page.css";
 import BoardWrite from '../board/board_write';
@@ -24,6 +25,11 @@ const BoardBox = styled.div`
     font-weight: 900;
     letter-spacing: -0.4px;
     line-height: 30px;
+  }
+  .btn {
+    color: #fff;
+    background-color: #6667ab;
+    border-color: #6667ab;
   }
 `;
 const BoardSlider = styled.div`
@@ -106,24 +112,46 @@ const BoardSlider = styled.div`
   }
 `;
 
-function BoardList( ){
-     const [board, setBoard] = useState([]) //게시글
-     const [totalCnt, setTotalCnt] = useState(0); //전체 레코드 개수
-     const [loading, setLoading]=useState(false); //로딩 중을 띄우고싶었지만 안씀
+function BoardList(){
+    const [board, setBoard] = useState([]) //게시글
+    const [totalCnt, setTotalCnt] = useState(0); //전체 레코드 개수
+    const [page, setPage] = useState(1);
+    const [loading, setLoading]=useState(false); //로딩 중을 띄우고싶었지만 안씀
+    const [empty, setEmpty] = useState(false);
 
-      const loadData = async (page) => {
-        setLoading(true);
-        const res = await Axios.get('http://localhost:9090/dangjang/board/list/'+page);
-        console.log(res.data);
+    const [ref, inView] = useInView()
+
+    const getboard = useCallback(async (page) => {
+      setLoading(true)
+      await Axios.get(`http://localhost:9090/dangjang/board/list/`+page).then((res)=>{
+      console.log(res.data);
+      console.log(res.data.list.length);
+
+      if(res.data.list.length!=0){
+
         setTotalCnt(res.data.totalCnt);
-        setBoard(res.data.list);
-        setLoading(false);
+        setBoard(prevState => [...prevState, ...res.data.list]);
+        
+      } else {
+        setEmpty(true);
       }
+      
+      })
+      setLoading(false)
+    }, [page]);
 
-     useEffect( ()=>
-     {
-      loadData(1);    //첫번째 페이지 데이터 가져와서 화면에 뿌리기  
-     }, []);
+      useEffect( ()=>
+      {
+        getboard(page)    //첫번째 페이지 데이터 가져와서 화면에 뿌리기  
+      }, [page]);
+
+      useEffect(() => {
+        // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
+        console.log(inView, !loading, page)
+        if (inView && !loading && !empty) {
+          setPage(prevState => prevState + 1)
+        }
+      }, [inView, loading])
       
       return (
         <BoardBox>
@@ -131,25 +159,23 @@ function BoardList( ){
             <p>물품 목록</p>
           </div>
 
-          <BoardSlider>
+          <BoardSlider >
             <div className="listbox">
                 {
-                  board.map(function(object, i){
-                    return <TableRow obj={object} key={i} totalCnt={totalCnt}/>
-                  })
+                  board.map((object, i) => 
+                     <Fragment key={i}>
+                       {board.length - 1 === i ? (<div ref={ref}><TableRow obj={object} key={i} totalCnt={totalCnt}/></div>):
+                      (<TableRow obj={object} key={i} totalCnt={totalCnt}/>)}
+                     </Fragment>
+                  )
                 }
             </div>
+
+            
           </BoardSlider>
-          <Link className="btn btn-danger" to="/board/write">글쓰기</Link>
+          <Link className="btn" to="/board/write">글쓰기</Link>
         </BoardBox>
       );
 }
 
 export default BoardList;
-
-/*
-
-무한스크롤 구현하기 
-yarn add react-intersection-observer
-
-*/

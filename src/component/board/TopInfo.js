@@ -265,8 +265,7 @@ function TopInfo(props, { match }) {
       address1:''
     });
   
-    const { title, category_name, user_id, price, 
-      image1, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
+    const { user_id, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
   
     useEffect(() => { 
        console.log( board_seq );
@@ -276,13 +275,9 @@ function TopInfo(props, { match }) {
                   console.log(res.data);  //f12 눌러서 확인하기 
                   setInputs({
                     board_seq:board_seq,
-                    title: res.data.title,
-                    category_name: res.data.category_name,
                     user_id: res.data.user_id,
                     user_images: res.data.user_images,
-                    price: res.data.price,
                     zzim_cnt: res.data.zzim_cnt,
-                    image1:res.data.image1,
                     hit:res.data.hit,
                     my_cnt:res.data.my_cnt,
                     nick_name:res.data.nick_name,
@@ -299,15 +294,15 @@ function TopInfo(props, { match }) {
         <div className="WidthRow">
           <div className="WidthCol">
           <div class="StyledLazyLoadingImage">
-              <img class="StyledLazyLoadingImage img" alt="user 이미지" src={inputs.user_images}></img>
+              <img class="StyledLazyLoadingImage img" alt="user 이미지" src={user_images}></img>
               </div>
             <div className="PaneInner">
-              <h1 className="Title">{inputs.user_id}</h1>
+              <h1 className="Title">{user_id}</h1>
               <div className="Detail">
-                {inputs.nick_name} ・ {inputs.address1} ・ {inputs.my_cnt}개
+                {nick_name} ・ {address1} ・ {my_cnt}개
               </div>
               <div className="ContentRatings">
-                찜 ★ {inputs.zzim_cnt} ({inputs.hit} 명)
+                찜 {zzim_cnt}개 ({hit} 명이 이 게시물을 봤습니다.)
               </div>
               <div className="ButtonBlock">
                 <div className="Self">

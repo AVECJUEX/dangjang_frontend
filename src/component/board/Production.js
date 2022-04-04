@@ -107,11 +107,11 @@ function Production(props, { match }) {
       var frmData = new FormData(); 
       frmData.append("board_seq", inputs.board_seq);
       frmData.append("image1", inputs.image1);
-      frmData.append("image1", inputs.image2);
-      frmData.append("image1", inputs.image3);
-      frmData.append("image1", inputs.image4);
-      frmData.append("image1", inputs.image5);
-      frmData.append("image1", inputs.image6);
+      frmData.append("image2", inputs.image2);
+      frmData.append("image3", inputs.image3);
+      frmData.append("image4", inputs.image4);
+      frmData.append("image5", inputs.image5);
+      frmData.append("image6", inputs.image6);
 
       console.log( document.myform.filename.files );
       
@@ -131,32 +131,32 @@ function Production(props, { match }) {
           <ul>
             <li>
               <div className="character-box">
-                <img src={inputs.image1} alt={inputs.image1}></img>
+                <img src={image1} alt={image1}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={inputs.image2} alt={inputs.image2}></img>
+                <img src={image2} alt={image2}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={inputs.image3} alt=""></img>
+                <img src={image3} alt={image3}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={inputs.image4} alt=""></img>
+                <img src={image4} alt={image4}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={inputs.image5} alt=""></img>
+                <img src={image5} alt={image5}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={inputs.image6} alt=""></img>
+                <img src={image6} alt={image6}></img>
               </div>
             </li>
           </ul>

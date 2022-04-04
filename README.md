@@ -16,3 +16,5 @@
 - [혁주] 마켓 상세페이지 수정중 #7 22-04-01
   - board_view, top info, main info, production 수정중
 - [한우]용환님 게시판 살짝 ,qna 제작중
+- [혁주] 마켓 구현중 #10 22-04-04
+  - board _list 무한 스크롤 구현 board_write 작성중

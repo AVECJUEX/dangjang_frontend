@@ -61,7 +61,7 @@ function App() {
               <Route path="board" element={<BoardList />} />
               <Route path="board/write" element={<BoardWrite />} />
               <Route path="board/view/:board_seq" element={<BoardView />} />
-
+              
               <Route path="freeboard" element={<FreeBoardList />} />
 
               <Route exact path="qna/*" element={<QnaList/>}/>
