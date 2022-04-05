@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 
 import LogoPath from "../IMG/logo.png";
 import Input from "./Input";
 import Label from "./Label";
+import LoginModal from "./Modal/LoginModal";
 import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
 
 
@@ -43,6 +44,7 @@ const HeaderBox = styled.div`
     list-style: none;
   }
   ul :first-child {
+    
     margin-left: 0px;
   }
   li {
@@ -151,9 +153,13 @@ const HeaderBox = styled.div`
  
 `;
 
-
-
 function Home() {
+
+  const [openModal, setOpenModal] = useState(false);
+
+  // const handleOpenModalState = () => {
+  //   setOpenModal(true);
+  // }
  
   return (
     <HeaderContainer>
@@ -183,11 +189,9 @@ function Home() {
                   </Label>
                 </li>
                 <li>
-               
+                  <button className="mainButton" onClick={() => {setOpenModal(true)}}>로그인</button>
+                  {openModal && <LoginModal closeModal={setOpenModal}/>}
                   
-
-                  <button className="mainButton"
-                 >로그인</button>
                 </li>
                 <li>
                  
@@ -199,9 +203,6 @@ function Home() {
         </div>
       </HeaderBox>
     </HeaderContainer>
-
- 
- 
   );
 }
 
