@@ -14,8 +14,7 @@ import FreeBoardList from "./component/freeboard/freeboard_list";
 import QnaList from "./component/qna/qna_list"
 import QnaView from'./component/qna/qna_view';
 import QnaWrite from'./component/qna/qna_write';
-import QnaTop from "./component/qna/qna_top";
-import QnaFree from "./component/qna/qna_free";
+import QnaCommentWrite from "./component/qna/qnacomment_write";
 
 
 
@@ -65,8 +64,11 @@ function App() {
               <Route path="freeboard" element={<FreeBoardList />} />
 
               <Route exact path="qna/*" element={<QnaList/>}/>
+              
               <Route path="qna/write" element={<QnaWrite/>}/>
-              <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
+              <Route path="/qnacommentwrite/:qna_seq"  element={<QnaCommentWrite/>} />
+              
+              
 
             
             

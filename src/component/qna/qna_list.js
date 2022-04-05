@@ -12,6 +12,8 @@ import QnaMenu from "./qna_menu";
 import QnaView from "./qna_view"
 import QnaOper from "./qna_oper";
 import QnaId from "./qna_id";
+import QnaCommentWrite from "./qnacomment_write";
+
 
 
 
@@ -241,8 +243,10 @@ function QnaList( ){
               <Route path="qna/qna/qnatop"  element={<QnaTop />} />
               <Route path="qna/qna/qnafree"  element={<QnaFree />} />
               <Route path="qna/qna/qnaoper"  element={<QnaOper />} />
-              <Route path="qna/qna/qnaoid"  element={<QnaId />} />
-              <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
+              <Route path="qna/qna/qnaid"  element={<QnaId />} />
+              
+              <Route path="qna/view/:qna_seq/" element={<QnaView/>}/>
+             
               
             </Routes>
             

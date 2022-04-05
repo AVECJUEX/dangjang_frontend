@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
 
-function BoardWrite( ){
+function QnaWrite( ){
 
     let history = useNavigate (); //자바스크립트 : history.go(-1)
 
@@ -110,16 +110,12 @@ function BoardWrite( ){
               <div className="form-group">
                   <input type="submit" value="등록 " className="btn btn-primary"/>
               </div>
+              
           </form>
 
-        <div  style={{ marginTop: 20 }}>
-          <b>값: </b>
-          {title} <br/>
-          {user_seq} <br/>
-          {content} <br/>
-        </div>
+      
       </div>
     );
   }
 
-export default BoardWrite;
+export default QnaWrite;
