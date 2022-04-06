@@ -1,32 +1,30 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState, Fragment, useMemo } from "react";
 import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
+import FileUpload from "./FileUpload"
 
 function BoardWrite( ){
 
     let history = useNavigate (); //자바스크립트 : history.go(-1)
-
+    //let user_id = "test1";
+    const [imageSrc, setImageSrc] = useState("");
+    const [imageSrcList, setImageSrcList] = useState([]);
+    const [fileList, setfileList] = useState([])
     const [inputs, setInputs] = useState({
       category_code:'',
       title: '',
       user_id: '',
       user_seq: '',
       content:'',
-      price:'',
-      image1:'',
-      image2:'',
-      image3:'',
-      image4:'',
-      image5:'',
-      image6:'',
-      fileList:''
+      price:''
     });
+
 
     //input에 저장된 값을 해체한다
     //title = inputs.title
     //writer = input.writer
-    const { category_code, title, user_id ,user_seq , content, price, image1, image2, image3, image4, image5, image6, fileList  } = inputs; 
+    const { category_code, title, user_id ,user_seq , content, price } = inputs; 
   
     //폼태그에서 값들이 바뀌면 호출될 함수
     const onChange = (e) => {
@@ -42,23 +40,8 @@ function BoardWrite( ){
         [name]: value // name 키를 가진 값을 value 로 설정
       });
     };
-  
-    const onReset = () => {
-      setInputs({
-        category_code: '',
-        title: '',
-        user_id: '',
-        user_seq:'',
-        content:'',
-        price:'',
-        image1:'',
-        image2:'',
-        image3:'',
-        image4:'',
-        image5:'',
-        image6:''
-      })
-    };
+
+   
 
     //서버로 정보를 전송하는 함수
     const onSubmit=(e)=> {
@@ -69,6 +52,8 @@ function BoardWrite( ){
       // Axios.post('http://localhost:9090/mongo/update/', obj)
       //      .then(res => console.log(res.data));
       var frmData = new FormData(e.currentTarget); //전체를 한번에 넣을 수 있게 해준다.
+      fileList.map((file)=>frmData.append("fileList", file))
+      
       Axios.post('http://localhost:9090/dangjang/board/insert2/', frmData)
       .then(
           res =>{
@@ -78,7 +63,33 @@ function BoardWrite( ){
           } 
       );
     }
-  
+
+    useEffect(()=>{
+      console.log("[fileList----]",fileList);
+      fileList.map((file, idx)=> {
+        encodeFileToBase64(file)});
+    }, [fileList]);
+    
+    const encodeFileToBase64 = (fileBlob) => {
+      //if(fileBlob==="") return;
+      // console.log(fileBlob);
+      const reader = new FileReader();
+      reader.readAsDataURL(fileBlob);
+      return new Promise((resolve) => {
+        reader.onload = () => {
+          setImageSrc(reader.result);
+          resolve();
+        };
+      });
+    }
+
+    useEffect(()=>{
+      if(imageSrc!==""){ 
+        setImageSrcList([...imageSrcList, imageSrc])
+      }
+    }, [imageSrc])
+
+
     return (
       <div>
         <form name="myform" onSubmit={onSubmit}  encType="multipart/form-data">
@@ -137,14 +148,30 @@ function BoardWrite( ){
                     onChange={onChange}
                     />
               </div>
+              <label>파일: </label>
               <div className="form-group">
-                  <label>파일: </label>
-                  <input type="file"
-                    name="fileList" 
-                    className="form-control"
-                    value={fileList}
-                    onChange={onChange}
-                    />
+                  <FileUpload setfileList={setfileList}>
+                  </FileUpload>
+              
+                  <div style={{display: 'flex', height: '240px', border: '1px solid lightgray'}}>
+                    {fileList && 
+
+                      (imageSrcList.map((image1, idx)=>{
+                      
+                      return <Fragment key={idx}><img style={{width:'100px', height: '50%'}} src={image1} alt="preview-img"/></Fragment>}))
+
+                    }
+
+                    {/* { fileList &&
+                      fileList.map((file, idx) => {
+
+                        encodeFileToBase64(file);
+                        return <Fragment key={idx}><img style={{width:'100px', height: '50%'}} src={imageSrc} alt="preview-img"/></Fragment>
+                        
+                      })
+
+                    } */}
+                  </div>
               </div>
               <div className="form-group">
                   <input type="submit" value="등록 " className="btn btn-primary"/>

@@ -155,23 +155,25 @@ function BoardList(){
       
       return (
         <BoardBox>
+
           <div className="Category">
             <p>물품 목록</p>
           </div>
-
           <BoardSlider >
             <div className="listbox">
                 {
                   board.map((object, i) => 
                      <Fragment key={i}>
-                       {board.length - 1 === i ? (<div ref={ref}><TableRow obj={object} key={i} totalCnt={totalCnt}/></div>):
-                      (<TableRow obj={object} key={i} totalCnt={totalCnt}/>)}
+                      {board.length - 1 === i ? 
+                       
+                      (<div ref={ref}><TableRow obj={object} key={i} totalCnt={totalCnt}/></div>):
+                      
+                      (<TableRow obj={object} key={i} totalCnt={totalCnt}/>)
+                      }
                      </Fragment>
                   )
                 }
             </div>
-
-            
           </BoardSlider>
           <Link className="btn" to="/board/write">글쓰기</Link>
         </BoardBox>
