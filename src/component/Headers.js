@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import LogoPath from "../IMG/logo.png";
 import Input from "./Input";
 import Label from "./Label";
 import LoginModal from "./Modal/LoginModal";
 import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
+
 
 
 
@@ -157,6 +158,10 @@ function Home() {
 
   const [openModal, setOpenModal] = useState(false);
 
+  useEffect(()=>{
+    console.log(openModal)
+  }, [openModal])
+
   // const handleOpenModalState = () => {
   //   setOpenModal(true);
   // }
@@ -178,9 +183,7 @@ function Home() {
             <li>🗨️ <NavLink to="/"                     className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 채팅</NavLink>   </li>
             <li>❕❔ <NavLink to="/qna/qna/qna/qnaTop"   className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 질문</NavLink></li>
          
-            <div className="right-content">
-              <ul className="MainUl">
-                <li>
+            <li>
                 <Label width="300px" padding="12px 15px 11px 46px">
                     <Input
                       name="search"
@@ -193,11 +196,6 @@ function Home() {
                   {openModal && <LoginModal closeModal={setOpenModal}/>}
                   
                 </li>
-                <li>
-                 
-                </li>
-              </ul>
-            </div>
           </ul>
          
         </div>

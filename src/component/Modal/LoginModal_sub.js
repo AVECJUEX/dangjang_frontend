@@ -4,44 +4,30 @@ import loginLogoPath from "../../IMG/logo.png";
 import closePath from "../../IMG/close.png";
 
 const Container = styled.div`
-  width: 800px;
-  height: 500px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-
 `;
 
 const Contents = styled.div`
-  top: 10%;
+  position: relative;
+  top: 0px;
   padding: 0 auto;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: white;
   text-align: center;
   width: 50%;
-  height:100%;
-
-  .loginBtn {
-    padding: 0px;
-    margin: 0px;
-    cursor: pointer;
-    color: #00000;
-    font-size: 17px;
-    font-weight: 500;
-  }
-  .SignInBtn
-  {
-    padding: 0px;
-    margin: 0px;
-    cursor: pointer;
-    color: #00000;
-    font-size: 17px;
-    font-weight: 500;
-  }
-  
-`
-;
+  height: 600px;
+`;
 
 const Title = styled.div`
   display: flex;
@@ -50,9 +36,7 @@ const Title = styled.div`
   font-size: 1.5em;
   width: 100%;
   overflow: auto;
-  height: 30%;
-
-  
+  height: 10%;
 `;
 
 const Close = styled.button`
@@ -169,23 +153,14 @@ function LoginModal( {closeModal} ) {
   
   return (
   <div>
-    <Container>
+    <Container className="container">
       <Contents>
         <Close className="btnX" onClick={() => closeModal(false)}>X</Close>
         <Title className="title">Title</Title>
-        
-        
-        <div className="self">
-          
+        <div className="modalLogin">Modal</div>
         <button className="loginBtn">Login</button>
-        </div>
-
-        <div>
         <button className="SignInBtn">SignIn</button>
-        </div>
-        </Contents>
-      
-        
+      </Contents>
     </Container>
   </div>
   );
