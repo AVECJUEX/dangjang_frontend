@@ -7,10 +7,6 @@ import Label from "./Label";
 import LoginModal from "./Modal/LoginModal";
 import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
 
-
-
-
-
 const HeaderContainer = styled.div`
   position: fixed;
   top: 0px;
@@ -21,8 +17,6 @@ const HeaderContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 0px 0px;
   z-index: 10;
 `;
-
-
 
 const HeaderBox = styled.div`
   margin: 0 auto;
@@ -45,7 +39,6 @@ const HeaderBox = styled.div`
     list-style: none;
   }
   ul :first-child {
-    
     margin-left: 0px;
   }
   li {
@@ -59,7 +52,7 @@ const HeaderBox = styled.div`
     line-height: 30px;
     //color : #6667AB;
   }
- .Header-Menu {
+  .Header-Menu {
     text-decoration: none;
     margin-left: 24px;
     list-style: none;
@@ -70,10 +63,10 @@ const HeaderBox = styled.div`
     letter-spacing: -0.4px;
     line-height: 30px;
   }
-  .Header-Menu:hover{
-    font-size:24px;
+  .Header-Menu:hover {
+    font-size: 24px;
   }
-  .Header-Menu-Active{
+  .Header-Menu-Active {
     text-decoration: none;
     margin-left: 24px;
     list-style: none;
@@ -82,7 +75,7 @@ const HeaderBox = styled.div`
     font-weight: 900;
     letter-spacing: -0.4px;
     line-height: 30px;
-    font-size : 24px;
+    font-size: 24px;
   }
   .right-content {
     display: flex;
@@ -100,15 +93,14 @@ const HeaderBox = styled.div`
     width: auto;
     padding: 0px;
     border: 0px;
-    
   }
-  
+
   button.mainButton {
     cursor: pointer;
     display: inline-block;
     font-weight: 900;
     line-height: 1.5;
-    color: #6667AB;
+    color: #6667ab;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
@@ -121,13 +113,9 @@ const HeaderBox = styled.div`
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     border-radius: 0.25rem;
-    border-color :#6667AB;
-    transition: color .15s 
-      ease-in-out,background-color .15s 
-      ease-in-out,border-color .15s 
-      ease-in-out,box-shadow .15s 
-      ease-in-out;
-    
+    border-color: #6667ab;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
   button.sign-up {
     text-align: center;
@@ -141,65 +129,98 @@ const HeaderBox = styled.div`
     color: rgb(53, 53, 53);
     padding: 5px 14px 6px;
     border: 1px solid rgba(116, 116, 123, 0.5);
-  
   }
   img {
     object-fit: cover;
     width: 151px;
     height: 37px;
   }
-  li,label{
-    backgroundColor :#E6E6FA;
+  li,
+  label {
+    backgroundcolor: #e6e6fa;
   }
- 
 `;
 
 function Home() {
-
   const [openModal, setOpenModal] = useState(false);
 
-  useEffect(()=>{
-    console.log(openModal)
-  }, [openModal])
-
-  // const handleOpenModalState = () => {
-  //   setOpenModal(true);
-  // }
- 
   return (
     <HeaderContainer>
       <HeaderBox>
         <div className="Category">
           <ul className="MainUl">
             <li>
-              
-            <Link to="/">
+              <Link to="/">
                 <img src={LogoPath} alt=""></img>
               </Link>
-              
             </li>
-            <li>🛒 <NavLink to="/board"                className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 마켓</NavLink></li>
-            <li>👨‍👨‍👧‍👧<NavLink to="/freeboard"            className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 왁자지껄</NavLink></li>
-            <li>🗨️ <NavLink to="/"                     className={({ isActive }) => 'Header-Menu'+ (isActive ? '' : '')}> 채팅</NavLink>   </li>
-            <li>❕❔ <NavLink to="/qna/qna/qna/qnaTop"   className={({ isActive }) => 'Header-Menu'+ (isActive ? '-Active' : '')}> 질문</NavLink></li>
-         
             <li>
-                <Label width="300px" padding="12px 15px 11px 46px">
-                    <Input
-                      name="search"
-                      placeholder="물품을 검색해보세요."
-                    />
-                  </Label>
-                </li>
-                <li>
-                  <button className="mainButton" onClick={() => {setOpenModal(true)}}>로그인</button>
-                  
-                  
-                </li>
+              🛒{" "}
+              <NavLink
+                to="/board"
+                className={({ isActive }) =>
+                  "Header-Menu" + (isActive ? "-Active" : "")
+                }
+              >
+                {" "}
+                마켓
+              </NavLink>
+            </li>
+            <li>
+              👨‍👨‍👧‍👧
+              <NavLink
+                to="/freeboard"
+                className={({ isActive }) =>
+                  "Header-Menu" + (isActive ? "-Active" : "")
+                }
+              >
+                {" "}
+                왁자지껄
+              </NavLink>
+            </li>
+            <li>
+              🗨️{" "}
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  "Header-Menu" + (isActive ? "" : "")
+                }
+              >
+                {" "}
+                채팅
+              </NavLink>{" "}
+            </li>
+            <li>
+              ❕❔{" "}
+              <NavLink
+                to="/qna/qna/qna/qnaTop"
+                className={({ isActive }) =>
+                  "Header-Menu" + (isActive ? "-Active" : "")
+                }
+              >
+                {" "}
+                질문
+              </NavLink>
+            </li>
+
+            <li>
+              <Label width="300px" padding="12px 15px 11px 46px">
+                <Input name="search" placeholder="물품을 검색해보세요." />
+              </Label>
+            </li>
+            <li>
+              <button
+                className="mainButton"
+                onClick={() => {
+                  setOpenModal(true);
+                }}
+              >
+                로그인
+              </button>
+            </li>
           </ul>
-         
         </div>
-        {openModal && <LoginModal closeModal={setOpenModal}/>}
+        {openModal && <LoginModal closeModal={setOpenModal} />}
       </HeaderBox>
     </HeaderContainer>
   );

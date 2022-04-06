@@ -1,21 +1,21 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import loginLogoPath from "../../IMG/logo.png";
 import closePath from "../../IMG/close.png";
-import "../member/LoginRegister.css"
-import CloseIcon from '@mui/icons-material/Close';
+import "../member/LoginRegister.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Container = styled.div`
   position: fixed;
   top: 10%;
   width: 100%;
   height: 100%;
-  z-index:1000;
+  z-index: 1000;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +41,7 @@ const Contents = styled.div`
   background-color: white;
   text-align: center;
   width: 500px;
-  height:500px;
+  height: 500px;
   display: flex;
   flex-direction: column;
 
@@ -53,8 +53,7 @@ const Contents = styled.div`
     font-size: 17px;
     font-weight: 500;
   }
-  .SignInBtn
-  {
+  .SignInBtn {
     padding: 0px;
     margin: 0px;
     cursor: pointer;
@@ -62,10 +61,16 @@ const Contents = styled.div`
     font-size: 17px;
     font-weight: 500;
   }
-  
-`
-;
-
+  .loginregister__button {
+    background-color: #6667ab;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    width: 100%;
+    border-radius: 40px;
+    height: 48px;
+    margin-top: 10px;
+  }
+`;
 const Title = styled.div`
   display: flex-end;
   justify-content: center;
@@ -74,14 +79,17 @@ const Title = styled.div`
   width: 100%;
   overflow: auto;
   height: 10%;
-
-  
 `;
 
 const Close = styled.button`
-
   color: gray;
   &:hover {
+    cursor: pointer;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
     cursor: pointer;
   }
 `;
@@ -123,7 +131,6 @@ const ModalContainer = styled.div`
       display: inline-block;
       width: 140px;
       height: 70px;
-      
     }
   }
 
@@ -148,6 +155,7 @@ const ModalContainer = styled.div`
     right: 10px;
     padding: 0;
     margin: 0;
+
     img {
       width: 100%;
       height: 100%;
@@ -184,48 +192,86 @@ const ModalContainer = styled.div`
   }
 `;
 
+function LoginModal({ closeModal }) {
+  const [user_id, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-function LoginModal( {closeModal} ) {
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
-  
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
-  }
+  };
 
   const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value)
-}
+    setPassword(event.currentTarget.value);
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
-  }
+    console.log("sdfdsf");
+  };
 
-  
   return (
-
     <Container>
       <Contents>
-        
-        <Title ></Title>
-        
-        
-        <div class="loginregister">
-        <form>
+        <Title></Title>
+
+        <div className="loginregister">
+          <form>
             <img src={loginLogoPath} alt=""></img>
-            <div><input name="email" type="email" placeholder="아이디를 입력해주세요" value={email} onChange={onEmailHandler} class="loginregister__input"/></div>
-            <div><input name="password" type="password" placeholder="비밀번호를 입력해주세요" value={password} onChange={onPasswordHandler} class="loginregister__input"/></div>
-            <div><button type="submit" onSubmit={onSubmit} class="loginregister__button">로그인</button></div>
-            <div><button type="submit" onSubmit={onSubmit} class="loginregister__button">회원가입</button></div>
-            <div><button type="submit" onSubmit={onSubmit} class="loginregister__button">ID/PW 찾기</button></div>
-        <CloseIcon className="btnX" onClick={() => closeModal(false)}></CloseIcon>
-        </form>
-      </div>
-
-        </Contents>
+            <div>
+              <input
+                name="user_id"
+                type="user_id"
+                placeholder="아이디를 입력해주세요"
+                value={user_id}
+                onChange={onEmailHandler}
+                className="loginregister__input"
+              />
+            </div>
+            <div>
+              <input
+                name="password"
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+                value={password}
+                onChange={onPasswordHandler}
+                className="loginregister__input"
+              />
+            </div>
+            <div>
+              <button
+                type="submit"
+                onSubmit={onSubmit}
+                className="loginregister__button"
+              >
+                로그인
+              </button>
+            </div>
+            <div>
+              <button
+                type="submit"
+                onSubmit={onSubmit}
+                className="loginregister__button"
+              >
+                회원가입
+              </button>
+            </div>
+            <div>
+              <button
+                type="submit"
+                onSubmit={onSubmit}
+                className="loginregister__button"
+              >
+                ID/PW 찾기
+              </button>
+            </div>
+            <CloseIcon
+              className="btnX"
+              onClick={() => closeModal(false)}
+            ></CloseIcon>
+          </form>
+        </div>
+      </Contents>
     </Container>
-
   );
 }
 
