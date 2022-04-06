@@ -1,11 +1,13 @@
 .loginregister {
+
+    padding:20px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
 }
 .loginregister__input {
-    width: 300px;
+    width: 250px;
     height: 50px;
     padding-left: 10px;
     margin: 10px;

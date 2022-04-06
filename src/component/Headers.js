@@ -193,12 +193,13 @@ function Home() {
                 </li>
                 <li>
                   <button className="mainButton" onClick={() => {setOpenModal(true)}}>로그인</button>
-                  {openModal && <LoginModal closeModal={setOpenModal}/>}
+                  
                   
                 </li>
           </ul>
          
         </div>
+        {openModal && <LoginModal closeModal={setOpenModal}/>}
       </HeaderBox>
     </HeaderContainer>
   );

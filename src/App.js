@@ -17,6 +17,10 @@ import QnaWrite from'./component/qna/qna_write';
 import QnaTop from "./component/qna/qna_top";
 import QnaFree from "./component/qna/qna_free";
 import RegisterPage from "./component/member/RegisterPage";
+import LoginForm from "./component/Modal/LoginForm";
+import LoginModal from "./component/Modal/LoginModal";
+
+import LoginPage from "./component/member/LoginPage";
 
 
 
@@ -68,7 +72,12 @@ function App() {
               <Route exact path="qna/*" element={<QnaList/>}/>
               <Route path="qna/write" element={<QnaWrite/>}/>
               <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
+
+
               <Route path="register" element={<RegisterPage/>}/>
+              <Route path="loginmodal" element={<LoginModal/>}/>
+              <Route path="loginpage" element={<LoginPage/>}/>
+              
 
             
             
