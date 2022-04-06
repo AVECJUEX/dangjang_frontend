@@ -7,6 +7,7 @@ import { useInView } from "react-intersection-observer"
 import Axios from "axios";
 import "../../page.css";
 import BoardWrite from '../board/board_write';
+import { AutoComplete } from 'antd';
 
 const BoardBox = styled.div`
   .Category {
@@ -43,8 +44,8 @@ const BoardSlider = styled.div`
 
   .list{
     display: inline-block;
-    width : 20%;
-    height: auto;
+    width : 25%;
+    height: 100%;
   }  
 
   li {
@@ -54,6 +55,7 @@ const BoardSlider = styled.div`
   img {
     display: inline-block;
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
   }
 
@@ -155,9 +157,11 @@ function BoardList(){
       
       return (
         <BoardBox>
-
           <div className="Category">
-            <p>물품 목록</p>
+            <p>
+              물품 목록
+              <Link className="btn" style={{float:'right'}} to="/board/write">글쓰기</Link>
+            </p>
           </div>
           <BoardSlider >
             <div className="listbox">
@@ -175,7 +179,7 @@ function BoardList(){
                 }
             </div>
           </BoardSlider>
-          <Link className="btn" to="/board/write">글쓰기</Link>
+          
         </BoardBox>
       );
 }

@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, Fragment} from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import Chat from "../../IMG/Chat.png";
@@ -247,47 +247,68 @@ const PaneBox = styled.div`
 `;
 
 function TopInfo(props, { match }) {
-    let history = useNavigate ();
-    let { board_seq } = useParams();
-    //값을 초기화 시키되는 값.
-    const [inputs, setInputs] = useState({
-      board_seq:'',
-      category_name:'',
-      title: '',
-      user_id: '',
-      price:'',
-      image1:'',
-      zzim_cnt:'',
-      user_images:'',
-      hit:'',
-      my_cnt:'',
-      nick_name:'',
-      address1:''
-    });
+  let login_id = "test1";
+  let history = useNavigate ();
+  let { board_seq } = useParams();
+  //값을 초기화 시키되는 값.
+  const [inputs, setInputs] = useState({
+    board_seq:'',
+    category_name:'',
+    title: '',
+    user_id: '',
+    price:'',
+    image1:'',
+    zzim_cnt:'',
+    user_images:'',
+    hit:'',
+    my_cnt:'',
+    nick_name:'',
+    address1:''
+  });
   
-    const { user_id, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
-  
-    useEffect(() => { 
-       console.log( board_seq );
-       Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
-            .then(
-              res => {
-                  console.log(res.data);  //f12 눌러서 확인하기 
-                  setInputs({
-                    board_seq:board_seq,
-                    user_id: res.data.user_id,
-                    user_images: res.data.user_images,
-                    zzim_cnt: res.data.zzim_cnt,
-                    hit:res.data.hit,
-                    my_cnt:res.data.my_cnt,
-                    nick_name:res.data.nick_name,
-                    address1:res.data.address1
-                  });
-              }
-            );
-      //console.log( heroState.hero );
-    }, []);
+  const { user_id, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
 
+  useEffect(() => { 
+      console.log( board_seq );
+      Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
+          .then(
+            res => {
+                console.log(res.data);  //f12 눌러서 확인하기 
+                setInputs({
+                  board_seq:board_seq,
+                  user_id: res.data.user_id,
+                  user_images: res.data.user_images,
+                  zzim_cnt: res.data.zzim_cnt,
+                  hit:res.data.hit,
+                  my_cnt:res.data.my_cnt,
+                  nick_name:res.data.nick_name,
+                  address1:res.data.address1
+                });
+            }
+          );
+    //console.log( heroState.hero );
+  }, []);
+
+  const refreshPage=()=>{ 
+    return window.location.href = '/board'
+  }
+
+  const deleteItem = (e)=>{
+    if(window.confirm("삭제하시겠습니까?"))
+    {
+      Axios.get(`http://localhost:9090/dangjang/board/delete/${board_seq}`)
+          .then(
+            ()=>{
+              console.log('Deleted');
+            }
+          ).catch(err => console.log(err));
+      refreshPage();
+      console.log("delete");  
+    }
+  }
+  const onClickUpdate = (e) => {
+    history(`/board/update/${board_seq}`);
+  }
   return (
     <PaneBox>
       <div className="WidthGrid">
@@ -308,10 +329,23 @@ function TopInfo(props, { match }) {
                 <div className="Self">
                   <button className="StylelessButton-ActionButton">
                     <div className="contentActionStatusImage">
-                      <img className="StatusImage" src={Chat} alt=""></img>
-                      <div onClick="" className="ActionStatus">
+                      {
+                        user_id !== login_id ? 
+                        <Fragment>
+                        <img className="StatusImage" src={Chat} alt=""></img>
+                        <div onClick="" className="ActionStatus">
                         대화하기
-                      </div>
+                        </div> 
+                        </Fragment> :
+                        <Fragment>
+                        <div onClick={onClickUpdate} className="ActionStatus">
+                        수정하기
+                        </div>
+                        <div onClick={deleteItem} className="ActionStatus">
+                        삭제하기
+                        </div>
+                        </Fragment>
+                      }
                     </div>
                   </button>
                 </div>
