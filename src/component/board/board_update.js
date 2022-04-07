@@ -57,18 +57,19 @@ function BoardUpdate( ){
       user_seq: '',
       content:'',
       price:'',
-      image1:'',
-      image2:'',
-      image3:'',
-      image4:'',
-      image5:'',
-      image6:''
+      prvimage1:'',
+      prvimage2:'',
+      prvimage3:'',
+      prvimage4:'',
+      prvimage5:'',
+      prvimage6:''
     });
 
     //input에 저장된 값을 해체한다
     //title = inputs.title
     //writer = input.writer
-    const {category_code, title, user_id ,user_seq , content, price, image1, image2, image3, image4, image5, image6} = inputs; 
+    const {category_code, title, user_id ,user_seq , content, price, 
+      prvimage1, prvimage2, prvimage3, prvimage4, prvimage5, prvimage6} = inputs; 
     // const { category_code, title, content, price } = inputs; 
     //폼태그에서 값들이 바뀌면 호출될 함수
     const onChange = (e) => {
@@ -85,7 +86,7 @@ function BoardUpdate( ){
       });
     };
 
- 
+    //db에서 가져와서 화면에 뿌려줌
     useEffect(() => { 
       console.log( board_seq );
       Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
@@ -97,12 +98,12 @@ function BoardUpdate( ){
                   user_id: res.data.user_id,
                   user_seq: res.data.user_seq,
                   content: res.data.content,
-                  image1: res.data.image1,
-                  image2: res.data.image2,
-                  image3: res.data.image3,
-                  image4: res.data.image4,
-                  image5: res.data.image5,
-                  image6: res.data.image6,
+                  prvimage1: res.data.image1,
+                  prvimage2: res.data.image2,
+                  prvimage3: res.data.image3,
+                  prvimage4: res.data.image4,
+                  prvimage5: res.data.image5,
+                  prvimage6: res.data.image6,
                   price:res.data.price,
                   title:res.data.title,
                   category_code:res.data.category_code
@@ -122,6 +123,7 @@ function BoardUpdate( ){
       //      .then(res => console.log(res.data));
       var frmData = new FormData(e.currentTarget); //전체를 한번에 넣을 수 있게 해준다.
       fileList.map((file)=>frmData.append("fileList", file))
+      frmData.append("board_seq", board_seq);
       
       Axios.post('http://localhost:9090/dangjang/board/update/', frmData)
       .then(
@@ -224,14 +226,15 @@ function BoardUpdate( ){
                     onChange={onChange}
                     />
               </div>
-              <br/>
-              <div hidden>
-                <img src={image1} style={{width:'50px', height:'50px'}}></img>
-                <img src={image2} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
-                <img src={image3} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
-                <img src={image4} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
-                <img src={image5} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
-                <img src={image6} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+              {/* <div hidden>  */}
+              <div className="form-group">
+                <label>이전사진: </label><br/>
+                <img src={prvimage1} style={{width:'50px', height:'50px'}}></img>
+                <img src={prvimage2} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage3} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage4} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage5} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage6} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
               </div>
               <label>파일: </label>
               <div className="form-group">
