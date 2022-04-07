@@ -38,3 +38,7 @@
   로그인 modal css 준비됨
   기능은 구현해야함
   ip/pw찾기도 modal로 구현예정
+
+  [정진] 22-04-07
+  로그인 modal css 준비됨
+  findModal 작업중 디테일하게 맞춰야함

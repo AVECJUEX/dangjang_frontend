@@ -17,10 +17,12 @@ import QnaWrite from'./component/qna/qna_write';
 import QnaTop from "./component/qna/qna_top";
 import QnaFree from "./component/qna/qna_free";
 import RegisterPage from "./component/member/RegisterPage";
-import LoginForm from "./component/Modal/LoginForm";
-import LoginModal from "./component/Modal/LoginModal";
 
+import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
+import FindModal from "./component/Modal/FindModal";
+
+
 
 
 
@@ -77,7 +79,8 @@ function App() {
               <Route path="register" element={<RegisterPage/>}/>
               <Route path="loginmodal" element={<LoginModal/>}/>
               <Route path="loginpage" element={<LoginPage/>}/>
-              
+              <Route path="loginpage" element={<LoginPage/>}/>
+              <Route path="findmodal" element={<FindModal/>}/>
 
             
             

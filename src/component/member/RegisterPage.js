@@ -87,6 +87,7 @@ function RegisterPage() {
             class="signup_input"
           />
         </div>
+        
         <div>
           <button
             type="submit"
@@ -95,6 +96,8 @@ function RegisterPage() {
           >
             계정 생성하기
           </button>
+
+          
         </div>
       </form>
     </div>

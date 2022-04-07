@@ -71,6 +71,16 @@ const Contents = styled.div`
     height: 48px;
     margin-top: 10px;
   }
+
+  .findregister__button {
+    background-color: #6667ab;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    width: 30%;
+    border-radius: 40px;
+    height: 48px;
+    margin-top: 10px;
+  }
 `;
 const Title = styled.div`
   display: flex-end;
@@ -193,14 +203,25 @@ const ModalContainer = styled.div`
   }
 `;
 
-function LoginModal({ closeModal }) {
-  const [user_id, setUser_id] = useState("");
+function FindModal({ closeModal }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+ 
 
-  const onUser_idHandler = (event) => {
-    setUser_id(event.currentTarget.value);
+
+  const onNameHandler = (event) => {
+    setName(event.currentTarget.value);
   };
 
+  const onPhoneHandler = (event) => {
+    setPhone(event.currentTarget.value);
+  };
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+  
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
@@ -218,54 +239,57 @@ function LoginModal({ closeModal }) {
         <div className="loginregister">
           <form>
             <img src={loginLogoPath} alt=""></img>
+            
+
             <div>
               <input
-                name="user_id"
-                type="user_id"
-                placeholder="아이디를 입력해주세요"
-                value={user_id}
-                onChange={onUser_idHandler}
+                name="name"
+                type="text"
+                placeholder="이름을 입력하세요"
+                value={name}
+                onChange={onNameHandler}
                 className="loginregister__input"
                 autocomplete="off"
               />
             </div>
+
             <div>
               <input
-                name="password"
-                type="password"
-                placeholder="비밀번호를 입력해주세요"
-                value={password}
-                onChange={onPasswordHandler}
+                name="phone"
+                type="text"
+                placeholder="전화번호를 입력하세요"
+                value={phone}
+                onChange={onPhoneHandler}
                 className="loginregister__input"
+                autocomplete="off"
               />
             </div>
+
+            <div>
+              <input
+                name="email"
+                type="text"
+                placeholder="이메일 주소를 입력하세요"
+                value={email}
+                onChange={onEmailHandler}
+                className="loginregister__input"
+                autocomplete="off"
+              />
+            </div>
+
+            
+            
+            
             <div>
               <button
                 type="submit"
                 onSubmit={onSubmit}
-                className="loginregister__button"
+                className="findregister__button"
               >
-                로그인
+                ID 찾기
               </button>
             </div>
-            <div>
-              <button
-                type="submit"
-                onSubmit={onSubmit}
-                className="loginregister__button"
-              >
-                회원가입
-              </button>
-            </div>
-            <div>
-              <button
-                type="submit"
-                onSubmit={onSubmit}
-                className="loginregister__button"
-              >
-                ID/PW 찾기
-              </button>
-            </div>
+
             <CloseIcon
               className="btnX"
               onClick={() => closeModal(false)}
@@ -277,4 +301,4 @@ function LoginModal({ closeModal }) {
   );
 }
 
-export default LoginModal;
+export default FindModal;

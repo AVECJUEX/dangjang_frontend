@@ -18,6 +18,13 @@ const HeaderContainer = styled.div`
   z-index: 10;
 `;
 
+const MainButton = styled.button`
+.mainButton {
+ 
+    
+}
+`;
+
 const HeaderBox = styled.div`
   margin: 0 auto;
   width: 70%;
@@ -203,23 +210,34 @@ function Home() {
               </NavLink>
             </li>
 
-            <li>
-              <Label width="300px" padding="12px 15px 11px 46px">
-                <Input name="search" placeholder="물품을 검색해보세요." />
-              </Label>
-            </li>
-            <li>
-              <button
-                className="mainButton"
-                onClick={() => {
-                  setOpenModal(true);
-                }}
-              >
-                로그인
-              </button>
-            </li>
+            <div className="right-content">
+              <ul className="MainUl">
+                <li>
+                <Label width="300px" padding="12px 15px 11px 46px">
+                    <Input
+                      name="search"
+                      placeholder="물품을 검색해보세요." autocomplete="off"
+                    />
+                  </Label>
+                </li>
+                <li>
+               
+                <button className="mainButton" onClick={() => {setOpenModal(true); }} >
+                 로그인</button>
+                </li>
+                <li>
+                 
+                </li>
+              </ul>
+            </div>
+           
+                
+
           </ul>
         </div>
+
+        
+        
         {openModal && <LoginModal closeModal={setOpenModal} />}
       </HeaderBox>
     </HeaderContainer>
