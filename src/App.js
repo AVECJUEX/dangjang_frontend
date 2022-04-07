@@ -16,6 +16,8 @@ import QnaList from "./component/qna/qna_list"
 import QnaView from'./component/qna/qna_view';
 import QnaWrite from'./component/qna/qna_write';
 import QnaCommentWrite from "./component/qna/qnacomment_write";
+import QnaUpdate from "./component/qna/qna_update"
+
 
 
 
@@ -57,7 +59,7 @@ function App() {
 
            <MarketContainer>
             <Routes>
-              <Route exact path="/"  element={<Layout />} />
+            <Route exact path="/"  element={<Layout />} />
               <Route path="board" element={<BoardList />} />
               <Route path="board/write" element={<BoardWrite />} />
               <Route path="board/view/:board_seq" element={<BoardView />} />
@@ -66,14 +68,13 @@ function App() {
               <Route path="freeboard" element={<FreeBoardList />} />
 
               <Route exact path="qna/*" element={<QnaList/>}/>
+              <Route exact path="qna/write" element={<QnaWrite/>}/>
               
-              <Route path="qna/write" element={<QnaWrite/>}/>
+              <Route path="/qnaUpdate/:qna_seq" element={<QnaUpdate/>}/>
               <Route path="/qnacommentwrite/:qna_seq"  element={<QnaCommentWrite/>} />
+ 
               
               
-
-            
-            
             </Routes>
 
            </MarketContainer>
@@ -109,3 +110,6 @@ useRouteMatch
 useParams
 
 */
+
+            
+            

@@ -1,10 +1,9 @@
-
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import Axios from "axios";
 
 function QnaView(props, {match} ){
-
+  let history = useNavigate ();
   let { qna_seq } = useParams();
 
   const [inputs, setInputs] = useState({
@@ -16,6 +15,9 @@ function QnaView(props, {match} ){
     image:'',
     at:''
   });
+  
+
+  
 
  
   useEffect(() => { 
@@ -26,7 +28,7 @@ function QnaView(props, {match} ){
      Axios.get(`http://localhost:9090/dangjang/qna/view/${qna_seq}`)
           .then(
             res => {
-                console.log(res.data);  //f12 눌러서 확인하기 
+                console.log("!!!!"+res.data.qnaco_seq);  //f12 눌러서 확인하기 
                 setInputs({
                   qna_seq:qna_seq,
                   title: res.data.title,
@@ -35,16 +37,34 @@ function QnaView(props, {match} ){
                   category_code :res.data.category_code,
                   image:res.data.image,
                   answer:res.data.answer,
-                  at:res.data.at
-                  
+                  at:res.data.at,
+                  qnaco_seq:res.data.qnaco_seq
                 });
             }
           );
+          //console.log( heroState.hero );
+        }, []);
 
-    //console.log( heroState.hero );
-  }, []);
+        const deleteItem = (e)=>{
+          console.log(`${inputs.qnaco_seq}`)
+          if(window.confirm("삭제하시겠습니까?"))
+          {
+            Axios.get(`http://localhost:9090/dangjang/qnacomment/delete/${inputs.qnaco_seq}`)
+                .then(
+                  ()=>{
+                    console.log('Deleted');
+                    //history('/board');
+                  }
+                ).catch(err => console.log(err));
+            //refreshPage();
+            console.log("delete");  
+          }
+      }
+        
 
- 
+      const refreshPage=()=>{ 
+        window.location.reload(); 
+      }
  
 const sessionAt = '1 ';
   
@@ -62,7 +82,7 @@ const sessionAt = '1 ';
         </div>
         {console.log("카테고리코드 : " + inputs.category_code)}
         {console.log("사용자 등급 : " + inputs.at)}
-        {inputs.category_code === '09' ? <NavLink className="qnaBtn" to="/qna/write" > ✏️수정</NavLink>:  '' }
+        {inputs.category_code === '09' ? <NavLink className="qnaBtn" to={"/qnaUpdate/"+inputs.qna_seq} > ✏️수정</NavLink>:  '' }
         
         </form>
         <br></br>
@@ -81,8 +101,8 @@ const sessionAt = '1 ';
          (inputs.answer==='⏱️ 답변을 기다려주세요' ?
           (inputs.category_code === '09' ? 
           <NavLink className="qnaBtn" to={"/qnacommentwrite/"+inputs.qna_seq} > ✏️작성</NavLink>:  ' ' ):
-          <NavLink className="qnaBtn" to={"/qnacommentwrite/"+inputs.qna_seq} > ✏️수정</NavLink>) }
-         
+          <button  onClick={deleteItem} className="qnaBtn">삭제</button>) }
+       
          </form>
          
         }
@@ -92,8 +112,3 @@ const sessionAt = '1 ';
 }
 
 export default QnaView;
-
-
-     
-  
-

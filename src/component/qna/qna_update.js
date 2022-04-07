@@ -3,27 +3,21 @@ import React, { useState, useEffect} from "react";
 import { Link, NavLink, useNavigate, useParams  } from "react-router-dom";
 import Axios from "axios";
 
-function QnaCommentWrite( props){
-
-    let history = useNavigate (); //자바스크립트 : history.go(-1)
-    
-    let { qna_seq } = useParams();
-
+function QnaUpdate( props){
+  let history = useNavigate (); //자바스크립트 : history.go(-1)
+ 
+  let { qna_seq } = useParams();
     const [inputs, setInputs] = useState({
       title: '',
       user_seq: '',
       content:'',
-      filename:'',
-      c_content:'',
-      qnaco_seq:''
+      filename:''
     });
-
-    
 
     //input에 저장된 값을 해체한다
     //title = inputs.title
     //user_seq = input.user_seq
-    const { title, user_seq, content,qnaco_seq  } = inputs; 
+    const { title, user_seq,content,filename } = inputs; 
   
     //폼태그에서 값들이 바뀌면 호출될 함수
     const onChange = (e) => {
@@ -40,14 +34,7 @@ function QnaCommentWrite( props){
       });
     };
   
-    const onReset = () => {
-      setInputs({
-        title: '',
-        user_seq: '',
-        content:'',
-        filename:''
-      })
-    };
+    
 
     useEffect(() => { 
        
@@ -66,34 +53,17 @@ function QnaCommentWrite( props){
                    category_code : res.data.category_code,
                    image:res.data.image,
                    answer:res.data.answer,
-                   at:res.data.at
-                   
+                   at:res.data.at,
+                   filename:res.data.image
                  });
              }
            );
-
-           Axios.get(`http://localhost:9090/dangjang/qnacomment/view/${qna_seq}`)
-           .then(
-             res => {
-                 console.log("댓글뷰"+res.data.content);  //f12 눌러서 확인하기 
-                 setInputs({
-                   qnaco_seq:res.data.qnaco_seq,
-                   c_qna_seq:qna_seq,
-                   c_title: res.data.title,
-                   c_user_seq: res.data.user_seq,
-                   c_content:res.data.content,
-                   c_category_code :res.data.category_code,
-                   c_image:res.data.image,
-                   c_answer:res.data.answer,
-                   c_at:res.data.at
-                   
-                 });
-             }
-           );
+  
+    
 
      //console.log( heroState.hero );
    }, []);
-
+   
 
     //서버로 정보를 전송하는 함수
     const onSubmit=(e)=> {
@@ -104,29 +74,27 @@ function QnaCommentWrite( props){
       // Axios.post('http://localhost:9090/mongo/update/', obj)
       //      .then(res => console.log(res.data));
       var frmData = new FormData(); 
-      
+      frmData.append("title", inputs.title);
       frmData.append("user_seq", inputs.user_seq);
-      frmData.append("content", inputs.c_content);
-      frmData.append("qna_seq",inputs.qna_seq);
+      frmData.append("content", inputs.content);
+      frmData.append("qna_seq", inputs.qna_seq);
+      frmData.append("file", document.myform.filename.files[0]);
       
-     
-      Axios.post('http://localhost:9090/dangjang/qnacomment/insert/', frmData)
+      Axios.post('http://localhost:9090/dangjang/qna/update/', frmData)
       .then(
           res =>{
             console.log(res.data);
             alert("등록되었습니다.");
-            history('/qna/qna/qna/qnafree');
+            history('-1');
           } 
       );
     }
- 
-   
   
     return (
       <div style={{display : 'inline-block', width : '78%', marginLeft:'7%', padding : '0px', verticalAlign: 'top'}}>
     
        
-          <h1>Q&A 답변달기</h1>
+          <h1>Q&A 질문 수정</h1>
           <br/>
           <h2 className="qnalist-title">Q. {inputs.title}</h2>
 
@@ -140,40 +108,54 @@ function QnaCommentWrite( props){
           
           
           <br></br>
-
-          {inputs.user_seq==='3'? '':
-           <form name="myform"  onSubmit={onSubmit} >
-             <h2 className="qnalist-title">💌답변 </h2>
- 
-           <div className="qnalist-contents">
-            <input type="text"
-                    name="c_content" 
-                    className="form-control"
-                    value={inputs.c_content}
+          <form name="myform" onSubmit={onSubmit}  encType="multipart/form-data">
+            <input type="hidden" name="qna_seq" value={inputs.qna_seq}></input>
+          <div className="form-group">    
+                  <label>제목:  </label>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    name="title"
+                    value={inputs.title}
                     onChange={onChange}
                     />
-            </div>
-           <input type="hidden" name = "qna_seq" value={inputs.qna_seq}></input> 
-           <input type="hidden" name = "qnaco_seq" value={inputs.qnaco_seq}></input> 
-{/*            
-          {inputs.c_content===undefined ?
-           <div className="form-group"> */}
-           <input type="submit" value="등록 " className="btn btn-primary"/>
-         {/* </div> :
-         <div className="form-group">
-           <input type="button" value="수정 "  className="btn btn-primary"/>
-          
-    </    div>} */}
-         
-         
-           
-           </form>
-          }
+              </div>
+              <div className="form-group">
+                  <label>이름: </label>
+                  <input type="text" 
+                    className="form-control"
+                    name="user_seq"
+                    value={inputs.user_seq}
+                    onChange={onChange}
+                    />
+              </div>
+              <div className="form-group">
+                  <label>내용: </label>
+                  <input type="text"
+                    name="content" 
+                    className="form-control"
+                    value={inputs.content}
+                    onChange={onChange}
+                    />
+              </div>
+              <div className="form-group">
+                  <label>파일: </label>
+                  <input type="file"
+                    name="filename" 
+                    className="form-control"
+                   
+                    onChange={onChange}
+                    />
+                      <img src={inputs.image} alt=""/>
+              </div>
+              <div className="form-group">
+                  <input type="submit" value="수정 " className="btn btn-primary"/>
+              </div>
        
-
+</form>
        
       </div>
     );
   }
 
-export default QnaCommentWrite;
+export default QnaUpdate;

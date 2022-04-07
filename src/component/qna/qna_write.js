@@ -7,6 +7,23 @@ function QnaWrite( ){
 
     let history = useNavigate (); //자바스크립트 : history.go(-1)
 
+    const [imageSrc, setImageSrc] = useState('');
+
+    const encodeFileToBase64 = (fileBlob) => { 
+      
+      
+      const reader = new FileReader(); 
+      reader.readAsDataURL(fileBlob);
+      return new Promise((resolve) => { 
+        reader.onload = () => { 
+          setImageSrc(reader.result); 
+          resolve(); 
+        }; 
+      }); 
+    };
+
+
+
     const [inputs, setInputs] = useState({
       title: '',
       user_seq: '',
@@ -103,9 +120,17 @@ function QnaWrite( ){
                   <input type="file"
                     name="filename" 
                     className="form-control"
-                    value={filename}
-                    onChange={onChange}
+                    
+                    onChange={(e)=>{
+                      encodeFileToBase64(e.target.files[0]);
+                    }}
+                    
                     />
+             <div className="preview">
+                {imageSrc && <img src={imageSrc} alt="preview-img" />} 
+              </div>
+
+
               </div>
               <div className="form-group">
                   <input type="submit" value="등록 " className="btn btn-primary"/>
@@ -113,9 +138,12 @@ function QnaWrite( ){
               
           </form>
 
-      
+      <div>
+        {filename}
+      </div>
       </div>
     );
   }
 
 export default QnaWrite;
+                      
