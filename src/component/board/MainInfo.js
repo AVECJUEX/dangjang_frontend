@@ -7,6 +7,7 @@ import Axios from "axios";
 const MainInfoBackground = styled.div`
   width: 100%;
   padding-top: 30px;
+  padding-bottom: 30px;
 `;
 
 const MainInfoContainer = styled.div`
