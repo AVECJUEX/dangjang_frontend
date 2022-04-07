@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import LogoPath from "../IMG/logo.png";
 import Input from "./Input";
 import Label from "./Label";
 import LoginModal from "./Modal/LoginModal";
-import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -16,13 +16,6 @@ const HeaderContainer = styled.div`
   height: 62px;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 0px 0px;
   z-index: 10;
-`;
-
-const MainButton = styled.button`
-.mainButton {
- 
-    
-}
 `;
 
 const HeaderBox = styled.div`
@@ -213,31 +206,30 @@ function Home() {
             <div className="right-content">
               <ul className="MainUl">
                 <li>
-                <Label width="300px" padding="12px 15px 11px 46px">
+                  <Label width="300px" padding="12px 15px 11px 46px">
                     <Input
                       name="search"
-                      placeholder="물품을 검색해보세요." autocomplete="off"
+                      placeholder="물품을 검색해보세요."
+                      autocomplete="off"
                     />
                   </Label>
                 </li>
                 <li>
-               
-                <button className="mainButton" onClick={() => {setOpenModal(true); }} >
-                 로그인</button>
+                  <button
+                    className="mainButton"
+                    onClick={() => {
+                      setOpenModal(true);
+                    }}
+                  >
+                    로그인
+                  </button>
                 </li>
-                <li>
-                 
-                </li>
+                <li></li>
               </ul>
             </div>
-           
-                
-
           </ul>
         </div>
 
-        
-        
         {openModal && <LoginModal closeModal={setOpenModal} />}
       </HeaderBox>
     </HeaderContainer>

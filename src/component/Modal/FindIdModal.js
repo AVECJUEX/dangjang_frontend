@@ -5,7 +5,6 @@ import closePath from "../../IMG/close.png";
 import "../member/LoginRegister.css";
 import CloseIcon from "@mui/icons-material/Close";
 
-
 const Container = styled.div`
   position: fixed;
   top: 10%;
@@ -80,6 +79,11 @@ const Contents = styled.div`
     border-radius: 40px;
     height: 48px;
     margin-top: 10px;
+  }
+  img {
+    object-fit: cover;
+    width: 151px;
+    height: 37px;
   }
 `;
 const Title = styled.div`
@@ -203,13 +207,11 @@ const ModalContainer = styled.div`
   }
 `;
 
-function FindModal({ closeModal }) {
+function FindIdModal({ closeIdModal }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
-
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
@@ -221,14 +223,13 @@ function FindModal({ closeModal }) {
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
-  
+
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-
   };
 
   return (
@@ -236,10 +237,9 @@ function FindModal({ closeModal }) {
       <Contents>
         <Title></Title>
 
-        <div className="loginregister">
+        <div className="findregister">
           <form>
             <img src={loginLogoPath} alt=""></img>
-            
 
             <div>
               <input
@@ -277,13 +277,10 @@ function FindModal({ closeModal }) {
               />
             </div>
 
-            
-            
-            
             <div>
               <button
-                type="submit"
-                onSubmit={onSubmit}
+                 type="submit"
+                // onSubmit={onSubmit}
                 className="findregister__button"
               >
                 ID 찾기
@@ -292,7 +289,7 @@ function FindModal({ closeModal }) {
 
             <CloseIcon
               className="btnX"
-              onClick={() => closeModal(false)}
+              onClick={() => closeIdModal(false)}
             ></CloseIcon>
           </form>
         </div>
@@ -301,4 +298,4 @@ function FindModal({ closeModal }) {
   );
 }
 
-export default FindModal;
+export default FindIdModal;

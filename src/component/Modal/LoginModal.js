@@ -4,7 +4,8 @@ import loginLogoPath from "../../IMG/logo.png";
 import closePath from "../../IMG/close.png";
 import "../member/LoginRegister.css";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
+import FindIdModal from "./FindIdModal";
 
 const Container = styled.div`
   position: fixed;
@@ -70,6 +71,11 @@ const Contents = styled.div`
     border-radius: 40px;
     height: 48px;
     margin-top: 10px;
+  }
+  img {
+    object-fit: cover;
+    width: 151px;
+    height: 37px;
   }
 `;
 const Title = styled.div`
@@ -196,6 +202,7 @@ const ModalContainer = styled.div`
 function LoginModal({ closeModal }) {
   const [user_id, setUser_id] = useState("");
   const [password, setPassword] = useState("");
+  const [openFindIdModal, setOpenFindIdModal] = useState(false);
 
   const onUser_idHandler = (event) => {
     setUser_id(event.currentTarget.value);
@@ -207,7 +214,6 @@ function LoginModal({ closeModal }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-
   };
 
   return (
@@ -249,21 +255,35 @@ function LoginModal({ closeModal }) {
               </button>
             </div>
             <div>
-              <button
-                type="submit"
-                onSubmit={onSubmit}
-                className="loginregister__button"
-              >
-                회원가입
-              </button>
+              <Link to="/register">
+                <button
+                  // type="submit"
+                  className="loginregister__button"
+                  onClick={() => closeModal(false)}
+                >
+                  회원가입
+                </button>
+              </Link>
             </div>
             <div>
               <button
-                type="submit"
-                onSubmit={onSubmit}
                 className="loginregister__button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenFindIdModal(true);
+                }}
               >
-                ID/PW 찾기
+                ID 찾기
+              </button>
+
+              <button
+                className="loginregister__button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenFindIdModal(true);
+                }}
+              >
+                Password 찾기
               </button>
             </div>
             <CloseIcon
@@ -272,6 +292,7 @@ function LoginModal({ closeModal }) {
             ></CloseIcon>
           </form>
         </div>
+        {openFindIdModal && <FindIdModal closeIdModal={setOpenFindIdModal} />}
       </Contents>
     </Container>
   );
