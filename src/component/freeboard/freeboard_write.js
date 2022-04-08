@@ -1,23 +1,67 @@
-
-import React, { useState } from "react";
-import { Link, useNavigate  } from "react-router-dom";
+import {Avatar} from '@material-ui/core';
+import React, { useState, useEffect, Fragment} from "react";
+import { Routes, Route, Outlet, Link, NavLink, useNavigate } from "react-router-dom";
+import FreeBoardView from './freeboard_view'
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import NearMeIcon from '@material-ui/icons/NearMe';
 import Axios from "axios";
+import "../../page.css";
+import Pagination from "react-js-pagination";
+import Feed from './Feed'
+import Post from './Post';
+import { ExpandMoreOutlined } from "@material-ui/icons";
+import styled from "styled-components";
+import FileUpload from "../board/FileUpload";
 
-function BoardWrite( ){
+const BoardBox = styled.div`
+  .Category {
+    white-space: nowrap;
+    max-width: 1320px;
+    padding: 12px 0 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 60px;
+    line-height: 30px;
+  }
+
+  .Category p {
+    color: #292a32;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    line-height: 30px;
+  }
+  .btn {
+    color: #fff;
+    background-color: #6667ab;
+    border-color: #6667ab;
+  }
+`;
+
+
+function FreeBoardWrite( ){
 
     let history = useNavigate (); //자바스크립트 : history.go(-1)
 
+    const [imageSrc, setImageSrc] = useState("");
+    const [imageSrcList, setImageSrcList] = useState([]);
+    const [fileList, setfileList] = useState([]);
     const [inputs, setInputs] = useState({
       title: '',
       user_id: '',
+      user_seq:'',
+      wdate:'',
       content:'',
-      filename:''
+      image:''
+
     });
 
     //input에 저장된 값을 해체한다
     //title = inputs.title
     //writer = input.writer
-    const { title, user_id,content, filename  } = inputs; 
+    const { title, user_id, user_seq, wdate, content, image  } = inputs; 
   
     //폼태그에서 값들이 바뀌면 호출될 함수
     const onChange = (e) => {
@@ -34,14 +78,14 @@ function BoardWrite( ){
       });
     };
   
-    const onReset = () => {
-      setInputs({
-        title: '',
-        user_id: '',
-        content:'',
-        filename:''
-      })
-    };
+    // const onReset = () => {
+    //   setInputs({
+    //     title: '',
+    //     user_id: '',
+    //     content:'',
+    //     filename:''
+    //   })
+    // };
 
     //서버로 정보를 전송하는 함수
     const onSubmit=(e)=> {
@@ -52,9 +96,9 @@ function BoardWrite( ){
       // Axios.post('http://localhost:9090/mongo/update/', obj)
       //      .then(res => console.log(res.data));
       var frmData = new FormData(); 
-      frmData.append("title", inputs.title);
-      frmData.append("user_id", inputs.user_id);
-      frmData.append("content", inputs.content);
+      // frmData.append("title", inputs.title);
+      // frmData.append("user_id", inputs.user_id);
+      // frmData.append("content", inputs.content);
       
       frmData.append("file", document.myform.filename.files[0]);
       Axios.post('http://localhost:9090/freeboard/insert/', frmData)
@@ -66,12 +110,42 @@ function BoardWrite( ){
           } 
       );
     }
-  
+
+    useEffect(()=>{
+      console.log("[fileList----]",fileList);
+      fileList.map((file, idx)=> {
+        encodeFileToBase64(file)});
+    }, [fileList]);
+    
+    const encodeFileToBase64 = (fileBlob) => {
+      //if(fileBlob==="") return;
+      // console.log(fileBlob);
+      const reader = new FileReader();
+      reader.readAsDataURL(fileBlob);
+      return new Promise((resolve) => {
+        reader.onload = () => {
+          setImageSrc(reader.result); 
+          resolve();
+        };
+      });
+    }
+
+    useEffect(()=>{
+      if(imageSrc!==""){ 
+        setImageSrcList([...imageSrcList, imageSrc])
+      }
+    }, [imageSrc])
+
+
     return (
-      <div>
-        <form name="myform" onSubmit={onSubmit}  encType="multipart/form-data">
+      <div className="post">
+      <div className="post__top">
+          <Avatar src = {image} className="post__avatar"/>
+          <div className="post__topInfo">
+              <h3>{user_id}</h3>
+              <p>{wdate}</p>
               <div className="form-group">    
-                  <label>제목:  </label>
+                  <label>제목: </label>
                   <input 
                     type="text" 
                     className="form-control" 
@@ -80,16 +154,12 @@ function BoardWrite( ){
                     onChange={onChange}
                     />
               </div>
-              <div className="form-group">
-                  <label>이름: </label>
-                  <input type="text" 
-                    className="form-control"
-                    name="user_id"
-                    value={user_id}
-                    onChange={onChange}
-                    />
-              </div>
-              <div className="form-group">
+          </div>
+      </div>
+
+      <div className="post__bottom">
+          <p> 
+            <div className="form-group">
                   <label>내용: </label>
                   <input type="text"
                     name="content" 
@@ -99,26 +169,33 @@ function BoardWrite( ){
                     />
               </div>
               <div className="form-group">
-                  <label>파일: </label>
-                  <input type="file"
-                    name="filename" 
-                    className="form-control"
-                    value={filename}
-                    onChange={onChange}
-                    />
-              </div>
-              <div className="form-group">
-                  <input type="submit" value="등록 " className="btn btn-primary"/>
-              </div>
-          </form>
+                  <FileUpload setfileList={setfileList}>
+                  </FileUpload>
+              
+                  <div style={{display: 'flex', height: '240px', border: '1px solid lightgray', overflowX:'scroll'}}>
+                    {fileList && 
 
-        <div  style={{ marginTop: 20 }}>
-          <b>값: </b>
-          {title} <br/>
-          {writer} <br/>
-          {contents} <br/>
-        </div>
+                      (imageSrcList.map((image1, idx)=>{
+                      
+                      return <Fragment key={idx}><img style={{width:'250px', height: '100%'}} 
+                      src={image} alt="preview-img"/></Fragment>}))
+
+                    }
+                  </div>
+              </div>  
+          </p>
       </div>
+      
+      <div className="post__image">
+          <img src={image} alt=""/>
+      </div>
+
+      
+      <BoardBox> 
+      <Link className="btn" style={{float:'right'}} to="/freeboard/">취소</Link>
+      </BoardBox>
+      
+  </div>
     );
   }
 

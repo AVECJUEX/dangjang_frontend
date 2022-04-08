@@ -11,11 +11,14 @@ import BoardWrite from "./component/board/board_write";
 import BoardView from "./component/board/board_view";
 import BoardUpdate from "./component/board/board_update";
 import FreeBoardList from "./component/freeboard/freeboard_list";
+import FreeBoardWrite from "./component/freeboard/freeboard_write";
+import FreeBoardView from "./component/freeboard/freeboard_view";
 import QnaList from "./component/qna/qna_list"
 import QnaView from'./component/qna/qna_view';
 import QnaWrite from'./component/qna/qna_write';
 import QnaCommentWrite from "./component/qna/qnacomment_write";
 import QnaUpdate from "./component/qna/qna_update"
+import RegisterPage from "./component/member/RegisterPage"
 
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
@@ -67,6 +70,8 @@ function App() {
               <Route path="board/update/:board_seq" element={<BoardUpdate />}/>
               
               <Route path="freeboard" element={<FreeBoardList />} />
+              <Route path="freeboard/write" element={<FreeBoardWrite />} />
+              <Route path="/freeboard/view/:board_seq" element={<FreeBoardView/>}/>
 
 
               <Route exact path="qna/*" element={<QnaList/>}/>
@@ -77,7 +82,7 @@ function App() {
  
               
               
-            </Routes>
+            
 
 
               <Route path="register" element={<RegisterPage />} />
