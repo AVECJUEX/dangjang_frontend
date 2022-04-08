@@ -15,6 +15,7 @@ import QnaId from "./qna_id";
 
 
 
+
 const QnaContainer = styled.div`
  h1{
   line-height: 32px;
@@ -237,12 +238,15 @@ function QnaList( ){
           <QnaMenu></QnaMenu>
             <Routes>
               
-              <Route  path="/"  element={<QnaContents />} />
+            <Route  path="/"  element={<QnaContents />} />
               <Route path="qna/qna/qnatop"  element={<QnaTop />} />
               <Route path="qna/qna/qnafree"  element={<QnaFree />} />
               <Route path="qna/qna/qnaoper"  element={<QnaOper />} />
-              <Route path="qna/qna/qnaoid"  element={<QnaId />} />
-              <Route path="qna/view/:qna_seq" element={<QnaView/>}/>
+              <Route path="qna/qna/qnaid"  element={<QnaId />} />
+              
+              <Route path="qna/view/:qna_seq/" element={<QnaView/>}/>
+              
+             
               
             </Routes>
             

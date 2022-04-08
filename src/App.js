@@ -11,12 +11,11 @@ import BoardWrite from "./component/board/board_write";
 import BoardView from "./component/board/board_view";
 import BoardUpdate from "./component/board/board_update";
 import FreeBoardList from "./component/freeboard/freeboard_list";
-import QnaList from "./component/qna/qna_list";
-import QnaView from "./component/qna/qna_view";
-import QnaWrite from "./component/qna/qna_write";
-// import QnaTop from "./component/qna/qna_top";
-// import QnaFree from "./component/qna/qna_free";
-import RegisterPage from "./component/member/RegisterPage";
+import QnaList from "./component/qna/qna_list"
+import QnaView from'./component/qna/qna_view';
+import QnaWrite from'./component/qna/qna_write';
+import QnaCommentWrite from "./component/qna/qnacomment_write";
+import QnaUpdate from "./component/qna/qna_update"
 
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
@@ -58,7 +57,9 @@ function App() {
         <MainPageContainer>
           <MarketContainer>
             <Routes>
-              <Route exact path="/" element={<Layout />} />
+
+            <Route exact path="/"  element={<Layout />} />
+
               <Route path="board" element={<BoardList />} />
               <Route path="board/write" element={<BoardWrite />} />
               <Route path="board/view/:board_seq" element={<BoardView />} />
@@ -68,9 +69,16 @@ function App() {
               <Route path="freeboard" element={<FreeBoardList />} />
 
 
-              <Route exact path="qna/*" element={<QnaList />} />
-              <Route path="qna/write" element={<QnaWrite />} />
-              <Route path="qna/view/:qna_seq" element={<QnaView />} />
+              <Route exact path="qna/*" element={<QnaList/>}/>
+              <Route exact path="qna/write" element={<QnaWrite/>}/>
+              
+              <Route path="/qnaUpdate/:qna_seq" element={<QnaUpdate/>}/>
+              <Route path="/qnacommentwrite/:qna_seq"  element={<QnaCommentWrite/>} />
+ 
+              
+              
+            </Routes>
+
 
               <Route path="register" element={<RegisterPage />} />
               <Route path="loginmodal" element={<LoginModal />} />

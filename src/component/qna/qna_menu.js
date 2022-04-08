@@ -40,7 +40,7 @@ function QnaMenu() {
     
   
  
-      </div>
+    </div>
   )
 }
 export default QnaMenu;
