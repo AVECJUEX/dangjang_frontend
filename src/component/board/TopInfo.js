@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, Fragment} from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import Chat from "../../IMG/Chat.png";
@@ -108,6 +108,8 @@ const PaneBox = styled.div`
   .ButtonBlock {
     float: left;
     margin: 39px 30px 0px 0px;
+    display: flex;
+
 
     @media ${(props) => props.theme.tablet} {
       margin: 39px 21px 0px 0px;
@@ -120,22 +122,23 @@ const PaneBox = styled.div`
   }
 
   .Self {
-    width: 150px;
+    width: 100px;
     display: flex;
     background-color: #6667ab;
     vertical-align: top;
     box-sizing: border-box;
     height: 40px;
     border-radius: 6px;
-    margin: 0px auto;
+    margin: 0px 15px 0px 0px;
     overflow: hidden;
+    
 
     @media ${(props) => props.theme.tablet} {
-      width: 213px;
+      width: 100px;
     }
 
     @media ${(props) => props.theme.mobile} {
-      width: 254px;
+      width: 100px;
     }
   }
 
@@ -187,7 +190,7 @@ const PaneBox = styled.div`
     font-weight: 500;
     letter-spacing: -0.7px;
     line-height: 22px;
-    margin: 0px 0px 0px 12px;
+    margin: 0;
   }
 
   .StylelessButton-ActionDropDownButton {
@@ -247,47 +250,69 @@ const PaneBox = styled.div`
 `;
 
 function TopInfo(props, { match }) {
-    let history = useNavigate ();
-    let { board_seq } = useParams();
-    //값을 초기화 시키되는 값.
-    const [inputs, setInputs] = useState({
-      board_seq:'',
-      category_name:'',
-      title: '',
-      user_id: '',
-      price:'',
-      image1:'',
-      zzim_cnt:'',
-      user_images:'',
-      hit:'',
-      my_cnt:'',
-      nick_name:'',
-      address1:''
-    });
+  let login_id = "test1";
+  let history = useNavigate ();
+  let { board_seq } = useParams();
+  //값을 초기화 시키되는 값.
+  const [inputs, setInputs] = useState({
+    board_seq:'',
+    category_name:'',
+    category_code:'',
+    title: '',
+    user_id: '',
+    price:'',
+    image1:'',
+    zzim_cnt:'',
+    user_images:'',
+    hit:'',
+    my_cnt:'',
+    nick_name:'',
+    address1:''
+  });
   
-    const { user_id, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
-  
-    useEffect(() => { 
-       console.log( board_seq );
-       Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
-            .then(
-              res => {
-                  console.log(res.data);  //f12 눌러서 확인하기 
-                  setInputs({
-                    board_seq:board_seq,
-                    user_id: res.data.user_id,
-                    user_images: res.data.user_images,
-                    zzim_cnt: res.data.zzim_cnt,
-                    hit:res.data.hit,
-                    my_cnt:res.data.my_cnt,
-                    nick_name:res.data.nick_name,
-                    address1:res.data.address1
-                  });
-              }
-            );
-      //console.log( heroState.hero );
-    }, []);
+  const { user_id, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
 
+  useEffect(() => { 
+      console.log( board_seq );
+      Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
+          .then(
+            res => {
+                console.log(res.data);  //f12 눌러서 확인하기 
+                setInputs({
+                  board_seq:board_seq,
+                  user_id: res.data.user_id,
+                  user_images: res.data.user_images,
+                  zzim_cnt: res.data.zzim_cnt,
+                  hit:res.data.hit,
+                  my_cnt:res.data.my_cnt,
+                  nick_name:res.data.nick_name,
+                  address1:res.data.address1
+                });
+            }
+          );
+    //console.log( heroState.hero );
+  }, []);
+
+  const refreshPage=()=>{ 
+    return window.location.href = '/board'
+  }
+
+  const deleteItem = (e)=>{
+    if(window.confirm("삭제하시겠습니까?"))
+    {
+      Axios.get(`http://localhost:9090/dangjang/board/delete/${board_seq}`)
+          .then(
+            ()=>{
+              console.log('Deleted');
+            }
+          ).catch(err => console.log(err));
+      refreshPage();
+      console.log("delete");  
+    }
+  }
+  const onClickUpdate = (e) => {
+    history(`/board/update/${board_seq}`);
+  }
   return (
     <PaneBox>
       <div className="WidthGrid">
@@ -304,22 +329,43 @@ function TopInfo(props, { match }) {
               <div className="ContentRatings">
                 찜 {zzim_cnt}개 ({hit} 명이 이 게시물을 봤습니다.)
               </div>
-              <div className="ButtonBlock">
-                <div className="Self">
-                  <button className="StylelessButton-ActionButton">
-                    <div className="contentActionStatusImage">
-                      <img className="StatusImage" src={Chat} alt=""></img>
-                      <div onClick="" className="ActionStatus">
+              <div className="ButtonBlock">  
+                      {
+                        user_id !== login_id ? 
+                        <div className="Self" style={{width:'150px'}}>
+                        <button className="StylelessButton-ActionButton">
+                        <div className="contentActionStatusImage">
+                        <img className="StatusImage" src={Chat} alt=""></img>
+                        <div onClick="" className="ActionStatus">
                         대화하기
-                      </div>
-                    </div>
-                  </button>
+                        </div> 
+                        </div>
+                        </button> 
+                        </div>:
+                        <>
+                        <div className="Self">
+                          <button className="StylelessButton-ActionButton">
+                          <div onClick={onClickUpdate} className="ActionStatus">
+                          수정하기
+                          </div>
+                          </button>
+                        </div>
+
+                        <div className="Self">
+                          <button className="StylelessButton-ActionButton">
+                          <div onClick={deleteItem} className="ActionStatus">
+                          삭제하기
+                          </div>
+                          </button>
+                        </div>
+                        </>
+                      }
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
     </PaneBox>
   );
 }

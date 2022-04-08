@@ -135,9 +135,11 @@ const HeaderBox = styled.div`
     width: 151px;
     height: 37px;
   }
-  li,
-  label {
-    backgroundcolor: #e6e6fa;
+
+  li,label{
+    display:flex;
+    backgroundColor :#E6E6FA;
+
   }
 `;
 

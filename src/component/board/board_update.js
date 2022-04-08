@@ -3,6 +3,7 @@ import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
 import FileUpload from "./FileUpload";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
 const MainInfoBackground = styled.div`
   width: 100%;
@@ -38,7 +39,8 @@ const MainInfoContainer = styled.div`
   }
 `;
 
-function BoardWrite( ){
+function BoardUpdate( ){
+    let { board_seq } = useParams();
 
     let history = useNavigate (); //자바스크립트 : history.go(-1)
     let login_id = "test1";
@@ -48,18 +50,26 @@ function BoardWrite( ){
     const [imageSrcList, setImageSrcList] = useState([]);
     const [fileList, setfileList] = useState([])
     const [inputs, setInputs] = useState({
+      board_seq:'',
       category_code:'',
       title: '',
       user_id: '',
       user_seq: '',
       content:'',
-      price:''
+      price:'',
+      prvimage1:'',
+      prvimage2:'',
+      prvimage3:'',
+      prvimage4:'',
+      prvimage5:'',
+      prvimage6:''
     });
 
     //input에 저장된 값을 해체한다
     //title = inputs.title
     //writer = input.writer
-    const { category_code, title, user_id ,user_seq , content, price } = inputs; 
+    const {category_code, title, user_id ,user_seq , content, price, 
+      prvimage1, prvimage2, prvimage3, prvimage4, prvimage5, prvimage6} = inputs; 
     // const { category_code, title, content, price } = inputs; 
     //폼태그에서 값들이 바뀌면 호출될 함수
     const onChange = (e) => {
@@ -76,7 +86,32 @@ function BoardWrite( ){
       });
     };
 
-   
+    //db에서 가져와서 화면에 뿌려줌
+    useEffect(() => { 
+      console.log( board_seq );
+      Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
+          .then(
+            res => {
+                console.log(res.data);  //f12 눌러서 확인하기 
+                setInputs({
+                  board_seq:board_seq,
+                  user_id: res.data.user_id,
+                  user_seq: res.data.user_seq,
+                  content: res.data.content,
+                  prvimage1: res.data.image1,
+                  prvimage2: res.data.image2,
+                  prvimage3: res.data.image3,
+                  prvimage4: res.data.image4,
+                  prvimage5: res.data.image5,
+                  prvimage6: res.data.image6,
+                  price:res.data.price,
+                  title:res.data.title,
+                  category_code:res.data.category_code
+                });
+            }
+          );
+    //console.log( heroState.hero );
+  }, []);
 
     //서버로 정보를 전송하는 함수
     const onSubmit=(e)=> {
@@ -88,8 +123,9 @@ function BoardWrite( ){
       //      .then(res => console.log(res.data));
       var frmData = new FormData(e.currentTarget); //전체를 한번에 넣을 수 있게 해준다.
       fileList.map((file)=>frmData.append("fileList", file))
+      frmData.append("board_seq", board_seq);
       
-      Axios.post('http://localhost:9090/dangjang/board/insert2/', frmData)
+      Axios.post('http://localhost:9090/dangjang/board/update/', frmData)
       .then(
           res =>{
             console.log(res.data);
@@ -190,6 +226,16 @@ function BoardWrite( ){
                     onChange={onChange}
                     />
               </div>
+              {/* <div hidden>  */}
+              <div className="form-group">
+                <label>이전사진: </label><br/>
+                <img src={prvimage1} style={{width:'50px', height:'50px'}}></img>
+                <img src={prvimage2} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage3} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage4} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage5} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+                <img src={prvimage6} style={{width:'50px', height:'50px', marginLeft:'5px'}}></img>
+              </div>
               <label>파일: </label>
               <div className="form-group">
                   <FileUpload setfileList={setfileList}>
@@ -218,4 +264,4 @@ function BoardWrite( ){
     );
   }
 
-export default BoardWrite;
+export default BoardUpdate;

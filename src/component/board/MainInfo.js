@@ -7,12 +7,12 @@ import Axios from "axios";
 const MainInfoBackground = styled.div`
   width: 100%;
   padding-top: 30px;
+  padding-bottom: 30px;
 `;
 
 const MainInfoContainer = styled.div`
   width: 976px;
   margin: 0 auto;
-  padding-bottom: 20px;
   background-color: white;
   border: 1px solid rgb(227, 227, 227);
   border-radius: 15px;
@@ -35,7 +35,6 @@ const MainInfoContainer = styled.div`
 
   .content-box {
     width: 95%;
-    padding-bottom: 15px;
     margin: 0 auto;
     border-bottom: 1px solid rgb(227, 227, 227);
 
@@ -110,6 +109,7 @@ function MainInfo(porps, { match }) {
     const [inputs, setInputs] = useState({
       board_seq:'',
       category_name:'',
+      category_code:'',
       title: '',
       user_id: '',
       content:'',
@@ -119,7 +119,7 @@ function MainInfo(porps, { match }) {
       wdate:''
     });
   
-    const { title, category_name, content, price } = inputs; // 비구조화 할당을 통해 값 추출
+    const { title, category_name, category_code, content, price } = inputs; // 비구조화 할당을 통해 값 추출
   
     useEffect(() => { 
        console.log( board_seq );
@@ -131,6 +131,7 @@ function MainInfo(porps, { match }) {
                     board_seq:res.data.board_seq,
                     title: res.data.title,
                     category_name: res.data.category_name,
+                    category_code: res.data.category_code,
                     content:res.data.content,
                     user_id: res.data.user_id,
                     user_seq: res.data.user_seq,

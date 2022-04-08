@@ -7,6 +7,10 @@ import { useInView } from "react-intersection-observer"
 import Axios from "axios";
 import "../../page.css";
 import BoardWrite from '../board/board_write';
+import { AutoComplete } from 'antd';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+
 
 const BoardBox = styled.div`
   .Category {
@@ -31,11 +35,15 @@ const BoardBox = styled.div`
     background-color: #6667ab;
     border-color: #6667ab;
   }
+  a{
+    font-size:10px;
+  }
 `;
 const BoardSlider = styled.div`
   position: relative;
   transform: translate3d(0px, 0px, 0px);
-  margin: 0px -8px;
+  margin: 20px 0px;
+  text-align : center;
 
   .listbox{
     padding-right : 0px;
@@ -44,7 +52,7 @@ const BoardSlider = styled.div`
   .list{
     display: inline-block;
     width : 20%;
-    height: auto;
+    height: 100%;
   }  
 
   li {
@@ -54,6 +62,7 @@ const BoardSlider = styled.div`
   img {
     display: inline-block;
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
   }
 
@@ -114,16 +123,22 @@ const BoardSlider = styled.div`
 
 function BoardList(){
     const [board, setBoard] = useState([]) //게시글
-    const [totalCnt, setTotalCnt] = useState(0); //전체 레코드 개수
+    const [totalCnt, setTotalCnt] = useState([]); //전체 레코드 개수
     const [page, setPage] = useState(1);
     const [loading, setLoading]=useState(false); //로딩 중을 띄우고싶었지만 안씀
     const [empty, setEmpty] = useState(false);
+    const [keyword, setKeyword] = useState("");
 
     const [ref, inView] = useInView()
 
-    const getboard = useCallback(async (page) => {
-      setLoading(true)
-      await Axios.get(`http://localhost:9090/dangjang/board/list/`+page).then((res)=>{
+    const getboard = useCallback(async () => {
+      console.log("getboard----", page, keyword)
+      setLoading(true);
+
+      if(keyword===undefined){
+        keyword="";
+      }
+      await Axios.get(`http://localhost:9090/dangjang/board/list/`+page+'?keyword='+keyword).then((res)=>{
       console.log(res.data);
       console.log(res.data.list.length);
 
@@ -142,38 +157,59 @@ function BoardList(){
 
       useEffect( ()=>
       {
-        getboard(page)    //첫번째 페이지 데이터 가져와서 화면에 뿌리기  
-      }, [page]);
+        getboard()    //첫번째 페이지 데이터 가져와서 화면에 뿌리기  
+      }, [page, keyword]);
+
 
       useEffect(() => {
         // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
-        console.log(inView, !loading, page)
+        console.log(inView, !loading, !empty, page)
         if (inView && !loading && !empty) {
           setPage(prevState => prevState + 1)
         }
       }, [inView, loading])
-      
+
+      const onClickCode = (keyword) => {
+        console.log(keyword);
+        setBoard([]);
+        setPage(1);
+        setKeyword(keyword);
+        setEmpty(false);
+      }
       return (
         <BoardBox>
           <div className="Category">
-            <p>물품 목록</p>
+            <p>
+              물품 목록
+              <Link className="btn" style={{float:'right'}} to="/board/write">글쓰기</Link>
+            </p>
           </div>
-
+          <hr/>
+          {
+            totalCnt.map(({category_code, category_name, catCnt})=>{
+              console.log(category_code,category_name,catCnt );
+              return <a onClick={()=>onClickCode(category_code)}><strong>{category_name}({catCnt}</strong>)&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            })
+          }
+          {/* <a onClick={()=>onClickCode('')}>전체({totalCnt})</a>
+          <a onClick={()=>onClickCode('01')} >옷({totalCnt})</a> */}
           <BoardSlider >
-            <div className="listbox">
+            <div className="listbox" >
                 {
                   board.map((object, i) => 
                      <Fragment key={i}>
-                       {board.length - 1 === i ? (<div ref={ref}><TableRow obj={object} key={i} totalCnt={totalCnt}/></div>):
-                      (<TableRow obj={object} key={i} totalCnt={totalCnt}/>)}
+                      {board.length - 1 === i ?                        
+                      (<span ref={ref}><TableRow obj={object} key={i}/></span>):
+                      
+                      (<TableRow obj={object} key={i}/>)
+                      }
                      </Fragment>
                   )
                 }
             </div>
 
-            
           </BoardSlider>
-          <Link className="btn" to="/board/write">글쓰기</Link>
+          
         </BoardBox>
       );
 }

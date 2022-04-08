@@ -14,7 +14,7 @@ const ProductionContainer = styled.div`
       display: flex;
       width: 30%;
       height: 200px;
-      margin: 0 15px;
+      margin: 0 auto;
     }
 
     .character-box {
@@ -23,6 +23,7 @@ const ProductionContainer = styled.div`
       align-items: center;
       width: 100%;
       box-sizing: border-box;
+      justify-content:center;
 
       p {
         margin: 5px 0 0 0px;

@@ -30,7 +30,11 @@ function TableRow(props){
         <li>
           <Link to={`/board/view/${props.obj.board_seq}`}>
             <div className="Board">
-              <img src={props.obj.image1} alt={props.obj.image1}></img>
+            
+            <img src={props.obj.image1} alt={props.obj.image1} loading="lazy" style={{  width:"150px", height:"150px", objectFit: "fill"}}></img>
+
+              {/* <img src={props.obj.image1} alt={props.obj.image1}></img> */}
+              {/* <img src={`${props.obj.image1}?w=164&h=164&fit=crop&auto=format`} alt={props.obj.image1} loading="lazy"></img> */}
               
             </div>
             <div className="BoardInfo">

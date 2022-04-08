@@ -9,6 +9,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import BoardList from "./component/board/board_list";
 import BoardWrite from "./component/board/board_write";
 import BoardView from "./component/board/board_view";
+import BoardUpdate from "./component/board/board_update";
 import FreeBoardList from "./component/freeboard/freeboard_list";
 import QnaList from "./component/qna/qna_list";
 import QnaView from "./component/qna/qna_view";
@@ -62,7 +63,10 @@ function App() {
               <Route path="board/write" element={<BoardWrite />} />
               <Route path="board/view/:board_seq" element={<BoardView />} />
 
+              <Route path="board/update/:board_seq" element={<BoardUpdate />}/>
+              
               <Route path="freeboard" element={<FreeBoardList />} />
+
 
               <Route exact path="qna/*" element={<QnaList />} />
               <Route path="qna/write" element={<QnaWrite />} />
