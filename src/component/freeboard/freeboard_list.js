@@ -1,4 +1,4 @@
-
+import styled from "styled-components";
 import TableRow from './TableRow'
 import React, { useState, useEffect} from "react";
 import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
@@ -7,6 +7,33 @@ import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";
 import Feed from './Feed'
+import Post from './Post';
+
+const BoardBox = styled.div`
+  .Category {
+    white-space: nowrap;
+    max-width: 1320px;
+    padding: 12px 0 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 60px;
+    line-height: 30px;
+  }
+
+  .Category p {
+    color: #292a32;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    line-height: 30px;
+  }
+  .btn {
+    color: #fff;
+    background-color: #6667ab;
+    border-color: #6667ab;
+  }
+`;
+
 function FreeBoardList( ){
      const [freeboard, setFreeBoard] = useState([]) //게시글
      const [page, setPage] = useState(1);   //페이징 정보
@@ -21,16 +48,6 @@ function FreeBoardList( ){
         화면불러올때 이 부분이 호출된다. 
         */
         
-        // setBoard(
-        //    ...board,
-        //    [
-        //      {id:1, title:"제목1", writer:"홍길동1", contents:"내용을 막 넣자1"},
-        //      {id:2, title:"제목2", writer:"홍길동2", contents:"내용을 막 넣자2"},
-        //      {id:3, title:"제목3", writer:"홍길동3", contents:"내용을 막 넣자3"},
-        //      {id:4, title:"제목4", writer:"홍길동4", contents:"내용을 막 넣자4"},
-        //      {id:5, title:"제목5", writer:"홍길동5", contents:"내용을 막 넣자5"}
-        //   ]
-        // );
 
 
         //axios는 비동기모드로 데이터를 불러온다
@@ -41,11 +58,55 @@ function FreeBoardList( ){
         .then(response)->{})
         .catch(error)->{})
         */ 
-      const loadData = async (page) => {
+
+        /*
+        boardList = [
+        {
+            "key": "",
+            "keyword": "",
+            "pg": 0,
+            "pageSize": 10,
+            "pgGroup": 5,
+            "start": 0,
+            "rnum": 1,
+            "free_seq": 1,
+            "user_id": "test",
+            "title": "fortest",
+            "content": "잘나와야한다",
+            "image": "01.jpg",
+            "wdate": "2022-04-01",
+            "like_cnt": "",
+            "hit": "",
+            "user_seq": ""
+        },
+         {
+            "key": "",
+            "keyword": "",
+            "pg": 0,
+            "pageSize": 10,
+            "pgGroup": 5,
+            "start": 0,
+            "rnum": 1,
+            "free_seq": 1,
+            "user_id": "test",
+            "title": "fortest",
+            "content": "잘나와야한다",
+            "image": "01.jpg",
+            "wdate": "2022-04-01",
+            "like_cnt": "",
+            "hit": "",
+            "user_seq": ""
+        }
+
+        boardList.map((data)=> <div></div>)
+    ]
+        
+        */
+      const loadData = async () => {
         setLoading(true);
         //비동기모드를 동기모드로 바꾸어서 데이터가 올 때 까지 기다리게 만들었음
         //그래서 값이 반환 될 때까지 기다린다.
-        const res = await Axios.get('http://localhost:9090/freeboard/list/'+page);
+        const res = await Axios.get(`http://localhost:9090/dangjang/freeboard/list/${page}`);
         console.log(res.data);
         setTotalCnt(res.data.totalCnt);
         setFreeBoard(res.data.list);
@@ -67,21 +128,39 @@ function FreeBoardList( ){
       };
       
       return (
+        
+        <BoardBox>
+          
         <div>
-          <Routes>
-              <Route path="/" element={<Freeboardlist/>}></Route>
-             <Route path="/freeboard/view" element={<FreeBoardView/>}></Route>
-          </Routes>
-        </div>
+          
+            <Link className="btn" style={{float:'right'}} to="/freeboard/write">글쓰기</Link>
+          
+        
+
+          
+           {freeboard.map((post)=> 
+                <Post
+                    free_seq={post.free_seq}
+                    user_id={post.user_id}
+                    title= {post.title}
+                    content={post.content}
+                    image={post.image}
+                    wdate={post.wdate}
+                    like_cnt={post.like_cnt}
+                    hit={post.hit}
+                    user_seq={post.user_seq}
+                />)
+                
+            }
+            </div>
+           </BoardBox>
+        
       );
 }
 
-function Freeboardlist(){
-  return(
-    <div>
-    <Link className="btn btn-danger" to="/freeboard/write">글쓰기</Link>
+
     
-      <Feed/>
+//       <Feed/>
 
            {
               // freeboard.map((object, i) => {
@@ -104,10 +183,10 @@ function Freeboardlist(){
                 */}
     
     
-    
+{/*     
   </div>
   )
-}
+} */}
 
 
 export default FreeBoardList;

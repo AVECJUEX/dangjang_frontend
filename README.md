@@ -55,4 +55,6 @@
   FindIdModal와 FindPwModal로 분할해서 작업중 디테일하게 맞춰야함
   기능은 구현되지않음
   회원가입 페이지는 view로할지 modal로 할지 고민됨!
-
+  
+  [용환] 22-04-09
+  왁자지껄 list, write 생성, 수정
