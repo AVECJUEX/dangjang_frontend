@@ -1,0 +1,39 @@
+.loginregister {
+
+    padding:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.findregister {
+
+    padding:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130vh;
+}
+.loginregister__input {
+    width: 250px;
+    height: 50px;
+    padding-left: 10px;
+    margin: 10px;
+}
+.signup_input {
+    width: 250px;
+    height: 50px;
+    padding-left: 10px;
+    margin: 10px;
+}
+.loginregister__button {
+    background-color: #6667AB;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    width: 100%;
+    border-radius: 40px;
+    height: 48px;
+    margin-top: 10px;
+}
+

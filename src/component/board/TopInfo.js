@@ -108,6 +108,8 @@ const PaneBox = styled.div`
   .ButtonBlock {
     float: left;
     margin: 39px 30px 0px 0px;
+    display: flex;
+
 
     @media ${(props) => props.theme.tablet} {
       margin: 39px 21px 0px 0px;
@@ -120,22 +122,23 @@ const PaneBox = styled.div`
   }
 
   .Self {
-    width: 150px;
+    width: 100px;
     display: flex;
     background-color: #6667ab;
     vertical-align: top;
     box-sizing: border-box;
     height: 40px;
     border-radius: 6px;
-    margin: 0px auto;
+    margin: 0px 15px 0px 0px;
     overflow: hidden;
+    
 
     @media ${(props) => props.theme.tablet} {
-      width: 213px;
+      width: 100px;
     }
 
     @media ${(props) => props.theme.mobile} {
-      width: 254px;
+      width: 100px;
     }
   }
 
@@ -187,7 +190,7 @@ const PaneBox = styled.div`
     font-weight: 500;
     letter-spacing: -0.7px;
     line-height: 22px;
-    margin: 0px 0px 0px 12px;
+    margin: 0;
   }
 
   .StylelessButton-ActionDropDownButton {
@@ -254,6 +257,7 @@ function TopInfo(props, { match }) {
   const [inputs, setInputs] = useState({
     board_seq:'',
     category_name:'',
+    category_code:'',
     title: '',
     user_id: '',
     price:'',
@@ -325,35 +329,43 @@ function TopInfo(props, { match }) {
               <div className="ContentRatings">
                 찜 {zzim_cnt}개 ({hit} 명이 이 게시물을 봤습니다.)
               </div>
-              <div className="ButtonBlock">
-                <div className="Self">
-                  <button className="StylelessButton-ActionButton">
-                    <div className="contentActionStatusImage">
+              <div className="ButtonBlock">  
                       {
                         user_id !== login_id ? 
-                        <Fragment>
+                        <div className="Self" style={{width:'150px'}}>
+                        <button className="StylelessButton-ActionButton">
+                        <div className="contentActionStatusImage">
                         <img className="StatusImage" src={Chat} alt=""></img>
                         <div onClick="" className="ActionStatus">
                         대화하기
                         </div> 
-                        </Fragment> :
-                        <Fragment>
-                        <div onClick={onClickUpdate} className="ActionStatus">
-                        수정하기
                         </div>
-                        <div onClick={deleteItem} className="ActionStatus">
-                        삭제하기
+                        </button> 
+                        </div>:
+                        <>
+                        <div className="Self">
+                          <button className="StylelessButton-ActionButton">
+                          <div onClick={onClickUpdate} className="ActionStatus">
+                          수정하기
+                          </div>
+                          </button>
                         </div>
-                        </Fragment>
+
+                        <div className="Self">
+                          <button className="StylelessButton-ActionButton">
+                          <div onClick={deleteItem} className="ActionStatus">
+                          삭제하기
+                          </div>
+                          </button>
+                        </div>
+                        </>
                       }
-                    </div>
-                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
     </PaneBox>
   );
 }
