@@ -13,7 +13,7 @@ import Feed from './Feed'
 import Post from './Post';
 import { ExpandMoreOutlined } from "@material-ui/icons";
 import styled from "styled-components";
-import FileUpload from "../board/FileUpload";
+import FileUpload from "../board/util/FileUpload";
 
 const BoardBox = styled.div`
   .Category {

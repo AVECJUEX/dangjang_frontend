@@ -249,6 +249,17 @@ const PaneBox = styled.div`
   }
 `;
 
+// const Zoomarea = styled.div`
+//   border: 1px solid rgb(227, 227, 227);
+//   width: 200px;
+//   height: 200px;
+//   position: absolute;
+//   margin-right: auto;
+//   float: right;
+//   right: 0px;
+//   justify-content: right;
+// `;
+
 function TopInfo(props, { match }) {
   let login_id = "test1";
   let history = useNavigate ();

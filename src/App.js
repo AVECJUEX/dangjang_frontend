@@ -24,6 +24,9 @@ import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
 import FindModal from "./component/Modal/FindIdModal";
 
+import PZoomImage from "./component/board/util/PZoomImage";
+import Modal from "./component/board/util/Modal";
+
 const MarketContainer = styled.section`
   margin: 60px 0 0 auto;
   width: 100%;
@@ -68,7 +71,8 @@ function App() {
               <Route path="board/view/:board_seq" element={<BoardView />} />
 
               <Route path="board/update/:board_seq" element={<BoardUpdate />}/>
-              
+              <Route path="board/view/modal" element={<Modal />} />
+
               <Route path="freeboard" element={<FreeBoardList />} />
               <Route path="freeboard/write" element={<FreeBoardWrite />} />
               <Route path="/freeboard/view/:board_seq" element={<FreeBoardView/>}/>
@@ -90,6 +94,8 @@ function App() {
               <Route path="loginpage" element={<LoginPage />} />
 
               <Route path="findmodal" element={<FindModal />} />
+
+              <Route path="test" element={<PZoomImage />} />
             </Routes>
           </MarketContainer>
         </MainPageContainer>

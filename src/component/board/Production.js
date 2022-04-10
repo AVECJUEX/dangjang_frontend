@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import Axios from "axios";
 import styled from "styled-components";
+import Modal from "./util/Modal";
 
 const ProductionContainer = styled.div`
   .appearance-production {
@@ -65,6 +66,8 @@ function Production(props, { match }) {
   let history = useNavigate ();
   let { board_seq } = useParams();
 
+
+  const [isShow, setIsShow] = useState(false);
   const [inputs, setInputs] = useState({
     board_seq:'',
     image1:'',
@@ -75,6 +78,18 @@ function Production(props, { match }) {
     image6:'',
   });
   const {image1, image2, image3, image4, image5, image6} = inputs; // 비구조화 할당을 통해 값 추출
+  
+  const [state, setState] = useState({
+    contents: [],
+    index: null,
+    hasModal: false
+  });
+  
+  useEffect(()=>{
+    console.log('state=============',state);
+  },[state])
+
+
 
   const onChange = (e) => {
     const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
@@ -98,6 +113,11 @@ function Production(props, { match }) {
                     image4:res.data.image4,
                     image5:res.data.image5,
                     image6:res.data.image6
+                  });
+                  setState({
+                    contents: [res.data.image1, res.data.image2, res.data.image3, res.data.image4, res.data.image5, res.data.image6],
+                    index: null,
+                    hasModal: false
                   });
               }
             );
@@ -126,43 +146,72 @@ function Production(props, { match }) {
               }
             );
     }
+
+    
+    const controlModal = (index) => {
+      setState((prevState) =>  {
+        return{
+          contents:prevState.contents,
+          index: index,
+          hasModal: !prevState.hasModal
+        }
+      });
+    }
+    const onClickModal = () =>{
+      //setIsShow(!isShow);
+      //history('/board/view/modal', {state: image1});
+      setState({
+        contents: [image1, image2, image3, image4, image5, image6],
+        index: null,
+        hasModal: false
+      })
+
+      const images = state.contents.map((image, index) =>
+      <img key={index} onClick={() => controlModal(index)} src={image} alt="alt" />
+      )
+    }
+
+   
     return (
-      <ProductionContainer>
-        <div className="appearance-production">
+      <>
+      {state.hasModal &&  <Modal images={state.contents} index={state.index} close={controlModal}/>}
+      {<ProductionContainer>
+        <div className="appearance-production" >
           <ul>
             <li>
               <div className="character-box">
-                <img src={image1} alt={image1}></img>
+                <img src={image1} alt={image1} onClick={() => controlModal(0)} key={0}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={image2} alt={image2}></img>
+                <img src={image2} alt={image2} onClick={() => controlModal(1)} key={1}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={image3} alt={image3}></img>
+                <img src={image3} alt={image3} onClick={() => controlModal(2)} key={2}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={image4} alt={image4}></img>
+                <img src={image4} alt={image4} onClick={() => controlModal(3)} key={3}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={image5} alt={image5}></img>
+                <img src={image5} alt={image5} onClick={() => controlModal(4)} key={4}></img>
               </div>
             </li>
             <li>
               <div className="character-box">
-                <img src={image6} alt={image6}></img>
+                <img src={image6} alt={image6} onClick={() => controlModal(5)} key={5}></img>
               </div>
             </li>
           </ul>
         </div>
-      </ProductionContainer>
+      </ProductionContainer>}
+      </>
     );
 }
 
