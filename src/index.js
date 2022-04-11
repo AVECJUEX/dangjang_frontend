@@ -8,16 +8,20 @@ import { ThemeProvider } from "styled-components";
 import "./CSS/reset.css";
 import "./App.css";
 import theme from './theme';
+import { UserProvider } from './component/member/UserContext';
+
 
 
 
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-  </ThemeProvider>,
+  <UserProvider>
+    <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+    </ThemeProvider>
+  </UserProvider>,
   document.getElementById('root')
 );
 

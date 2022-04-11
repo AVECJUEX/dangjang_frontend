@@ -6,6 +6,10 @@ import "../member/LoginRegister.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
 import FindIdModal from "./FindIdModal";
+import FindPwModal from "./FindPwModal";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useUserDispatch } from "../member/UserContext";
 
 const Container = styled.div`
   position: fixed;
@@ -67,15 +71,25 @@ const Contents = styled.div`
     background-color: #6667ab;
     color: rgb(255, 255, 255);
     font-weight: 700;
-    width: 100%;
+    width: 95%;
     border-radius: 40px;
     height: 48px;
     margin-top: 10px;
   }
-  img {
+ 
+  .modalLogo {
     object-fit: cover;
-    width: 151px;
-    height: 37px;
+    width: auto;
+    height: 100px;
+  }
+  .findregister__button {
+    background-color: #6667ab;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    width: 30%;
+    border-radius: 40px;
+    height: 48px;
+    margin-top: 10px;
   }
 `;
 const Title = styled.div`
@@ -197,24 +211,82 @@ const ModalContainer = styled.div`
     font-size: 17px;
     font-weight: 500;
   }
+  
 `;
 
 function LoginModal({ closeModal }) {
-  const [user_id, setUser_id] = useState("");
-  const [password, setPassword] = useState("");
+  
+  
   const [openFindIdModal, setOpenFindIdModal] = useState(false);
+  const [openFindPwModal, setOpenFindPwModal] = useState(false);
 
-  const onUser_idHandler = (event) => {
-    setUser_id(event.currentTarget.value);
+  const navigate = useNavigate();
+  const dispatch = useUserDispatch();
+  const [userid, setUserid] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onUseridHandler = (event) => {
+    setUserid(event.currentTarget.value);
   };
 
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
 
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  //   // 서버를 다녀와서 user 가 세팅되는 부분
+  //   // 이걸 context api 를 사용해서 전역에 데이터 저장함
+  //   // 가져다 쓰는 방식은 provider 로 주입을 함..
+
+  //   // 성공시 홈으로 이동
+  //   // 실패시 alert 창
+    
+  //   // 이 창에서 로그인FindId, Findpw 로 이동하는 링크가 있어야함
+  //   // 로그인 모달  -> 로그인FindId 모달
+
+  // };
+
+
   const onSubmit = (event) => {
     event.preventDefault();
+    if (!userid || !password) {
+      alert("모든 값을 정확하게 입력해주세요");
+      return;
+    }
+ 
+    const userInfo = { userid: userid, password: password };
+    console.log("[로그인]", userInfo);
+    try {
+      //const { data } = await axios.post( "http://127.0.0.1:9090/dangjang/member/login", userInfo);
+      //const { result, member, msg } = data;
+
+      // 임시 데이터
+      const result="success";
+      const member = { userid:"test1"};
+      const msg = "로그인 성공!!!!"
+
+      alert(msg);
+      if (result === "success") {
+        console.log("[로그인 성공] 세션에 아이디 저장");
+        window.sessionStorage.setItem("userid", member.userid);
+
+        dispatch({
+          type: "LOGIN",
+          userid: userid,
+        });
+
+        navigate("/");
+      }
+
+      closeModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+
   };
+
+  
 
   return (
     <Container>
@@ -223,14 +295,14 @@ function LoginModal({ closeModal }) {
 
         <div className="loginregister">
           <form>
-            <img src={loginLogoPath} alt=""></img>
+            <img className="modalLogo" src={loginLogoPath} alt="" ></img>
             <div>
               <input
-                name="user_id"
-                type="user_id"
+                name="userid"
+                type="text"
                 placeholder="아이디를 입력해주세요"
-                value={user_id}
-                onChange={onUser_idHandler}
+                value={userid}
+                onChange={onUseridHandler}
                 className="loginregister__input"
                 autocomplete="off"
               />
@@ -247,8 +319,8 @@ function LoginModal({ closeModal }) {
             </div>
             <div>
               <button
-                type="submit"
-                onSubmit={onSubmit}
+                type="button"
+                onClick={onSubmit}
                 className="loginregister__button"
               >
                 로그인
@@ -258,16 +330,16 @@ function LoginModal({ closeModal }) {
               <Link to="/register">
                 <button
                   // type="submit"
-                  className="loginregister__button"
+                  className="findregister__button"
                   onClick={() => closeModal(false)}
                 >
                   회원가입
                 </button>
               </Link>
-            </div>
-            <div>
+              &nbsp;&nbsp;
+              
               <button
-                className="loginregister__button"
+                className="findregister__button"
                 onClick={(e) => {
                   e.preventDefault();
                   setOpenFindIdModal(true);
@@ -275,24 +347,27 @@ function LoginModal({ closeModal }) {
               >
                 ID 찾기
               </button>
-
+                
+                &nbsp;&nbsp;
               <button
-                className="loginregister__button"
+                className="findregister__button"
                 onClick={(e) => {
                   e.preventDefault();
-                  setOpenFindIdModal(true);
+                  setOpenFindPwModal(true);
                 }}
               >
-                Password 찾기
+                Pw 찾기
               </button>
             </div>
+            <br/>
             <CloseIcon
               className="btnX"
               onClick={() => closeModal(false)}
             ></CloseIcon>
           </form>
         </div>
-        {openFindIdModal && <FindIdModal closeIdModal={setOpenFindIdModal} />}
+        {openFindIdModal && <FindIdModal closeFindIdModal={setOpenFindIdModal} />}
+        {openFindPwModal && <FindPwModal closeFindPwModal={setOpenFindPwModal} />}
       </Contents>
     </Container>
   );
