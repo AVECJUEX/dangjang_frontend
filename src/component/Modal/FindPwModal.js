@@ -85,11 +85,6 @@ const Contents = styled.div`
     width: 151px;
     height: 37px;
   }
-  .modalLogo {
-    object-fit: cover;
-    width: auto;
-    height: 100px;
-  }
 `;
 const Title = styled.div`
   display: flex-end;
@@ -212,7 +207,7 @@ const ModalContainer = styled.div`
   }
 `;
 
-function FindIdModal({ closeFindIdModal }) {
+function FindPwModal({ closeFindPwModal }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -235,7 +230,6 @@ function FindIdModal({ closeFindIdModal }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-
   };
 
   return (
@@ -245,13 +239,13 @@ function FindIdModal({ closeFindIdModal }) {
 
         <div className="findregister">
           <form>
-            <img className="modalLogo" src={loginLogoPath} alt=""></img>
+          <img className="modalLogo" src={loginLogoPath} alt=""></img>
 
             <div>
               <input
                 name="name"
                 type="text"
-                placeholder="이름을 입력하세요"
+                placeholder="아이디를 입력하세요"
                 value={name}
                 onChange={onNameHandler}
                 className="loginregister__input"
@@ -289,13 +283,13 @@ function FindIdModal({ closeFindIdModal }) {
                 // onSubmit={onSubmit}
                 className="findregister__button"
               >
-                ID 찾기
+                PW 찾기
               </button>
             </div>
             <br/>
             <CloseIcon
               className="btnX"
-              onClick={() => closeFindIdModal(false)}
+              onClick={() => closeFindPwModal(false)}
             ></CloseIcon>
           </form>
         </div>
@@ -304,4 +298,4 @@ function FindIdModal({ closeFindIdModal }) {
   );
 }
 
-export default FindIdModal;
+export default FindPwModal;

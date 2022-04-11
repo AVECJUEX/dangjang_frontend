@@ -1,11 +1,19 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, {useRef,useEffect, useState } from "react";
 
 import LogoPath from "../IMG/logo.png";
 import Input from "./Input";
 import Label from "./Label";
 import LoginModal from "./Modal/LoginModal";
 import { Link, NavLink } from "react-router-dom";
+import { useUserDispatch, useUserState } from "./member/UserContext";
+// import styles from "styles/components/DropDown.module.scss";
+// import classNames from "classNames";
+import useDetectClose from "./hooks/useDetectCLose";
+import styles from "../CSS/dropdown.css";
+
+
+
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -84,6 +92,15 @@ const HeaderBox = styled.div`
     width: 50%;
     right: 0px;
   }
+  .left-content {
+    display: flex;
+    position: absolute;
+    justify-content: flex-end;
+    width: 50%;
+    right: 0px;
+  }
+  
+
   button {
     cursor: pointer;
     background: transparent;
@@ -141,21 +158,44 @@ const HeaderBox = styled.div`
     backgroundColor :#E6E6FA;
 
   }
-`;
+
+
+`
+
+;
 
 function Home() {
   const [openModal, setOpenModal] = useState(false);
+  const { user } = useUserState();
+  const dispatch = useUserDispatch();
+  const dropDownRef = useRef(null);
+  const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
 
+
+
+  useEffect(()=>{
+    console.log('user 정보 ---> ', user);
+  }, [user])
+
+  const onClickLogout = () => {
+    sessionStorage.removeItem('userid');
+
+    dispatch({
+      type: "LOGOUT",
+    });
+  }
   return (
     <HeaderContainer>
       <HeaderBox>
         <div className="Category">
           <ul className="MainUl">
+       
             <li>
               <Link to="/">
                 <img src={LogoPath} alt=""></img>
               </Link>
             </li>
+            
             <li>
               🛒{" "}
               <NavLink
@@ -204,7 +244,7 @@ function Home() {
                 질문
               </NavLink>
             </li>
-
+            
             <div className="right-content">
               <ul className="MainUl">
                 <li>
@@ -216,7 +256,8 @@ function Home() {
                     />
                   </Label>
                 </li>
-                <li>
+
+                {user == null ? <li>
                   <button
                     className="mainButton"
                     onClick={() => {
@@ -226,6 +267,24 @@ function Home() {
                     로그인
                   </button>
                 </li>
+                :
+                <>
+                <li>
+                <NavLink
+                to="/qna/qna/qna/qnaTop"
+                className={({ isActive }) =>
+                  "Header-Menu" + (isActive ? "-Active" : "")
+                }
+              >
+                {" "}
+                마이페이지
+              
+                </NavLink>
+                </li>
+                <li onClick={onClickLogout}>로그아웃</li>
+                </>
+                }
+                
                 <li></li>
               </ul>
             </div>

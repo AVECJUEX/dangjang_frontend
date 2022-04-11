@@ -22,7 +22,8 @@ import RegisterPage from "./component/member/RegisterPage"
 
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
-import FindModal from "./component/Modal/FindIdModal";
+import FindIfModal from "./component/Modal/FindIdModal";
+import { useUserDispatch } from "./component/member/UserContext";
 
 import PZoomImage from "./component/board/util/PZoomImage";
 import Modal from "./component/board/util/Modal";
@@ -56,6 +57,18 @@ const MainPageContainer = styled.div`
 `;
 
 function App() {
+  const dispatch = useUserDispatch();
+
+  React.useEffect(()=>{
+    if( window.sessionStorage.getItem("userid")!=null){
+      dispatch({
+        type: "LOGIN",
+        userid: window.sessionStorage.getItem("userid"),
+      });
+    }
+  },[]);  
+
+
   return (
     <>
       <div className="App">
@@ -93,8 +106,8 @@ function App() {
               <Route path="loginmodal" element={<LoginModal />} />
               <Route path="loginpage" element={<LoginPage />} />
 
+              <Route path="findIdmodal" element={<FindIfModal />} />
               <Route path="findmodal" element={<FindModal />} />
-
               <Route path="test" element={<PZoomImage />} />
             </Routes>
           </MarketContainer>
