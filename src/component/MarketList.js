@@ -1,8 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import React from "react";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import TableRow from './board/TableRow'
+import React, { useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+import Axios from "axios";
 
 const MoviesBox = styled.div`
   .Category {
@@ -46,10 +49,10 @@ p {
   
 `;
 
-const MoviesSlider = styled.div`
+const BoardSlider = styled.div`
   position: relative;
   transform: translate3d(0px, 0px, 0px);
-  margin: 0px -8px;
+  text-align : center;
 
   .listbox{
     padding-right : 0px;
@@ -58,7 +61,7 @@ const MoviesSlider = styled.div`
   .list{
     display: inline-block;
     width : 20%;
-    height: auto;
+    height: 100%;
   }  
 
   li {
@@ -68,48 +71,44 @@ const MoviesSlider = styled.div`
   img {
     display: inline-block;
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
   }
 
   a {
-    
     display: inline-block;
     text-decoration: none;
     margin: 0px 8px;
   }
 
-  
+  a:link { color: black; text-decoration: none;}
+  a:visited { color: black; text-decoration: none;}
+  a:hover { color: black; text-decoration: none;}
+ 
 
-  .Movie,
+  .Board,
   img {
     border-radius: 5px;
-    
-
   }
 
-
-
-  .MovieInfo {
+  .BoardInfo {
     font-size: 12px;
     text-align: left;
     width: calc(100% - 10px);
     margin: 5px 10px 0 0;
   }
 
-  .MovieInfo p {
-    color: #292a32;
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-  }
-
-  .MovieInfo__name {
+  .BoardInfo__title {
     font-size: 16px !important;
     font-weight: bold !important;
   }
 
-  .MovieInfo__average {
+  .BoardInfo__price {
     color: #555765;
+  }
+
+  p {
+    margin: 0;
   }
 
   .slick-prev:before,
@@ -132,8 +131,10 @@ const MoviesSlider = styled.div`
 `;
 
 function MarketList() {
-
-
+  const [board, setBoard] = useState([])
+  const [page, setPage] = useState(1);
+  const [totalCnt, setTotalCnt] = useState([]);
+  const [loading, setLoading]=useState(false);
   const settings = {
     infinite: false,
     arrows: true,
@@ -163,24 +164,34 @@ function MarketList() {
     ],
   };
 
- 
+  const loadData = async (page) => {
+    setLoading(true);
+    const res = await Axios.get('http://localhost:9090/dangjang/board/list/'+page);
+    console.log(res.data);
+    setTotalCnt(res.data.totalCnt);
+    setBoard(res.data.list);
+    setLoading(false);
+  }
+  useEffect( ()=>
+  {
+  loadData(1);
+  }, []);
 
   return (
     <>
-            
-         
-    
       <MoviesBox>
         <div className="Category">
         <p>최신 물품</p>
-         
         </div>
-        <MoviesSlider>
+        <BoardSlider>
           <div className="listbox">
-          
-              <a href="#!"></a>
+            {
+              board.map(function(object, i){
+                  return <TableRow obj={object} key={i} totalCnt={totalCnt} />
+              })
+            }
           </div>
-        </MoviesSlider>
+        </BoardSlider>
       </MoviesBox>
      
     </>

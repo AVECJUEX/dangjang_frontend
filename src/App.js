@@ -10,6 +10,7 @@ import BoardList from "./component/board/board_list";
 import BoardWrite from "./component/board/board_write";
 import BoardView from "./component/board/board_view";
 import BoardUpdate from "./component/board/board_update";
+
 import FreeBoardList from "./component/freeboard/freeboard_list";
 import FreeBoardWrite from "./component/freeboard/freeboard_write";
 import FreeBoardView from "./component/freeboard/freeboard_view";

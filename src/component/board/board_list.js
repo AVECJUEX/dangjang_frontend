@@ -186,11 +186,11 @@ function BoardList(){
         <BoardBox>
           <div className="Category">
             <p>
-              물품 목록
+              <strong>물품 목록</strong>
               <Link className="btn" style={{float:'right'}} to="/board/write">글쓰기</Link>
             </p>
           </div>
-          <hr/>
+          <hr style={{margin:'-5px'}}/>
           {/* <a onClick={()=>refresh()}><strong>전체</strong>&nbsp;&nbsp;&nbsp;&nbsp;</a> */}
           {
             totalCnt.map(({category_code, category_name, catCnt})=>{
