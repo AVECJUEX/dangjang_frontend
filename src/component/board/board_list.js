@@ -176,6 +176,12 @@ function BoardList(){
         setKeyword(keyword);
         setEmpty(false);
       }
+
+      // 새로고침
+      // const refresh=()=>{
+      //   window.location.reload();
+      // }
+
       return (
         <BoardBox>
           <div className="Category">
@@ -185,14 +191,14 @@ function BoardList(){
             </p>
           </div>
           <hr/>
+          {/* <a onClick={()=>refresh()}><strong>전체</strong>&nbsp;&nbsp;&nbsp;&nbsp;</a> */}
           {
             totalCnt.map(({category_code, category_name, catCnt})=>{
               console.log(category_code,category_name,catCnt );
-              return <a onClick={()=>onClickCode(category_code)}><strong>{category_name}({catCnt}</strong>)&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              if(category_code=='00') category_code='';
+              return <a onClick={()=>onClickCode(category_code)}><strong>{category_name}({catCnt})</strong>&nbsp;&nbsp;&nbsp;&nbsp;</a>
             })
           }
-          {/* <a onClick={()=>onClickCode('')}>전체({totalCnt})</a>
-          <a onClick={()=>onClickCode('01')} >옷({totalCnt})</a> */}
           <BoardSlider >
             <div className="listbox" >
                 {

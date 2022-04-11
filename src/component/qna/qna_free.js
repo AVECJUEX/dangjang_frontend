@@ -15,7 +15,7 @@ import styled from "styled-components";
 function QnaFree(){
       
     
-  
+    
 
      const [qna, setQna] = useState([]) //게시글
      const [page, setPage] = useState(1);   //페이징 정보
@@ -79,11 +79,13 @@ function QnaFree(){
       };
       
      
+    
       
       return (
     <div style={{display : 'inline-block', width : '78%', marginLeft:'7%', padding : '0px', verticalAlign: 'top'}}>
 
         {
+          
           qna.map(function(object, i){
             return<TableRow obj={object} key={i} totalCnt={totalCnt}/>
           })

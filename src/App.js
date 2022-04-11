@@ -11,16 +11,21 @@ import BoardWrite from "./component/board/board_write";
 import BoardView from "./component/board/board_view";
 import BoardUpdate from "./component/board/board_update";
 import FreeBoardList from "./component/freeboard/freeboard_list";
-import QnaList from "./component/qna/qna_list";
-import QnaView from "./component/qna/qna_view";
-import QnaWrite from "./component/qna/qna_write";
-// import QnaTop from "./component/qna/qna_top";
-// import QnaFree from "./component/qna/qna_free";
-import RegisterPage from "./component/member/RegisterPage";
+import FreeBoardWrite from "./component/freeboard/freeboard_write";
+import FreeBoardView from "./component/freeboard/freeboard_view";
+import QnaList from "./component/qna/qna_list"
+import QnaView from'./component/qna/qna_view';
+import QnaWrite from'./component/qna/qna_write';
+import QnaCommentWrite from "./component/qna/qnacomment_write";
+import QnaUpdate from "./component/qna/qna_update"
+import RegisterPage from "./component/member/RegisterPage"
 
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
 import FindModal from "./component/Modal/FindIdModal";
+
+import PZoomImage from "./component/board/util/PZoomImage";
+import Modal from "./component/board/util/Modal";
 
 const MarketContainer = styled.section`
   margin: 60px 0 0 auto;
@@ -58,25 +63,39 @@ function App() {
         <MainPageContainer>
           <MarketContainer>
             <Routes>
-              <Route exact path="/" element={<Layout />} />
+
+            <Route exact path="/"  element={<Layout />} />
+
               <Route path="board" element={<BoardList />} />
               <Route path="board/write" element={<BoardWrite />} />
               <Route path="board/view/:board_seq" element={<BoardView />} />
 
               <Route path="board/update/:board_seq" element={<BoardUpdate />}/>
-              
+              <Route path="board/view/modal" element={<Modal />} />
+
               <Route path="freeboard" element={<FreeBoardList />} />
+              <Route path="freeboard/write" element={<FreeBoardWrite />} />
+              <Route path="/freeboard/view/:board_seq" element={<FreeBoardView/>}/>
 
 
-              <Route exact path="qna/*" element={<QnaList />} />
-              <Route path="qna/write" element={<QnaWrite />} />
-              <Route path="qna/view/:qna_seq" element={<QnaView />} />
+              <Route exact path="qna/*" element={<QnaList/>}/>
+              <Route exact path="qna/write" element={<QnaWrite/>}/>
+              
+              <Route path="/qnaUpdate/:qna_seq" element={<QnaUpdate/>}/>
+              <Route path="/qnacommentwrite/:qna_seq"  element={<QnaCommentWrite/>} />
+ 
+              
+              
+            
+
 
               <Route path="register" element={<RegisterPage />} />
               <Route path="loginmodal" element={<LoginModal />} />
               <Route path="loginpage" element={<LoginPage />} />
 
               <Route path="findmodal" element={<FindModal />} />
+
+              <Route path="test" element={<PZoomImage />} />
             </Routes>
           </MarketContainer>
         </MainPageContainer>

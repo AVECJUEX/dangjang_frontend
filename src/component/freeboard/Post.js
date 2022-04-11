@@ -1,26 +1,49 @@
 import React from 'react';
 import {Avatar} from '@material-ui/core';
+import { useState, useEffect} from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Post.css";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import { ExpandMoreOutlined } from "@material-ui/icons";
-import { Link } from 'react-router-dom';
+import Axios from "axios";
 
-function Post({profilePic, image, username, timestamp, message }) {
+
+/**
+ free_seq={free_seq}
+                title= {title}
+                content={content}
+                user_id={user_id}
+                user_seq={user_seq}
+                hit={hit}
+                wdate={wdate}
+ */
+
+function Post({user_id, title, content, image, wdate, like_cnt, hit, user_seq}) {
+    let history = useNavigate ();
+    let { free_seq } = useParams();
+
+   
+
+    useEffect(()=>{
+      console.log("[Post----free_seq----]",free_seq);
+    },[]);
+
+   
     return (
         <div className="post">
             <div className="post__top">
-                <Avatar src = {profilePic} className="post__avatar"/>
+                <Avatar src = {image} className="post__avatar"/>
                 <div className="post__topInfo">
-                    <h3>{username}</h3>
-                    <p>Timestamp...</p>
+                    <h3>{user_id}</h3>
+                    <p>{wdate}</p>
                 </div>
             </div>
 
             <div className="post__bottom">
-                <p>{message}</p>
+                <p>{content}</p>
             </div>
             
             <div className="post__image">

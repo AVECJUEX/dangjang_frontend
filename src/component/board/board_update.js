@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment, useMemo } from "react";
 import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
-import FileUpload from "./FileUpload";
+import FileUpload from "./util/FileUpload";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 

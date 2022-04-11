@@ -3,6 +3,7 @@ import Production from "./Production";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import Axios from "axios";
+import ZoomImage from "./util/ZoomImage";
 
 const MainInfoBackground = styled.div`
   width: 100%;
