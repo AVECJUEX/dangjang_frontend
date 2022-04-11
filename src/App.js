@@ -28,6 +28,7 @@ import { useUserDispatch } from "./component/member/UserContext";
 import PZoomImage from "./component/board/util/PZoomImage";
 import Modal from "./component/board/util/Modal";
 
+
 const MarketContainer = styled.section`
   margin: 60px 0 0 auto;
   width: 100%;
@@ -107,8 +108,9 @@ function App() {
               <Route path="loginpage" element={<LoginPage />} />
 
               <Route path="findIdmodal" element={<FindIfModal />} />
-              <Route path="findmodal" element={<FindModal />} />
+              
               <Route path="test" element={<PZoomImage />} />
+              
             </Routes>
           </MarketContainer>
         </MainPageContainer>

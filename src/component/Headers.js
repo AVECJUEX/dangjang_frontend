@@ -10,7 +10,8 @@ import { useUserDispatch, useUserState } from "./member/UserContext";
 // import styles from "styles/components/DropDown.module.scss";
 // import classNames from "classNames";
 import useDetectClose from "./hooks/useDetectCLose";
-import styles from "../CSS/dropdown.css";
+
+
 
 
 
@@ -168,8 +169,7 @@ function Home() {
   const [openModal, setOpenModal] = useState(false);
   const { user } = useUserState();
   const dispatch = useUserDispatch();
-  const dropDownRef = useRef(null);
-  const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
+ 
 
 
 
@@ -272,6 +272,7 @@ function Home() {
                 <li>
                 <NavLink
                 to="/qna/qna/qna/qnaTop"
+                // to={DropDown}
                 className={({ isActive }) =>
                   "Header-Menu" + (isActive ? "-Active" : "")
                 }
