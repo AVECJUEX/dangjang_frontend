@@ -3,7 +3,6 @@ import Production from "./Production";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import Axios from "axios";
-import ZoomImage from "./util/ZoomImage";
 
 const MainInfoBackground = styled.div`
   width: 100%;
@@ -103,7 +102,7 @@ const MainInfoContainer = styled.div`
   }
 `;
 
-function MainInfo(porps, { match }) {
+function MainInfo(props, { match }) {
   let history = useNavigate ();
     let { board_seq } = useParams();
 
