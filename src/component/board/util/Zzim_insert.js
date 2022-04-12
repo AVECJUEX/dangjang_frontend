@@ -4,7 +4,7 @@ import Axios from "axios";
 import { HeartOutlined } from '@ant-design/icons';
 import { HeartFilled } from '@ant-design/icons';
 
-function Zzim_insert({board_seq} ){
+function Zzim_insert({board_seq, setZzimCnt} ){
 
     let history = useNavigate (); 
     let login_id = "test1";
@@ -38,12 +38,11 @@ function Zzim_insert({board_seq} ){
               console.log(res.data.result);
               setZZim(res.data.zzimdto);
               setIsSuccess(true);
+              setZzimCnt(res.data.zzim_cnt);
             }
-            refreshPage();
           } 
       );
     }
-
 
     useEffect(()=>{
       console.log("제일 처음isSuccess-----------------------", isSuccess)
@@ -57,7 +56,7 @@ function Zzim_insert({board_seq} ){
             console.log(res.data.zzimdto);
             console.log(res.data.result);
             setZZim(res.data.zzimdto);
-            // refreshPage();
+            setZzimCnt(res.data.zzim_cnt);
           } 
       );
     }, [])
@@ -75,22 +74,22 @@ function Zzim_insert({board_seq} ){
                 console.log(res.data.result);
                 setZZim(res.data.zzimdto);
                 setIsSuccess(true);
+                setZzimCnt(res.data.zzim_cnt);
+
               }
             ).catch(err => console.log(err));
           alert("취소!")
-        refreshPage();
         console.log("취소!");  
     }
     
-    return  (<>
+    return (<>
         {
           zzim == undefined ? 
-            <HeartOutlined onClick={onSubmit} />
+            <HeartOutlined onClick={onSubmit}/>
           : 
             <HeartFilled onClick={deleteItem}/>
         }
-      </>
-    )
+      </>)
   }
 
 export default Zzim_insert;

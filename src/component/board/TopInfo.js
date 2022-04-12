@@ -263,16 +263,15 @@ function TopInfo(props, { match }) {
     user_id: '',
     price:'',
     image1:'',
-    zzim_cnt:'',
     user_images:'',
     hit:'',
     my_cnt:'',
     nick_name:'',
     address1:''
   });
-  
-  const { user_id, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
+  const [zzim_cnt, setZzimCnt] = useState("");
 
+  const { user_id, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
   useEffect(() => { 
       console.log( board_seq );
       Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
@@ -291,7 +290,6 @@ function TopInfo(props, { match }) {
                 });
             }
           );
-    //console.log( heroState.hero );
   }, []);
 
   const refreshPage=()=>{ 
@@ -328,10 +326,10 @@ function TopInfo(props, { match }) {
                 {nick_name} ・ {address1} ・ {my_cnt}개
               </div>
               <div className="ContentRatings">
-              <Zzim_insert board_seq={board_seq}/>
+                <Zzim_insert board_seq={board_seq} setZzimCnt={setZzimCnt}/>
                 찜 {zzim_cnt}개 ({hit} 명이 이 게시물을 봤습니다.)
               </div>
-              <div className="ButtonBlock">  
+              <div className="ButtonBlock">
                       {
                         user_id !== login_id ? 
                         <div className="Self" style={{width:'150px'}}>
