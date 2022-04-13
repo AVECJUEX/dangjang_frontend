@@ -96,7 +96,7 @@ function App() {
 
               <Route path="freeboard" element={<FreeBoardList />} />
               <Route path="freeboard/write" element={<FreeBoardWrite />} />
-              <Route path="/freeboard/view/:board_seq" element={<FreeBoardView/>}/>
+              <Route path="freeboard/view/:free_seq" element={<FreeBoardView/>}/>
 
 
               <Route exact path="qna/*" element={<QnaList/>}/>
