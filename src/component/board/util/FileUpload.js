@@ -1,25 +1,14 @@
 import React, { useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { PlusOutlined } from '@ant-design/icons'
-import axios from 'axios'
-
 
 function FileUpload({setfileList, setImageSrc, setImageSrcList, imageSrcList}){ 
 
-    //const [tmpList, setTmpList] = useState([]);
-
-
-
-    
     const dropHandler = (files)=>{
 
       console.log("-----------------",files);
 
       setfileList(files);
-      //encodeFileToBase64(files[0]);
-      //files.map((file)=> encodeFileToBase64(file));
-      //setImageSrcList(...imageSrcList, tmpList);
-      
 
     }
 

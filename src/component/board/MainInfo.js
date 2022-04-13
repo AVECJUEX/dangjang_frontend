@@ -102,7 +102,7 @@ const MainInfoContainer = styled.div`
   }
 `;
 
-function MainInfo(porps, { match }) {
+function MainInfo(props, { match }) {
   let history = useNavigate ();
     let { board_seq } = useParams();
 

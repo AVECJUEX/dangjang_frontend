@@ -10,16 +10,25 @@ import BoardList from "./component/board/board_list";
 import BoardWrite from "./component/board/board_write";
 import BoardView from "./component/board/board_view";
 import BoardUpdate from "./component/board/board_update";
+
 import FreeBoardList from "./component/freeboard/freeboard_list";
+import FreeBoardWrite from "./component/freeboard/freeboard_write";
+import FreeBoardView from "./component/freeboard/freeboard_view";
 import QnaList from "./component/qna/qna_list"
 import QnaView from'./component/qna/qna_view';
 import QnaWrite from'./component/qna/qna_write';
 import QnaCommentWrite from "./component/qna/qnacomment_write";
 import QnaUpdate from "./component/qna/qna_update"
+import RegisterPage from "./component/member/RegisterPage"
 
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
-import FindModal from "./component/Modal/FindIdModal";
+import FindIfModal from "./component/Modal/FindIdModal";
+import { useUserDispatch } from "./component/member/UserContext";
+
+import PZoomImage from "./component/board/util/PZoomImage";
+import Modal from "./component/board/util/Modal";
+
 
 const MarketContainer = styled.section`
   margin: 60px 0 0 auto;
@@ -50,6 +59,18 @@ const MainPageContainer = styled.div`
 `;
 
 function App() {
+  const dispatch = useUserDispatch();
+
+  React.useEffect(()=>{
+    if( window.sessionStorage.getItem("userid")!=null){
+      dispatch({
+        type: "LOGIN",
+        userid: window.sessionStorage.getItem("userid"),
+      });
+    }
+  },[]);  
+
+
   return (
     <>
       <div className="App">
@@ -65,8 +86,11 @@ function App() {
               <Route path="board/view/:board_seq" element={<BoardView />} />
 
               <Route path="board/update/:board_seq" element={<BoardUpdate />}/>
-              
+              <Route path="board/view/modal" element={<Modal />} />
+
               <Route path="freeboard" element={<FreeBoardList />} />
+              <Route path="freeboard/write" element={<FreeBoardWrite />} />
+              <Route path="/freeboard/view/:board_seq" element={<FreeBoardView/>}/>
 
 
               <Route exact path="qna/*" element={<QnaList/>}/>
@@ -77,14 +101,17 @@ function App() {
  
               
               
-            </Routes>
+            
 
 
               <Route path="register" element={<RegisterPage />} />
               <Route path="loginmodal" element={<LoginModal />} />
               <Route path="loginpage" element={<LoginPage />} />
 
-              <Route path="findmodal" element={<FindModal />} />
+              <Route path="findIdmodal" element={<FindIfModal />} />
+              
+              <Route path="test" element={<PZoomImage />} />
+              
             </Routes>
           </MarketContainer>
         </MainPageContainer>
