@@ -33,6 +33,7 @@ import { useUserDispatch } from "./component/member/UserContext";
 
 import PZoomImage from "./component/board/util/PZoomImage";
 import Modal from "./component/board/util/Modal";
+import RegisterModify from "./component/member/RegisterModify ";
 
 
 const MarketContainer = styled.section`
@@ -112,6 +113,7 @@ function App() {
               
               {/* 마이페이지 */}
               <Route exact path="mypage/*" element={<MyList/>}/>
+              <Route  path="registerModify"  element={<RegisterModify />} />
 
 
               <Route path="test" element={<PZoomImage />} />

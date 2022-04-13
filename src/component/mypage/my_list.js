@@ -11,6 +11,7 @@ import MyHeader from "./my_header";
 import MyMenu from "./my_menu";
 
 import QnaId from "./my_id";
+import RegisterModify from "../member/RegisterModify ";
 
 
 
@@ -238,6 +239,7 @@ function MyList( ){
             <Routes>
               
             <Route  path="/"  element={<QnaContents />} />
+           
              
 
             </Routes>
