@@ -165,7 +165,7 @@ const HeaderBox = styled.div`
 
 ;
 
-function Home() {
+function Headers() {
   const [openModal, setOpenModal] = useState(false);
   const { user } = useUserState();
   const dispatch = useUserDispatch();
@@ -271,7 +271,7 @@ function Home() {
                 <>
                 <li>
                 <NavLink
-                to="/qna/qna/qna/qnaTop"
+                to="/mypage"
                 // to={DropDown}
                 className={({ isActive }) =>
                   "Header-Menu" + (isActive ? "-Active" : "")
@@ -298,4 +298,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Headers;
