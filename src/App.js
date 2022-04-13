@@ -22,7 +22,7 @@ import QnaCommentWrite from "./component/qna/qnacomment_write";
 import QnaUpdate from "./component/qna/qna_update"
 
 
-
+import MyList from "./component/mypage/my_list"
 
 import RegisterPage from "./component/member/RegisterPage"
 
@@ -34,6 +34,7 @@ import RegisterPage from "./component/member/RegisterPage"
 
 import PZoomImage from "./component/board/util/PZoomImage";
 import Modal from "./component/board/util/Modal";
+import RegisterModify from "./component/member/RegisterModify ";
 
 
 const MarketContainer = styled.section`
@@ -96,7 +97,7 @@ function App() {
 
               <Route path="freeboard" element={<FreeBoardList />} />
               <Route path="freeboard/write" element={<FreeBoardWrite />} />
-              <Route path="/freeboard/view/:board_seq" element={<FreeBoardView/>}/>
+              <Route path="freeboard/view/:free_seq" element={<FreeBoardView/>}/>
 
 
               <Route exact path="qna/*" element={<QnaList/>}/>
@@ -106,7 +107,7 @@ function App() {
  
               
               
-            </Routes>
+            
 
 
               <Route path="register" element={<RegisterPage />} />
@@ -114,10 +115,6 @@ function App() {
               <Route path="loginpage" element={<LoginPage />} />
               <Route path="findIdmodal" element={<FindIfModal />} />
               
-              {/* 마이페이지 */}
-             
-
-
               <Route path="test" element={<PZoomImage />} />
               
             </Routes>

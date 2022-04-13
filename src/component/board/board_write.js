@@ -41,8 +41,8 @@ const MainInfoContainer = styled.div`
 function BoardWrite( ){
 
     let history = useNavigate (); //자바스크립트 : history.go(-1)
-    let login_id = "test1";
-    let login_seq = "1";
+    let login_id = "test2";
+    let login_seq = "2";
     // const [user_id, setUser_id] = useState(0);
     const [imageSrc, setImageSrc] = useState("");
     const [imageSrcList, setImageSrcList] = useState([]);
