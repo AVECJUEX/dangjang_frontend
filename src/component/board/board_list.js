@@ -1,4 +1,3 @@
-
 import TableRow from './TableRow'
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import styled from "styled-components";
@@ -6,11 +5,6 @@ import { Link, Routes } from "react-router-dom";
 import { useInView } from "react-intersection-observer"
 import Axios from "axios";
 import "../../page.css";
-import BoardWrite from '../board/board_write';
-import { AutoComplete } from 'antd';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-
 
 const BoardBox = styled.div`
   .Category {
@@ -177,11 +171,6 @@ function BoardList(){
         setEmpty(false);
       }
 
-      // 새로고침
-      // const refresh=()=>{
-      //   window.location.reload();
-      // }
-
       return (
         <BoardBox>
           <div className="Category">
@@ -213,9 +202,7 @@ function BoardList(){
                   )
                 }
             </div>
-
           </BoardSlider>
-          
         </BoardBox>
       );
 }

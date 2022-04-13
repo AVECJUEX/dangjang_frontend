@@ -3,6 +3,7 @@ import React, { useState, useEffect, Fragment} from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import Chat from "../../IMG/Chat.png";
+import Zzim_insert from "./util/Zzim_insert";
 
 const PaneBox = styled.div`
   text-align: center;
@@ -249,19 +250,8 @@ const PaneBox = styled.div`
   }
 `;
 
-// const Zoomarea = styled.div`
-//   border: 1px solid rgb(227, 227, 227);
-//   width: 200px;
-//   height: 200px;
-//   position: absolute;
-//   margin-right: auto;
-//   float: right;
-//   right: 0px;
-//   justify-content: right;
-// `;
-
 function TopInfo(props, { match }) {
-  let login_id = "test1";
+  let login_id = "test2";
   let history = useNavigate ();
   let { board_seq } = useParams();
   //값을 초기화 시키되는 값.
@@ -273,16 +263,15 @@ function TopInfo(props, { match }) {
     user_id: '',
     price:'',
     image1:'',
-    zzim_cnt:'',
     user_images:'',
     hit:'',
     my_cnt:'',
     nick_name:'',
     address1:''
   });
-  
-  const { user_id, zzim_cnt, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
+  const [zzim_cnt, setZzimCnt] = useState("");
 
+  const { user_id, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
   useEffect(() => { 
       console.log( board_seq );
       Axios.get(`http://localhost:9090/dangjang/board/view/${board_seq}`)
@@ -301,7 +290,6 @@ function TopInfo(props, { match }) {
                 });
             }
           );
-    //console.log( heroState.hero );
   }, []);
 
   const refreshPage=()=>{ 
@@ -338,9 +326,10 @@ function TopInfo(props, { match }) {
                 {nick_name} ・ {address1} ・ {my_cnt}개
               </div>
               <div className="ContentRatings">
+                <Zzim_insert board_seq={board_seq} setZzimCnt={setZzimCnt}/>
                 찜 {zzim_cnt}개 ({hit} 명이 이 게시물을 봤습니다.)
               </div>
-              <div className="ButtonBlock">  
+              <div className="ButtonBlock">
                       {
                         user_id !== login_id ? 
                         <div className="Self" style={{width:'150px'}}>
