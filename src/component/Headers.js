@@ -271,7 +271,7 @@ function Home() {
                 <>
                 <li>
                 <NavLink
-                to="/qna/qna/qna/qnaTop"
+                to="/mypage"
                 // to={DropDown}
                 className={({ isActive }) =>
                   "Header-Menu" + (isActive ? "-Active" : "")
