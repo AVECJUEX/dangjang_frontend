@@ -145,6 +145,8 @@ function RegisterPage() {
   return (
     <div class="loginregister">
       <form onSubmit={onSubmit} encType="multipart/form-data" >
+        <br/>
+        <br/>
       <img className="signupLogo" src={signup} alt=""></img>
       <div
         style={{
