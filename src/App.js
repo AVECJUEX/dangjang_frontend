@@ -30,6 +30,7 @@ import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
 import FindIfModal from "./component/Modal/FindIdModal";
 import { useUserDispatch } from "./component/member/UserContext";
+import RegisterPage from "./component/member/RegisterPage"
 
 import PZoomImage from "./component/board/util/PZoomImage";
 import Modal from "./component/board/util/Modal";
@@ -105,17 +106,15 @@ function App() {
               <Route path="/qnacommentwrite/:qna_seq"  element={<QnaCommentWrite/>} />
  
               
-              {/*회원가입  */}
+              
+            
+
+
               <Route path="register" element={<RegisterPage />} />
               <Route path="loginmodal" element={<LoginModal />} />
               <Route path="loginpage" element={<LoginPage />} />
               <Route path="findIdmodal" element={<FindIfModal />} />
               
-              {/* 마이페이지 */}
-              <Route exact path="mypage/*" element={<MyList/>}/>
-              <Route  path="registerModify"  element={<RegisterModify />} />
-
-
               <Route path="test" element={<PZoomImage />} />
               
             </Routes>

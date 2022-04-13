@@ -16,6 +16,7 @@ import QnaId from "./qna_id";
 
 
 
+
 const QnaContainer = styled.div`
  h1{
   line-height: 32px;
@@ -129,13 +130,14 @@ const QnaContainer = styled.div`
     letter-spacing: -0.4px;
     line-height: 30px;
     font-size : 19px;
-    width : auto;
     padding : 8px;
     text-align : center;  
-    margin-left:87%
+    margin-left:90%;
+    width : auto;
  }
  .qnaBtn:hover{
   background-color:#e5e8eb;
+  color : #6667ab;
  
  }
  .qnalist-title{
@@ -235,20 +237,7 @@ function QnaList( ){
       return (
         <QnaContainer>
           <QnaHeader></QnaHeader>
-          <QnaMenu></QnaMenu>
-            <Routes>
-              
-            <Route  path="/"  element={<QnaContents />} />
-              <Route path="qna/qna/qnatop"  element={<QnaTop />} />
-              <Route path="qna/qna/qnafree"  element={<QnaFree />} />
-              <Route path="qna/qna/qnaoper"  element={<QnaOper />} />
-              <Route path="qna/qna/qnaid"  element={<QnaId />} />
-              
-              <Route path="qna/view/:qna_seq/" element={<QnaView/>}/>
-              
-             
-              
-            </Routes>
+        
             
        
          
@@ -256,17 +245,7 @@ function QnaList( ){
       );
     }
     
-    function QnaContents(){
-      return(
-        <div>
-
-          <Outlet/>          
-        </div>
-        
-        
-  )
-}
-
+    
 
 
 

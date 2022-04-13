@@ -86,6 +86,7 @@ const HeaderBox = styled.div`
     line-height: 30px;
     font-size: 24px;
   }
+  
   .right-content {
     display: flex;
     position: absolute;
@@ -93,14 +94,6 @@ const HeaderBox = styled.div`
     width: 50%;
     right: 0px;
   }
-  .left-content {
-    display: flex;
-    position: absolute;
-    justify-content: flex-end;
-    width: 50%;
-    right: 0px;
-  }
-  
 
   button {
     cursor: pointer;
@@ -131,10 +124,15 @@ const HeaderBox = styled.div`
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     border-radius: 0.25rem;
-    border-color: #6667ab;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    border-color :#6667AB;
+    transition: color .15s 
+      ease-in-out,background-color .15s 
+      ease-in-out,border-color .15s 
+      ease-in-out,box-shadow .15s 
+      ease-in-out;
+    
   }
+
   button.sign-up {
     text-align: center;
     border-radius: 6px;
@@ -148,6 +146,7 @@ const HeaderBox = styled.div`
     padding: 5px 14px 6px;
     border: 1px solid rgba(116, 116, 123, 0.5);
   }
+
   img {
     object-fit: cover;
     width: 151px;
@@ -165,7 +164,7 @@ const HeaderBox = styled.div`
 
 ;
 
-function Home() {
+function Headers() {
   const [openModal, setOpenModal] = useState(false);
   const { user } = useUserState();
   const dispatch = useUserDispatch();
@@ -197,14 +196,14 @@ function Home() {
             </li>
             
             <li>
-              🛒{" "}
+              🛒
               <NavLink
                 to="/board"
                 className={({ isActive }) =>
                   "Header-Menu" + (isActive ? "-Active" : "")
                 }
               >
-                {" "}
+                
                 마켓
               </NavLink>
             </li>
@@ -216,31 +215,31 @@ function Home() {
                   "Header-Menu" + (isActive ? "-Active" : "")
                 }
               >
-                {" "}
+                
                 왁자지껄
               </NavLink>
             </li>
             <li>
-              🗨️{" "}
+              🗨️
               <NavLink
                 to="/"
                 className={({ isActive }) =>
                   "Header-Menu" + (isActive ? "" : "")
                 }
               >
-                {" "}
+                
                 채팅
-              </NavLink>{" "}
+              </NavLink>
             </li>
             <li>
-              ❕❔{" "}
+              ❕❔
               <NavLink
-                to="/qna/qna/qna/qnaTop"
+                to="/qna/qna/qna/qnatop"
                 className={({ isActive }) =>
                   "Header-Menu" + (isActive ? "-Active" : "")
                 }
               >
-                {" "}
+                
                 질문
               </NavLink>
             </li>
@@ -298,4 +297,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Headers;

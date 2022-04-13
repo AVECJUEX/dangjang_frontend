@@ -2,6 +2,7 @@
 import React, { useState, useEffect} from "react";
 import { Link, NavLink, useNavigate, useParams  } from "react-router-dom";
 import Axios from "axios";
+import styled from "styled-components";
 
 function QnaCommentWrite( props){
 
@@ -119,56 +120,128 @@ function QnaCommentWrite( props){
           } 
       );
     }
- 
+    const QnaWriteBtn = styled.div`
+
+    .qnaWriteBtn{
+      border : 0px;
+      background-color : white;
+      line-height: 32px;
+      margin-bottom: 40px;
+      margin-top : 30px;
+      white-space: nowrap;
+      color: #292a32;
+      font-weight: bolder;
+      border-radius: 10px;
+      letter-spacing: -0.4px;
+      line-height: 30px;
+      font-size : 19px;
+      width : auto;
+      padding : 8px;
+       
+      margin-left:93%;
+    }
+    .qnaWriteBtn:hover{
+      background-color:#e5e8eb;
+      color : #6667ab;
+    }
+    label{
+      line-height: 32px;
+      text-decoration: none;
+      list-style: none;
+      white-space: nowrap;
+      color: #292a32;
+      font-weight: bolder;
+      letter-spacing: -0.4px;
+      margin-bottom : 10px;
+      font-size : 1rem;
+    }
+    
+    `;
    
   
     return (
       <div style={{display : 'inline-block', width : '78%', marginLeft:'7%', padding : '0px', verticalAlign: 'top'}}>
     
-       
-          <h1>Q&A 답변달기</h1>
-          <br/>
-          <h2 className="qnalist-title">Q. {inputs.title}</h2>
+          <form name="myform" onSubmit={onSubmit}  encType="multipart/form-data">
 
-          <div className="qnalist-contents">
-            {inputs.content}
+                  <h1  style={{
+                      lineHeight: '32px',
+                      marginBottom: '40px',
+                      marginTop: '100px',
+                      textDecoration: 'none',
+                      listStyle: 'none',
+                      whiteSpace: 'nowrap',
+                      color: '#292a32',
+                      fontWeight: 'bolder',
+                      letterSpacing: '-0.4px',
+                                  }}>Q&A 답변달기</h1>
+                        
+                  <h2 style={{
+                      lineHeight: '32px',
+                      marginBottom: '40px',
+                      marginTop: '100px',
+                      textDecoration: 'none',
+                      listStyle: 'none',
+                      whiteSpace: 'nowrap',
+                      color: '#292a32',
+                      fontWeight: 'bolder',
+                      letterSpacing: '-0.4px',
+                                  }} className="qnalist-title" >Q. {inputs.title}</h2>
 
-
-          </div>
-          {console.log("카테고리코드 : " + inputs.category_code)}
-          {console.log("사용자 등급 : " + inputs.at)}
+                      <div style={{
+                        lineHeight: '32px',
+                        marginBottom: '40px',
+                        marginTop : '20px',
+                        whiteSpace: 'nomal',
+                        color: '#292a32',
+                        fontWeight: 'bolder',
+                        letteRpacing: '-0.4px',
+                        
+                        fontSize : '19px'
+                    }} className="qnalist-contents">
+                      {inputs.content}
+                      </div>
+            <hr/>
           
-          
-          <br></br>
 
-          {inputs.user_seq==='3'? '':
-           <form name="myform"  onSubmit={onSubmit} >
-             <h2 className="qnalist-title">💌답변 </h2>
- 
-           <div className="qnalist-contents">
-            <input type="text"
-                    name="c_content" 
-                    className="form-control"
-                    value={inputs.c_content}
-                    onChange={onChange}
-                    />
+          
+                      <div className="form-group">
+                        <QnaWriteBtn>
+                          
+                          <label>답변 내용 </label>
+                        </QnaWriteBtn>
+                          <textarea class="form-control"
+                            name="c_content" 
+                            className="form-control"
+                            value={inputs.c_content}
+                            onChange={onChange}
+                            rows="5" 
+                            >
+
+                          </textarea>
+                        
+                      </div>
+            <br/>
+            <input type="hidden" name = "qna_seq" value={inputs.qna_seq}></input> 
+                <input type="hidden" name = "qnaco_seq" value={inputs.qnaco_seq}></input> 
+
+            <div className="form-group">
+            
+
+
             </div>
-           <input type="hidden" name = "qna_seq" value={inputs.qna_seq}></input> 
-           <input type="hidden" name = "qnaco_seq" value={inputs.qnaco_seq}></input> 
-{/*            
-          {inputs.c_content===undefined ?
-           <div className="form-group"> */}
-           <input type="submit" value="등록 " className="btn btn-primary"/>
-         {/* </div> :
-         <div className="form-group">
-           <input type="button" value="수정 "  className="btn btn-primary"/>
-          
-    </    div>} */}
-         
-         
-           
-           </form>
-          }
+
+            <QnaWriteBtn>
+
+              <div className="form-group">
+                  <input type="submit" value="✏️등록 " 
+                      className="qnaWriteBtn"/>
+              </div>
+            </QnaWriteBtn>
+            
+            
+        </form>
+        
        
 
        

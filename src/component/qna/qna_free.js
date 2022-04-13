@@ -60,6 +60,7 @@ function QnaFree(){
         setTotalCnt(res.data.totalCnt);
         setQna(res.data.list);
         setLoading(false);
+        console.log("자유게시판 : "+res.data.list);
       }
 
       //페이지가 처음에 화면에 끌 때 이부분이 호출된다.
