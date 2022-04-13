@@ -1,8 +1,35 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import Axios from "axios";
+import styled from "styled-components";
 
 function QnaView(props, {match} ){
+  const QnaDeleteBtn = styled.div`
+
+    .qnaDeleteBtn{
+      border : 0px;
+      background-color : white;
+      line-height: 32px;
+      margin-bottom: 40px;
+      margin-top : 30px;
+      white-space: nowrap;
+      color: #292a32;
+      font-weight: bolder;
+      border-radius: 10px;
+      letter-spacing: -0.4px;
+      line-height: 30px;
+      font-size : 19px;
+      width : auto;
+      padding : 8px;
+       
+      margin-left:93%
+    }
+    .qnaDeleteBtn:hover{
+      background-color:#e5e8eb;
+      color : #6667ab;
+  
+    
+    `;
   let history = useNavigate ();
   let { qna_seq } = useParams();
 
@@ -96,12 +123,14 @@ const sessionAt = '1 ';
          <div className="qnalist-contents" style={{height : '200px'}}>
            {inputs.answer}
          </div>
+          <QnaDeleteBtn>
 
          {sessionAt === '2' ? '' : 
          (inputs.answer==='⏱️ 답변을 기다려주세요' ?
-          (inputs.category_code === '09' ? 
-          <NavLink className="qnaBtn" to={"/qnacommentwrite/"+inputs.qna_seq} > ✏️작성</NavLink>:  ' ' ):
-          <button  onClick={deleteItem} className="qnaBtn">삭제</button>) }
+         (inputs.category_code === '09' ? 
+         <NavLink className="qnaBtn" to={"/qnacommentwrite/"+inputs.qna_seq} > ✏️작성</NavLink>:  ' ' ):
+         <button  onClick={deleteItem} className="qnaDeleteBtn">🗑️삭제</button>) }
+         </QnaDeleteBtn>
        
          </form>
          

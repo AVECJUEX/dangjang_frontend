@@ -2,16 +2,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
+import styled from "styled-components";
 
 function QnaWrite( ){
-
-    let history = useNavigate (); //자바스크립트 : history.go(-1)
-
-    const [imageSrc, setImageSrc] = useState('');
-
-    const encodeFileToBase64 = (fileBlob) => { 
+  
+  let history = useNavigate (); //자바스크립트 : history.go(-1)
+  
+  const [imageSrc, setImageSrc] = useState('');
+  
+  const encodeFileToBase64 = (fileBlob) => { 
       
-      
+    
       const reader = new FileReader(); 
       reader.readAsDataURL(fileBlob);
       return new Promise((resolve) => { 
@@ -21,8 +22,8 @@ function QnaWrite( ){
         }; 
       }); 
     };
-
-
+    
+    
 
     const [inputs, setInputs] = useState({
       title: '',
@@ -35,7 +36,7 @@ function QnaWrite( ){
     //title = inputs.title
     //user_seq = input.user_seq
     const { title, user_seq,content, filename  } = inputs; 
-  
+    
     //폼태그에서 값들이 바뀌면 호출될 함수
     const onChange = (e) => {
       //e-매개변수는 이벤트를 발생시킨 객체에 대한 정보가 저장된다. 이벤트도 기억하고 있고,
@@ -59,6 +60,7 @@ function QnaWrite( ){
         filename:''
       })
     };
+    
 
     //서버로 정보를 전송하는 함수
     const onSubmit=(e)=> {
@@ -83,44 +85,126 @@ function QnaWrite( ){
           } 
       );
     }
-  
+    const QnaWriteBtn = styled.div`
+
+    .qnaWriteBtn{
+      border : 0px;
+      background-color : white;
+      line-height: 32px;
+      margin-bottom: 40px;
+      margin-top : 30px;
+      white-space: nowrap;
+      color: #292a32;
+      font-weight: bolder;
+      border-radius: 10px;
+      letter-spacing: -0.4px;
+      line-height: 30px;
+      font-size : 19px;
+      width : auto;
+      padding : 8px;
+       
+      margin-left:93%;
+    }
+    .qnaWriteBtn:hover{
+      background-color:#e5e8eb;
+      color : #6667ab;
+    }
+    label{
+      line-height: 32px;
+      text-decoration: none;
+      list-style: none;
+      white-space: nowrap;
+      color: #292a32;
+      font-weight: bolder;
+      letter-spacing: -0.4px;
+      margin-bottom : 10px;
+      font-size : 1rem;
+    }
+    
+    `;
     return (
       <div>
         <form name="myform" onSubmit={onSubmit}  encType="multipart/form-data">
-              <div className="form-group">    
-                  <label>제목:  </label>
-                  <input 
-                    type="text" 
-                    className="form-control" 
-                    name="title"
-                    value={title}
-                    onChange={onChange}
-                    />
-              </div>
-              <div className="form-group">
-                  <label>이름: </label>
-                  <input type="text" 
+
+        <h1  style={{
+            lineHeight: '32px',
+            marginBottom: '40px',
+            marginTop: '100px',
+            textDecoration: 'none',
+            listStyle: 'none',
+            whiteSpace: 'nowrap',
+            color: '#292a32',
+            fontWeight: 'bolder',
+            letterSpacing: '-0.4px',
+        }}>질문 하기</h1>
+              
+
+              <div class="input-group mb-3" style={{marginBottom:'30px'}}>
+                <span class="input-group-text"  
+                      style={{
+                        lineHeight: '32px',
+                        whiteSpace: 'nowrap',
+                        color: '#292a32',
+                        fontWeight: 'bolder',
+                        letterSpacing: '-0.4px'
+                      }}  >제목 </span>
+                <input type="text" 
+                    name="title" 
+                    value={title} 
+                    onChange={onChange} 
+                    class="form-control"/>
+              </div >
+              <div class="input-group mb-3">
+                <span class="input-group-text" 
+                    style={{
+                            lineHeight: '32px',
+                            whiteSpace: 'nowrap',
+                            color: '#292a32',
+                            fontWeight: 'bolder',
+                            letterSpacing: '-0.4px'
+                            }} >이름 </span>
+                <input  type="text" 
                     className="form-control"
                     name="user_seq"
                     value={user_seq}
                     onChange={onChange}
                     />
+                    
               </div>
+
+             
               <div className="form-group">
-                  <label>내용: </label>
-                  <input type="text"
+                <QnaWriteBtn>
+                  
+                  <label>내용 </label>
+                </QnaWriteBtn>
+                  <textarea class="form-control"
                     name="content" 
                     className="form-control"
                     value={content}
                     onChange={onChange}
-                    />
+                    rows="5" 
+                     >
+
+                  </textarea>
+                 
               </div>
+              <br/>
               <div className="form-group">
-                  <label>파일: </label>
+                <QnaWriteBtn>
+
+                  <label>파일 </label>
+                </QnaWriteBtn>
                   <input type="file"
                     name="filename" 
                     className="form-control"
-                    
+                    style={{
+                      lineHeight: '32px',
+                      whiteSpace: 'nowrap',
+                      color: '#292a32',
+                      fontWeight: 'bolder',
+                      letterSpacing: '-0.4px'
+                      }}
                     onChange={(e)=>{
                       encodeFileToBase64(e.target.files[0]);
                     }}
@@ -132,15 +216,17 @@ function QnaWrite( ){
 
 
               </div>
+              <QnaWriteBtn>
+
               <div className="form-group">
-                  <input type="submit" value="등록 " className="btn btn-primary"/>
+                  <input type="submit" value="✏️등록 " 
+                      className="qnaWriteBtn"/>
               </div>
+                      </QnaWriteBtn>
               
+               
           </form>
 
-      <div>
-        {filename}
-      </div>
       </div>
     );
   }
