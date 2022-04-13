@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./LoginRegister.css";
-import signup from "../../IMG/signup_hw.png";
+import modify from "../../IMG/modify.png";
 import { Avatar, Button } from "@mui/material";
 import { PersonOutline } from "@mui/icons-material";
 import Axios from "axios";
@@ -100,13 +100,15 @@ function RegisterModify() {
       return alert("비밀번호와 비밀번호확인은 같아야 합니다.");
     }
     const frmData = new FormData(event.currentTarget);
+    frmData.append("user_seq", user_seq);
+    frmData.append("userid", "test1");
     const {data} = await Axios.post("http://127.0.0.1:9090/dangjang/member/update", frmData);
-    console.log("[회원가입]", data);
+    console.log("[정보 수정]", data);
     if (data.result === "success") {
-      alert("회원 가입이 완료되었습니다.");
+      alert("수정 되었습니다.");
       navigate("/");
     } else {
-      alert("회원 가입 에러");
+      alert("수정 에러");
     }
 
   };
@@ -125,6 +127,9 @@ function RegisterModify() {
     }
     setIsShow(!isShow);
   }
+
+  const [addr, setAddress1] = useState("");
+  const [zipcd, setZipcode] = useState("");
 
   useEffect(() => { 
        
@@ -201,17 +206,31 @@ color : #6667ab;
 }
 `;
 
+
+useEffect(()=>{
+  
+  console.log('반환값:', addr, zipcd)
+  setInputs((prev)=>({...prev,address1:addr}));
+  setInputs((prev)=>({...prev,zipcode:zipcd}));
+}, [addr,zipcd])
+
+useEffect(()=>{
+console.log('반환값2:', inputs);
+}, [inputs]);
+
+
   return (
     <div class="loginregister">
       <form onSubmit={onSubmit} encType="multipart/form-data" style={{width :'100%',textAlign:'center '}} >
         <br/>
         <br/>
-      <img className="signupLogo" src={signup} alt=""></img>
+      <img className="modifyLogo" src={modify} alt=""></img>
       <div
         style={{
-          width: "75%",
+          width: "auto",
           height: "100%",
           display: "flex",
+          
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
@@ -222,15 +241,15 @@ color : #6667ab;
           <img
             src={imageSrc}
             alt="preview-img"
-            style={{ width: "250px", padding: "10px" }}
+            style={{ width: "330px",height:"auto", padding: "10px" }}
           />
         )}
         {!imageSrc && (
           <Avatar
             sx={{
               m: 1,
-              width: 56,
-              height: 56,
+              width: 80,
+              height: 80,
             }}
           >
             <PersonOutline />
@@ -240,8 +259,14 @@ color : #6667ab;
 
       <div>
         <Button  component="label" style={{
-          width: "75%",
-          height: "100%",
+           lineHeight: '32px',
+           textDecoration: 'none',
+           listStyle: 'none',
+           whiteSpace: 'nowrap',
+           color: '#292a32',
+           fontWeight: 'bolder',
+           letterSpacing: '-0.4px',
+           lineHeight: '30px',
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -308,7 +333,8 @@ color : #6667ab;
             onChange={onChange}
             class="signup_input"
             autocomplete="off"
-          /><br/>
+          />
+          <br/>
           <button className="mainButton" type="button" onClick={DuplicateCheck}>중복 체크</button>
           {isShow && (isDuplicate === true ? 
           
@@ -347,7 +373,7 @@ color : #6667ab;
           <div id='popupDom' >
               {isPopupOpen && (
                    <PopupDom style={{"border":"1px solid red"}}>
-                      <PopupPostCode setAddress1={address1} setZipcode={address2} onClose={closePostCode} />
+                      <PopupPostCode setAddress1={setAddress1} setZipcode={setZipcode} onClose={closePostCode} />
                   </PopupDom>
               )}
           </div>
@@ -359,7 +385,6 @@ color : #6667ab;
             type="text"
             placeholder="우편번호"
             value={zipcode}
-            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -371,7 +396,6 @@ color : #6667ab;
             type="text"
             placeholder="주소"
             value={address1}
-            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -389,17 +413,7 @@ color : #6667ab;
           />
         </div>
 
-        <div>
-          <input
-            name="admincode"
-            type="text"
-            placeholder="admincode"
-            value={admincode}
-            onChange={onChange}
-            class="signup_input"
-            autocomplete="off"
-          />
-        </div>
+     
               
           <MyinfoUpdateBtn>
         <div>

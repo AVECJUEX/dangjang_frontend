@@ -4,9 +4,11 @@ import signup from "../../IMG/signup_hw.png";
 import { Avatar, Button } from "@mui/material";
 import { PersonOutline } from "@mui/icons-material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import PopupDom from '../post/PopupDom';
 import PopupPostCode from '../post/PopupPostCode';
+import styled from "styled-components";
+
 
 // import { Avatar } from 'antd';
 // import { UserOutlined } from '@ant-design/icons';
@@ -141,36 +143,80 @@ function RegisterPage() {
     }
     setIsShow(!isShow);
   }
+  const MyinfoUpdateBtn = styled.div`
+ a{
+  
+  line-height: 32px;
+  margin-bottom: 30px;
+  text-decoration: none;
+  list-style: none;
+  white-space: nowrap;
+  color: #8b95a1;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  
+  vertical-align: baseline;
+  border-radius: 10px;
+  display : block;
+  
+  padding:0px;
+  display : inline-block
+  
+ }
+ .qnaBtn{
+  line-height: 32px;
+  margin-top : 20px;
+  white-space: nowrap;
+  color: #292a32;
+  font-weight: bolder;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size : 19px;
+  padding : 8px;
+  text-align : center;  
+  width : auto;
+  text-decoration: none;
+  border-radius: 10px;
+}
+.qnaBtn:hover{
+background-color:#e5e8eb;
+color : #6667ab;
 
+}
+`;
   return (
     <div class="loginregister">
-      <form onSubmit={onSubmit} encType="multipart/form-data" >
+      <form onSubmit={onSubmit} encType="multipart/form-data" style={{width :'100%',textAlign:'center '}}>
         <br/>
         <br/>
       <img className="signupLogo" src={signup} alt=""></img>
       <div
         style={{
-          width: "75%",
+          width: "auto",
           height: "100%",
           display: "flex",
+          
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
+          textAlign:'center '
         }}
       >
         {imageSrc && (
           <img
             src={imageSrc}
             alt="preview-img"
-            style={{ width: "250px", padding: "10px" }}
+            style={{ width: "330px",height:"auto", padding: "10px" }}
           />
         )}
         {!imageSrc && (
           <Avatar
             sx={{
               m: 1,
-              width: 56,
-              height: 56,
+              width: 80,
+              height: 80,
             }}
           >
             <PersonOutline />
@@ -180,8 +226,14 @@ function RegisterPage() {
 
       <div>
         <Button  component="label" style={{
-          width: "75%",
-          height: "100%",
+           lineHeight: '32px',
+           textDecoration: 'none',
+           listStyle: 'none',
+           whiteSpace: 'nowrap',
+           color: '#292a32',
+           fontWeight: 'bolder',
+           letterSpacing: '-0.4px',
+           lineHeight: '30px',
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -211,6 +263,7 @@ function RegisterPage() {
             class="signup_input"
             autocomplete="off"
           />
+          <br/>
           <button className="mainButton" type="button" onClick={DuplicateCheck}>중복 체크</button>
           {isShow && (isDuplicate === true ? 
           
@@ -264,6 +317,7 @@ function RegisterPage() {
             class="signup_input"
             autocomplete="off"
           />
+          <br/>
           <button className="mainButton" type="button" onClick={DuplicateCheck}>중복 체크</button>
           {isShow && (isDuplicate === true ? 
           
@@ -355,9 +409,10 @@ function RegisterPage() {
             autocomplete="off"
           />
         </div>
-
+      <MyinfoUpdateBtn>
         <div>
           <button
+          style={{width : '120px'}}
             type="submit"
             class="register__button"
           >
@@ -365,8 +420,10 @@ function RegisterPage() {
           </button>
           &nbsp;&nbsp;
 
-          <button className="mainButton" type="button">돌아가기</button>
+          <NavLink className="qnaBtn" to="/" > 돌아가기</NavLink>
+        
         </div>
+          </MyinfoUpdateBtn>
 
 
       </form>
