@@ -3,34 +3,26 @@ import "./LoginRegister.css";
 import signup from "../../IMG/signup_hw.png";
 import { Avatar, Button } from "@mui/material";
 import { PersonOutline } from "@mui/icons-material";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+import { NavLink, useNavigate } from "react-router-dom";
 import PopupDom from '../post/PopupDom';
 import PopupPostCode from '../post/PopupPostCode';
+import styled from "styled-components";
 
 // import { Avatar } from 'antd';
 // import { UserOutlined } from '@ant-design/icons';
 
-function RegisterPage() {
-  const [userid, setUserid] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [nick_name, setNick_name] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [admincode, setAdmincode] = useState("");
-  const [images, setImages] = useState("");
+function RegisterModify() {
+  let history = useNavigate();
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [user_seq, setUser_seq]= useState("1");
+  const [images, setImages] = useState("");
   const [isDuplicate, setIsDuplicate] = useState(true);
   const [isShow, setIsShow] = useState(false);
-  const [imageSrc, setImageSrc] = useState("");
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [fullAddress, setFullAddress] = useState("");
+
+  const [imageSrc, setImageSrc] = useState('');
+  
 // 팝업창 열기
   const openPostCode = () => {
       setIsPopupOpen(true)
@@ -61,54 +53,46 @@ function RegisterPage() {
     });
   };
 
- 
+  const [inputs, setInputs] = useState({
+    userid:'',
+    name:'',
+    email:'',
+    password:'',
+    phone:'',
+    address1:'',
+    address2:'',
+    zipcode:'',
+    nick_name:'',
+    admincode:'',
+    images:'',
+    confirmPassword:'',
+    fullAddress:''
+  });
+
+  //input에 저장된 값을 해체한다
+  //title = inputs.title
+  //user_seq = input.user_seq
+  const { userid, name,email,password,phone,address1,address2,nick_name,zipcode,admincode,image,confirmPassword,fullAddress } = inputs; 
+
   
-  const onUseridHandler = (event) => {
-    setUserid(event.currentTarget.value);
-  };
-  const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
-  };
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const onPhoneHandler = (event) => {
-    setPhone(event.currentTarget.value);
-  };
-
-  const onNicknameHandler = (event) => {
-    setNick_name(event.currentTarget.value);
-  };
-
-  const onAddress1Handler = (event) => {
-    setAddress1(event.currentTarget.value);
-  };
-
-  const onAddress2Handler = (event) => {
-    setAddress2(event.currentTarget.value);
-  };
-
-  const onConfirmPasswordHandler = (event) => {
-    setConfirmPassword(event.currentTarget.value);
-  };
-
-  const onZipcodeHandler = (event) => {
-    setZipcode(event.currentTarget.value);
-  };
-
-  const onAdmincodeHandler =(event) => {
-    setAdmincode(event.currentTarget.value);
-  };
-  const onImagesHandler = (event) => {
-    setImages(event.currentTarget.value);
-  };
+ 
 
   const navigate = useNavigate();
 
+
+  const onChange = (e) => {
+    //e-매개변수는 이벤트를 발생시킨 객체에 대한 정보가 저장된다. 이벤트도 기억하고 있고,
+    //e.target.name,e.target.value
+    //<input name="title" value=""> 현재 이 태그에 포커스가 있을 때 우리가 키를 누르며ㅑㄴ
+    //e.target.name에는 title,value는 키보드 입력한 값
+    //e.target.name,e.target.value    <input name="title" value="">
+    const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+    console.log(value, name);//태그에 들어간 값을  state에 저장해야한다.
+    setInputs({
+      ...inputs, // 기존의 input 객체를 복사한 뒤
+      [name]: value // name 키를 가진 값을 value 로 설정
+    });
+  };
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -116,7 +100,7 @@ function RegisterPage() {
       return alert("비밀번호와 비밀번호확인은 같아야 합니다.");
     }
     const frmData = new FormData(event.currentTarget);
-    const {data} = await axios.post("http://127.0.0.1:9090/dangjang/member/insert", frmData);
+    const {data} = await Axios.post("http://127.0.0.1:9090/dangjang/member/update", frmData);
     console.log("[회원가입]", data);
     if (data.result === "success") {
       alert("회원 가입이 완료되었습니다.");
@@ -142,9 +126,84 @@ function RegisterPage() {
     setIsShow(!isShow);
   }
 
+  useEffect(() => { 
+       
+       
+    console.log( user_seq );
+
+    Axios.get(`http://localhost:9090/dangjang/member/view/${user_seq}`)
+         .then(
+           res => {
+               console.log("11111111111111111111111"+res.data.address2);  //f12 눌러서 확인하기 
+               setInputs({
+                userid:res.data.userid,
+                name:res.data.name,
+                email:res.data.email,
+                password:res.data.password,
+                phone:res.data.phone,
+                address1:res.data.address1,
+                address2:res.data.address2,
+                zipcode:res.data.zipcode,
+                nick_name:res.data.nick_name,
+                admincode:res.data.admincode,
+                images:res.data.images,
+                confirmPassword:res.data.confirmPassword,
+                fullAddress:res.data.fullAddress
+               });
+          
+            }
+         );
+
+   //console.log( heroState.hero );
+ }, []); //
+
+ const MyinfoUpdateBtn = styled.div`
+ a{
+  
+  line-height: 32px;
+  margin-bottom: 30px;
+  text-decoration: none;
+  list-style: none;
+  white-space: nowrap;
+  color: #8b95a1;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  
+  vertical-align: baseline;
+  border-radius: 10px;
+  display : block;
+  
+  padding:0px;
+  display : inline-block
+  
+ }
+ .qnaBtn{
+  line-height: 32px;
+  margin-top : 20px;
+  white-space: nowrap;
+  color: #292a32;
+  font-weight: bolder;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size : 19px;
+  padding : 8px;
+  text-align : center;  
+  width : auto;
+  text-decoration: none;
+  border-radius: 10px;
+}
+.qnaBtn:hover{
+background-color:#e5e8eb;
+color : #6667ab;
+
+}
+`;
+
   return (
     <div class="loginregister">
-      <form onSubmit={onSubmit} encType="multipart/form-data" >
+      <form onSubmit={onSubmit} encType="multipart/form-data" style={{width :'100%',textAlign:'center '}} >
         <br/>
         <br/>
       <img className="signupLogo" src={signup} alt=""></img>
@@ -156,6 +215,7 @@ function RegisterPage() {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
+          textAlign:'center '
         }}
       >
         {imageSrc && (
@@ -201,29 +261,14 @@ function RegisterPage() {
       </div>
 
 
-        <div>
-          <input
-            name="userid"
-            type="text"
-            placeholder="아이디"
-            value={userid}
-            onChange={onUseridHandler}
-            class="signup_input"
-            autocomplete="off"
-          />
-          <button className="mainButton" type="button" onClick={DuplicateCheck}>중복 체크</button>
-          {isShow && (isDuplicate === true ? 
-          
-          <p className="ptag">사용가능 아이디</p>:<p>사용불가능 아이디</p>)}
-          
-        </div>
+      
         <div>
           <input
             name="name"
             type="text"
             placeholder="이름"
             value={name}
-            onChange={onNameHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -234,7 +279,7 @@ function RegisterPage() {
             type="password"
             placeholder="비밀번호"
             value={password}
-            onChange={onPasswordHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
             />
@@ -245,7 +290,7 @@ function RegisterPage() {
             type="password"
             placeholder="비밀번호 확인"
             value={confirmPassword}
-            onChange={onConfirmPasswordHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
             />
@@ -260,10 +305,10 @@ function RegisterPage() {
             type="text"
             placeholder="닉네임"
             value={nick_name}
-            onChange={onNicknameHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
-          />
+          /><br/>
           <button className="mainButton" type="button" onClick={DuplicateCheck}>중복 체크</button>
           {isShow && (isDuplicate === true ? 
           
@@ -277,7 +322,7 @@ function RegisterPage() {
             type="text"
             placeholder="이메일"
             value={email}
-            onChange={onEmailHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -289,7 +334,7 @@ function RegisterPage() {
             type="text"
             placeholder="전화번호"
             value={phone}
-            onChange={onPhoneHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -302,7 +347,7 @@ function RegisterPage() {
           <div id='popupDom' >
               {isPopupOpen && (
                    <PopupDom style={{"border":"1px solid red"}}>
-                      <PopupPostCode setAddress1={setAddress1} setZipcode={setZipcode} onClose={closePostCode} />
+                      <PopupPostCode setAddress1={address1} setZipcode={address2} onClose={closePostCode} />
                   </PopupDom>
               )}
           </div>
@@ -314,7 +359,7 @@ function RegisterPage() {
             type="text"
             placeholder="우편번호"
             value={zipcode}
-            onChange={onZipcodeHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -326,7 +371,7 @@ function RegisterPage() {
             type="text"
             placeholder="주소"
             value={address1}
-            onChange={onAddress1Handler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -338,7 +383,7 @@ function RegisterPage() {
             type="text"
             placeholder="상세 주소"
             value={address2}
-            onChange={onAddress2Handler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
@@ -350,27 +395,32 @@ function RegisterPage() {
             type="text"
             placeholder="admincode"
             value={admincode}
-            onChange={onAdmincodeHandler}
+            onChange={onChange}
             class="signup_input"
             autocomplete="off"
           />
         </div>
-
+              
+          <MyinfoUpdateBtn>
         <div>
           <button
+          style={{width : '100px'}}
             type="submit"
             class="register__button"
-          >
-            계정 생성하기
+            >
+            수정하기
           </button>
           &nbsp;&nbsp;
-
-          <button className="mainButton" type="button">돌아가기</button>
+          
+          
+          <NavLink className="qnaBtn" to="/mypage" > 돌아가기</NavLink>
         </div>
+          </MyinfoUpdateBtn>
+            
 
 
       </form>
     </div>
   );
 }
-export default RegisterPage;
+export default RegisterModify;

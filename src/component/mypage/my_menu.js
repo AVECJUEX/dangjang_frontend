@@ -23,9 +23,9 @@ function MyMenu() {
   // }
   
   return(
-    <div style={{display : 'inline-block', width : '15%', padding : '0px'}}>
+    <div>
 
-    <NavLink className={({ isActive }) => 'mymenu'+ (isActive ? '-active' : '')} to="">내 정보 수정</NavLink>
+    <NavLink to="/registerModify" className={({ isActive }) => 'mymenu'+ (isActive ? '-active' : '')} >내 정보 수정</NavLink>
     <NavLink className={({ isActive }) => 'mymenu'+ (isActive ? '-active' : '')} to="" >내가 쓴 글</NavLink>
     <NavLink className={({ isActive }) => 'mymenu'+ (isActive ? '-active' : '')} to="" >내 판매</NavLink>
     <NavLink className={({ isActive }) => 'mymenu'+ (isActive ? '-active' : '')} to="">채팅</NavLink>
