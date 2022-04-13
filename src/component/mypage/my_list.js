@@ -12,6 +12,7 @@ import MyMenu from "./my_menu";
 
 import QnaId from "./my_id";
 import RegisterModify from "../member/RegisterModify ";
+import My_market from "./My_market";
 
 
 
@@ -239,7 +240,7 @@ function MyList( ){
             <Routes>
               
             <Route  path="/"  element={<QnaContents />} />
-           
+            <Route  path="mymarket"  element={<My_market />} />
              
 
             </Routes>
