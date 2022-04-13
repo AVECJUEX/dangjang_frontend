@@ -39,6 +39,7 @@ function FreeBoardList( ){
      const [page, setPage] = useState(1);   //페이징 정보
      const [totalCnt, setTotalCnt] = useState(0); //전체 레코드 개수
      const [loading, setLoading]=useState(false); //로딩 중을 띄우고싶었지만 안씀
+     const [change, setChange] = useState(0);
 
     
           /*
@@ -106,7 +107,10 @@ function FreeBoardList( ){
         setLoading(true);
         //비동기모드를 동기모드로 바꾸어서 데이터가 올 때 까지 기다리게 만들었음
         //그래서 값이 반환 될 때까지 기다린다.
-        const res = await Axios.get(`http://localhost:9090/dangjang/freeboard/list/${page}`);
+        var frmData = new FormData();
+        frmData.append("user_seq", '1');
+
+        const res = await Axios.post(`http://localhost:9090/dangjang/freeboard/list/${page}`, frmData);
         console.log(res.data);
         setTotalCnt(res.data.totalCnt);
         setFreeBoard(res.data.list);
@@ -126,6 +130,12 @@ function FreeBoardList( ){
         setPage(page);
         loadData(page);
       };
+
+      useEffect(()=>{
+        console.log("total like", change);
+        loadData(page);
+
+      },[change])
       
       return (
         
@@ -141,7 +151,7 @@ function FreeBoardList( ){
            {freeboard.map((post)=> 
                 <Post
                     free_seq={post.free_seq}
-                    user_id={post.user_id}
+                    userid={post.userid}
                     title= {post.title}
                     content={post.content}
                     image={post.image}
@@ -149,6 +159,10 @@ function FreeBoardList( ){
                     like_cnt={post.like_cnt}
                     hit={post.hit}
                     user_seq={post.user_seq}
+                    click={post.click}
+                    change={change}
+                    setChange={setChange}
+                    
                 />)
                 
             }
