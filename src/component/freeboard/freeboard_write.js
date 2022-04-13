@@ -50,7 +50,7 @@ function FreeBoardWrite( ){
     const [fileList, setfileList] = useState([]);
     const [inputs, setInputs] = useState({
       title: '',
-      user_id: '',
+      userid: '',
       user_seq:'',
       wdate:'',
       content:'',
@@ -61,7 +61,7 @@ function FreeBoardWrite( ){
     //input에 저장된 값을 해체한다
     //title = inputs.title
     //writer = input.writer
-    const { title, user_id, user_seq, wdate, content, image  } = inputs; 
+    const { title, userid, user_seq, wdate, content, image  } = inputs; 
   
     //폼태그에서 값들이 바뀌면 호출될 함수
     const onChange = (e) => {
@@ -95,13 +95,24 @@ function FreeBoardWrite( ){
       //파일 업로드 할땐느 반드시 formdate 객체를 만들어야 한다
       // Axios.post('http://localhost:9090/mongo/update/', obj)
       //      .then(res => console.log(res.data));
-      var frmData = new FormData(); 
+      
+
+      // 임시 변수
+      const user_id='test';
+      const user_seq = '1';
+
+      var frmData = new FormData(e.currentTarget); 
+      frmData.append("file", fileList[0]);
+      frmData.append("user_seq", user_seq);
+      frmData.append("userid", userid);
+      
+
       // frmData.append("title", inputs.title);
       // frmData.append("user_id", inputs.user_id);
       // frmData.append("content", inputs.content);
       
-      frmData.append("file", document.myform.filename.files[0]);
-      Axios.post('http://localhost:9090/freeboard/insert/', frmData)
+      //frmData.append("file", document.myform.filename.files[0]);
+      Axios.post('http://localhost:9090/dangjang/freeboard/insert/', frmData)
       .then(
           res =>{
             console.log(res.data);
@@ -139,10 +150,12 @@ function FreeBoardWrite( ){
 
     return (
       <div className="post">
+      <form name="myform" onSubmit={onSubmit}  encType="multipart/form-data">
+
       <div className="post__top">
           <Avatar src = {image} className="post__avatar"/>
           <div className="post__topInfo">
-              <h3>{user_id}</h3>
+              <h3>{userid}</h3>
               <p>{wdate}</p>
               <div className="form-group">    
                   <label>제목: </label>
@@ -175,7 +188,7 @@ function FreeBoardWrite( ){
                   <div style={{display: 'flex', height: '240px', border: '1px solid lightgray', overflowX:'scroll'}}>
                     {fileList && 
 
-                      (imageSrcList.map((image1, idx)=>{
+                      (imageSrcList.map((image, idx)=>{
                       
                       return <Fragment key={idx}><img style={{width:'250px', height: '100%'}} 
                       src={image} alt="preview-img"/></Fragment>}))
@@ -192,9 +205,10 @@ function FreeBoardWrite( ){
 
       
       <BoardBox> 
+      <input type="submit" value="등록 " className="btn btn-primary"/>  
       <Link className="btn" style={{float:'right'}} to="/freeboard/">취소</Link>
       </BoardBox>
-      
+      </form>
   </div>
     );
   }

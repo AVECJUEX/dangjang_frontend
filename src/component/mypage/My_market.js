@@ -1,4 +1,4 @@
-import TableRow from './TableRow'
+import TableRow from '../board/TableRow'
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import styled from "styled-components";
 import { Link, Routes } from "react-router-dom";
@@ -116,7 +116,8 @@ const BoardSlider = styled.div`
   }
 `;
 
-function BoardList(){
+function My_market(){
+    let login_id = "test1";
     const [board, setBoard] = useState([]) //게시글
     const [totalCnt, setTotalCnt] = useState([]); //전체 레코드 개수
     const [page, setPage] = useState(1);
@@ -133,7 +134,7 @@ function BoardList(){
       if(keyword===undefined){
         keyword="";
       }
-      await Axios.get(`http://localhost:9090/dangjang/board/list/`+page+'?keyword='+keyword).then((res)=>{
+      await Axios.get(`http://localhost:9090/dangjang/board/list/`+page+'?user_id='+login_id).then((res)=>{
       console.log(res.data);
       console.log(res.data.list.length);
 
@@ -163,16 +164,8 @@ function BoardList(){
         }
       }, [inView, loading])
 
-      const onClickCode = (keyword) => {
-        console.log(keyword);
-        setBoard([]);
-        setPage(1);
-        setKeyword(keyword);
-        setEmpty(false);
-      }
-
       return (
-        <BoardBox>
+        <BoardBox style={{display : 'inline-block', width : '78%', marginLeft:'7%', padding : '0px', verticalAlign: 'top'}}>
           <div className="Category">
             <p>
               <strong>물품 목록</strong>
@@ -180,13 +173,6 @@ function BoardList(){
             </p>
           </div>
           <hr style={{margin:'-5px'}}/>
-          {
-            totalCnt.map(({category_code, category_name, catCnt})=>{
-              console.log(category_code,category_name,catCnt );
-              if(category_code=='00') category_code='';
-              return <a onClick={()=>onClickCode(category_code)}><strong>{category_name}({catCnt})</strong>&nbsp;&nbsp;&nbsp;&nbsp;</a>
-            })
-          }
           <BoardSlider >
             <div className="listbox" >
                 {
@@ -206,4 +192,4 @@ function BoardList(){
       );
 }
 
-export default BoardList;
+export default My_market;

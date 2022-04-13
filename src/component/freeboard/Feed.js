@@ -19,7 +19,7 @@ import Post from "./Post"
 	private String hit="";
 	private String user_seq="";
  */
-function Feed({ free_seq, user_id, title, content, image, wdate, like_cnt, hit, user_seq}) {
+function Feed({ free_seq, userid, title, content, image, wdate, like_cnt, hit, user_seq}) {
 
     // 변수
     // const [inputs, setInputs] = useState({
@@ -84,7 +84,7 @@ function Feed({ free_seq, user_id, title, content, image, wdate, like_cnt, hit, 
             {freeboardList.map(()=> 
                 <Post
                     free_seq={free_seq}
-                    user_id={user_id}
+                    userid={userid}
                     title= {title}
                     content={content}
                     image={image}

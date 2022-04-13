@@ -14,11 +14,16 @@ import BoardUpdate from "./component/board/board_update";
 import FreeBoardList from "./component/freeboard/freeboard_list";
 import FreeBoardWrite from "./component/freeboard/freeboard_write";
 import FreeBoardView from "./component/freeboard/freeboard_view";
+
 import QnaList from "./component/qna/qna_list"
 import QnaView from'./component/qna/qna_view';
 import QnaWrite from'./component/qna/qna_write';
 import QnaCommentWrite from "./component/qna/qnacomment_write";
 import QnaUpdate from "./component/qna/qna_update"
+
+
+import MyList from "./component/mypage/my_list"
+
 import RegisterPage from "./component/member/RegisterPage"
 
 import LoginModal from "./component/Modal/LoginModal";
@@ -28,6 +33,7 @@ import { useUserDispatch } from "./component/member/UserContext";
 
 import PZoomImage from "./component/board/util/PZoomImage";
 import Modal from "./component/board/util/Modal";
+import RegisterModify from "./component/member/RegisterModify ";
 
 
 const MarketContainer = styled.section`
@@ -90,26 +96,26 @@ function App() {
 
               <Route path="freeboard" element={<FreeBoardList />} />
               <Route path="freeboard/write" element={<FreeBoardWrite />} />
-              <Route path="/freeboard/view/:board_seq" element={<FreeBoardView/>}/>
+              <Route path="freeboard/view/:free_seq" element={<FreeBoardView/>}/>
 
 
               <Route exact path="qna/*" element={<QnaList/>}/>
               <Route exact path="qna/write" element={<QnaWrite/>}/>
-              
               <Route path="/qnaUpdate/:qna_seq" element={<QnaUpdate/>}/>
               <Route path="/qnacommentwrite/:qna_seq"  element={<QnaCommentWrite/>} />
  
               
-              
-            
-
-
+              {/*회원가입  */}
               <Route path="register" element={<RegisterPage />} />
               <Route path="loginmodal" element={<LoginModal />} />
               <Route path="loginpage" element={<LoginPage />} />
-
               <Route path="findIdmodal" element={<FindIfModal />} />
               
+              {/* 마이페이지 */}
+              <Route exact path="mypage/*" element={<MyList/>}/>
+              <Route  path="registerModify"  element={<RegisterModify />} />
+
+
               <Route path="test" element={<PZoomImage />} />
               
             </Routes>
