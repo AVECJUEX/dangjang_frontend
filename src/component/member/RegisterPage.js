@@ -25,9 +25,12 @@ function RegisterPage() {
   const [zipcode, setZipcode] = useState("");
   const [admincode, setAdmincode] = useState("");
   const [images, setImages] = useState("");
-
+  const [msg , setMsg] = useState("");
+  const [msgNickname , setMsgNickname] = useState("");
+  
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isDuplicate, setIsDuplicate] = useState(true);
+  const [isDuplicate, setIsDuplicate] = useState('true');
+  const [isDuplicateNickName, setIsDuplicateNickName] = useState('true');
   const [isShow, setIsShow] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
 
@@ -128,21 +131,48 @@ function RegisterPage() {
     }
 
   };
+  const  DuplicateCheck = async() => {
+  const res =  await axios.get(`http://127.0.0.1:9090/dangjang/member/isDuplicate?userid=${userid}`);
 
-  const DuplicateCheck = () => {
+    console.log(res.data.result);
     
+    if(res.data.result ===  'true'){
+      setIsDuplicate('true'); 
+      setMsg('이미 사용 중인 아이디 입니다.');
+    } else {
+      setIsDuplicate('false');
+      setMsg('사용 가능한 아이디 입니다.');
+    }
+
+    //console.log( isDuplicate );
+    setIsShow(!isShow);
+  }
+
+  const  DuplicateCheckNickName = async() => {
+   
     // axios 로 디비에 id  중복 체크 확인
     // db 응답값 : result
     // result - success : 사용가능(중복된 아이디 없음)
     // result - fail : 사용불가능(중복된 아이디 있음)
-    const result = 'fail';
-    if(result === 'success' ){
-      setIsDuplicate(false);
+    //const result = {userid:userid.value};
+    //axios.get("http://127.0.0.1:9090/dangjang/member/isDuplicate?userid=${userid.value}", result)
+
+    const res =  await axios.get(`http://127.0.0.1:9090/dangjang/member/isDuplicateNickName?nick_name=${nick_name}`);
+
+    console.log(res.data.result);
+    
+    if(res.data.result ===  'true'){
+      setIsDuplicateNickName('true'); 
+      setMsgNickname('이미 사용 중인 닉네임 입니다.');
     } else {
-      setIsDuplicate(true);
+      setIsDuplicateNickName('false');
+      setMsgNickname('사용 가능한 닉네임 입니다.');
     }
+
+    //console.log( isDuplicate );
     setIsShow(!isShow);
   }
+
   const MyinfoUpdateBtn = styled.div`
  a{
   
@@ -265,9 +295,10 @@ color : #6667ab;
           />
           <br/>
           <button className="mainButton" type="button" onClick={DuplicateCheck}>중복 체크</button>
-          {isShow && (isDuplicate === true ? 
+          {/* {isShow && (isDuplicate === true ? )} */}
+          <p className="ptag">{msg}</p>
+          {/*  <p className="ptag">사용가능 아이디</p>:<p>사용불가능 아이디</p> */}
           
-          <p className="ptag">사용가능 아이디</p>:<p>사용불가능 아이디</p>)}
           
         </div>
         <div>
@@ -318,10 +349,10 @@ color : #6667ab;
             autocomplete="off"
           />
           <br/>
-          <button className="mainButton" type="button" onClick={DuplicateCheck}>중복 체크</button>
-          {isShow && (isDuplicate === true ? 
-          
-          <p className="ptag">사용 가능합니다</p>:<p>사용 중입니다</p>)}
+          <button className="mainButton" type="button" onClick={DuplicateCheckNickName}>중복 체크</button>
+          <p className="ptag">{msgNickname}</p>
+          {/* {isShow && (isDuplicate === true ? 
+          <p className="ptag">사용 가능합니다</p>:<p>사용 중입니다</p>)} */}
           
         </div>
 

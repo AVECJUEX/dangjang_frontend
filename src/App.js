@@ -24,7 +24,7 @@ import QnaUpdate from "./component/qna/qna_update"
 
 import MyList from "./component/mypage/my_list"
 
-import RegisterPage from "./component/member/RegisterPage"
+
 
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
