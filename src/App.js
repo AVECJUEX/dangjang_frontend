@@ -113,10 +113,13 @@ function App() {
               <Route path="/qnaUpdate/:qna_seq" element={<QnaUpdate/>}/>
               <Route path="/qnacommentwrite/:qna_seq"  element={<QnaCommentWrite/>} />
  
-              
+              <Route  path="/mypage/registerModify"  element={<RegisterModify />} />
+
               
             
               <Route path="/mypage/*" element={<MyList/>}/>
+
+
 
               <Route path="register" element={<RegisterPage />} />
               <Route path="loginmodal" element={<LoginModal />} />

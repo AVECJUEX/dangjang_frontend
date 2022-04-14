@@ -203,6 +203,7 @@ function Headers() {
               <Link to="/">
                 <img src={LogoPath} alt=""></img>
               </Link>
+              
             </li>
             
             <li>
@@ -233,9 +234,7 @@ function Headers() {
               🗨️
               <NavLink
                 to="/"
-                className={({ isActive }) =>
-                  "Header-Menu" + (isActive ? "" : "")
-                }
+                className={({ isActive }) =>"Header-Menu" + (isActive ? "" : "")}
               >
                 
                 채팅
@@ -280,9 +279,19 @@ function Headers() {
                 <>
                  <li>
                 <div className="container">
-                  <div className="menu-container">
+                  <div className="menu-container" style={{
+                      
+                      textAlign: "center",
+                      width : '50px',
+                      height :'auto'
+                      }}>
                     <button onClick={onClick} className="menu-trigger">
-                    <span>메뉴</span>
+                    <span style={{
+                      
+                      textAlign: "center",
+                      width : '380px',
+                      height :'auto'
+                      }}>MENU</span>
                     
                     </button>
                     <nav

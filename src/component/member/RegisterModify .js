@@ -8,12 +8,18 @@ import { NavLink, useNavigate } from "react-router-dom";
 import PopupDom from '../post/PopupDom';
 import PopupPostCode from '../post/PopupPostCode';
 import styled from "styled-components";
+import { useUserState } from "./UserContext";
 
 // import { Avatar } from 'antd';
 // import { UserOutlined } from '@ant-design/icons';
 
 function RegisterModify() {
   let history = useNavigate();
+
+  const { user } = useUserState();
+    let login_id = user.userid;
+    let login_seq = user.user_seq;
+    console.log("세션값 테스트 !!!!!!!! : " + login_id);
 
   const [user_seq, setUser_seq]= useState("1");
   const [images, setImages] = useState("");
@@ -134,31 +140,31 @@ function RegisterModify() {
   useEffect(() => { 
        
        
-    console.log( user_seq );
+    console.log( login_id );
 
-    Axios.get(`http://localhost:9090/dangjang/member/view/${user_seq}`)
+    Axios.get(`http://localhost:9090/dangjang/member/view/${login_id}`)
          .then(
            res => {
-               console.log("11111111111111111111111"+res.data.address2);  //f12 눌러서 확인하기 
+             console.log("11111111111111111111111"+res.data.info.address2);  //f12 눌러서 확인하기 
+             console.log(res.data.info.images);
                setInputs({
-                userid:res.data.userid,
-                name:res.data.name,
-                email:res.data.email,
-                password:res.data.password,
-                phone:res.data.phone,
-                address1:res.data.address1,
-                address2:res.data.address2,
-                zipcode:res.data.zipcode,
-                nick_name:res.data.nick_name,
-                admincode:res.data.admincode,
-                images:res.data.images,
-                confirmPassword:res.data.confirmPassword,
-                fullAddress:res.data.fullAddress
+                userid:res.data.info.userid,
+                name:res.data.info.name,
+                email:res.data.info.email,
+                password:res.data.info.password,
+                phone:res.data.info.phone,
+                address1:res.data.info.address1,
+                address2:res.data.info.address2,
+                zipcode:res.data.info.zipcode,
+                nick_name:res.data.info.nick_name,
+                admincode:res.data.info.admincode,
+                images:res.data.info.images,
+                confirmPassword:res.data.info.confirmPassword,
+                fullAddress:res.data.info.fullAddress
                });
           
             }
          );
-
    //console.log( heroState.hero );
  }, []); //
 
@@ -237,9 +243,9 @@ console.log('반환값2:', inputs);
           textAlign:'center '
         }}
       >
-        {imageSrc && (
+        {images && (
           <img
-            src={imageSrc}
+            src={images}
             alt="preview-img"
             style={{ width: "330px",height:"auto", padding: "10px" }}
           />
