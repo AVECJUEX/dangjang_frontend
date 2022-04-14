@@ -3,12 +3,19 @@ import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
 import { HeartOutlined } from '@ant-design/icons';
 import { HeartFilled } from '@ant-design/icons';
+import { useUserState } from "../../member/UserContext";
 
 function Zzim_insert({board_seq, setZzimCnt} ){
 
-    let history = useNavigate (); 
-    let login_id = "test1";
-    let login_seq = "1";
+    const { user } = useUserState();
+    let history = useNavigate (); //자바스크립트 : history.go(-1)
+    let login_id = "";
+    let login_seq = "";
+    
+    if(user!=null){
+      login_id = user.userid;
+      login_seq = user.user_seq;
+    }
 
     const [zzim, setZZim] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);

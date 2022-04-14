@@ -216,6 +216,7 @@ const ModalContainer = styled.div`
 
 function LoginModal({ closeModal }) {
   
+  let history = useNavigate ();
   
   const [openFindIdModal, setOpenFindIdModal] = useState(false);
   const [openFindPwModal, setOpenFindPwModal] = useState(false);
@@ -264,14 +265,15 @@ function LoginModal({ closeModal }) {
 
       console.log(res.data);
 
-      const { result, role, nickname , name , email } = res.data;
+      const { result, role, nickname , username , email, user_seq } = res.data;
        if (result === "success") {
          console.log("[로그인 성공] 세션에 아이디 저장");
          alert("로그인 성공");
          window.sessionStorage.setItem("userid", userid);
+         window.sessionStorage.setItem("user_seq", user_seq);
          window.sessionStorage.setItem("role", role);
          window.sessionStorage.setItem("nickname", nickname);
-         window.sessionStorage.setItem("name", name);
+         window.sessionStorage.setItem("username", username);
          window.sessionStorage.setItem("email", email);
          closeModal(false);
 

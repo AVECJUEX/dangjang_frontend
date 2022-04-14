@@ -8,7 +8,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 function Like_insert({free_seq, setLikeCnt, click} ){
 
     let history = useNavigate (); 
-    let login_id = "test";
+    let login_id = window.sessionStorage.getItem("userid");
     let login_seq = "1";
 
     const [like, setLike] = useState("");

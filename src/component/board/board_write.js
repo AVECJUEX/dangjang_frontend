@@ -3,6 +3,7 @@ import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
 import FileUpload from "./util/FileUpload";
 import styled from "styled-components";
+import { useUserState } from "../member/UserContext";
 
 const MainInfoBackground = styled.div`
   width: 100%;
@@ -39,10 +40,10 @@ const MainInfoContainer = styled.div`
 `;
 
 function BoardWrite( ){
-
+    const { user } = useUserState();
     let history = useNavigate (); //자바스크립트 : history.go(-1)
-    let login_id = "test2";
-    let login_seq = "2";
+    let login_id = user.userid;
+    let login_seq = user.user_seq;
     // const [user_id, setUser_id] = useState(0);
     const [imageSrc, setImageSrc] = useState("");
     const [imageSrcList, setImageSrcList] = useState([]);

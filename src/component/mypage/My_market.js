@@ -117,7 +117,7 @@ const BoardSlider = styled.div`
 `;
 
 function My_market(){
-    let login_id = "test1";
+    let login_id = window.sessionStorage.getItem("userid");
     const [board, setBoard] = useState([]) //게시글
     const [totalCnt, setTotalCnt] = useState([]); //전체 레코드 개수
     const [page, setPage] = useState(1);

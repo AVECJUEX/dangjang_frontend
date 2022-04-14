@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 
 const initialState = {
   userList: [],
@@ -12,6 +12,11 @@ const reducer = (state, action) => {
         ...state,
         user: {
           userid: action.userid,
+          user_seq: action.user_seq,
+          role: action.role,
+          nickname: action.nickname,
+          username: action.username,
+          email: action.email
         },
       };
     case "LOGOUT":
@@ -36,6 +41,23 @@ const UserDispatchContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem("userid") != null) {
+      dispatch({
+        type: "LOGIN",
+        userid: window.sessionStorage.getItem("userid"),
+        user_seq: window.sessionStorage.getItem("user_seq"),
+        role: window.sessionStorage.getItem("role"),
+        nickname: window.sessionStorage.getItem("nickname"),
+        username: window.sessionStorage.getItem("username"),
+        email: window.sessionStorage.getItem("email")
+      });
+    }
+  }, []);
+
+
 
   return (
     <UserStateContext.Provider value={state}>
