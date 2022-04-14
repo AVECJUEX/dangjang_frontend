@@ -10,6 +10,53 @@ import Feed from './Feed'
 import Post from './Post';
 
 const BoardBox = styled.div`
+
+  
+h1{
+  line-height: 32px;
+  margin-top : 30px;
+  margin-bottom: 70px;
+  text-decoration: none;
+  list-style: none;
+  white-space: nowrap;
+  color: #292a32;
+  font-weight: bolder;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size : 40px;
+  
+ }
+h4{
+  line-height: 32px;
+  white-space: nowrap;
+  color: #292a32;
+  font-weight: bolder;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size : 20px;
+  
+ }
+ .fbBtn{
+  line-height: 32px;
+  white-space: nowrap;
+  color: #292a32;
+  font-weight: bolder;
+  letter-spacing: -0.4px;
+  line-height: 30px;
+  font-size : 19px;
+  padding : 8px;
+  text-align : center;  
+  text-decoration: none;
+  border-radius: 10px;
+  display : block;
+}
+.fbBtn:hover{
+background-color:#e5e8eb;
+color : #6667ab;
+
+}
+
+ aside{
   .Category {
     white-space: nowrap;
     max-width: 1320px;
@@ -141,9 +188,13 @@ function FreeBoardList( ){
         
         <BoardBox>
           
-        <div>
-          
-            <Link className="btn" style={{float:'right'}} to="/freeboard/write">글쓰기</Link>
+        <div style={{marginTop : '130px'}}>
+          <h1>👨‍👨‍👧‍👧왁자지걸</h1>
+          <h4>즐거운 일상을 공유해보세요!!</h4>
+            <Link className="fbBtn" style={{float:'right'}} to="/freeboard/write"> ✏️글쓰기</Link>
+            <br/>
+            <br/>
+          <hr/><br/><br/>
           
         
 
