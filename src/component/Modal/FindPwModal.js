@@ -4,6 +4,7 @@ import loginLogoPath from "../../IMG/logo.png";
 import closePath from "../../IMG/close.png";
 import "../member/LoginRegister.css";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
 const Container = styled.div`
   position: fixed;
@@ -208,13 +209,15 @@ const ModalContainer = styled.div`
 `;
 
 function FindPwModal({ closeFindPwModal }) {
-  const [name, setName] = useState("");
+  const [userid, setUserid] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [msg, setMsg]=useState("");
   const [password, setPassword] = useState("");
 
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
+
+  const onUseridHandler = (event) => {
+    setUserid(event.currentTarget.value);
   };
 
   const onPhoneHandler = (event) => {
@@ -230,6 +233,39 @@ function FindPwModal({ closeFindPwModal }) {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (!userid || !phone || !email) {
+      alert("모든 값을 정확하게 입력해주세요");
+      return;
+    }
+ 
+    
+    const userInfo = {userid : userid , phone: phone , email : email , password : password};
+    
+    axios.post("http://127.0.0.1:9090/dangjang/member/findpass", userInfo)
+    .then( (res)=>{
+
+      console.log(res.data);
+
+      const { result, password} = res.data;
+       if (result === "success") {
+         console.log("[로그인 성공] 세션에 비밀번호 저장");
+         
+         setMsg("회원님의 비밀번호는 " + password + " 입니다");
+         
+         //closeModal(false);
+
+         //window.location.reload();
+       
+
+        
+       } else {
+         setMsg("비밀번호를 찾을 수 없습니다.");
+       }
+     })
+    .catch ( error=>{
+      console.log(error);
+    })
+
   };
 
   return (
@@ -243,11 +279,11 @@ function FindPwModal({ closeFindPwModal }) {
 
             <div>
               <input
-                name="name"
+                name="userid"
                 type="text"
                 placeholder="아이디를 입력하세요"
-                value={name}
-                onChange={onNameHandler}
+                value={userid}
+                onChange={onUseridHandler}
                 className="loginregister__input"
                 autocomplete="off"
               />
