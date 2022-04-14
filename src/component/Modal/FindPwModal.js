@@ -274,7 +274,7 @@ function FindPwModal({ closeFindPwModal }) {
         <Title></Title>
 
         <div className="findregister">
-          <form>
+          <form name="myform" onSubmit={onSubmit}>
           <img className="modalLogo" src={loginLogoPath} alt=""></img>
 
             <div>
@@ -321,6 +321,10 @@ function FindPwModal({ closeFindPwModal }) {
               >
                 PW 찾기
               </button>
+            </div>
+            <div>
+            <br/>
+              {msg}
             </div>
             <br/>
             <CloseIcon

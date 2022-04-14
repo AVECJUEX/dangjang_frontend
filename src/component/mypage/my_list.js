@@ -241,7 +241,8 @@ function MyList( ){
               
             <Route  path="/"  element={<QnaContents />} />
             <Route  path="mymarket"  element={<My_market />} />
-             
+            
+            
 
             </Routes>
             

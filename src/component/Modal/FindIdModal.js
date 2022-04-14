@@ -330,6 +330,10 @@ function FindIdModal({ closeFindIdModal }) {
                 ID 찾기
               </button>
             </div>
+            <div>
+              <br/>
+            {msg}
+            </div>
             <br/>
             <CloseIcon
               className="btnX"
