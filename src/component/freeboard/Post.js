@@ -131,8 +131,8 @@ function Post({free_seq, userid, title, content, image, wdate, hit, user_seq, cl
 
 
                 <div className="post__option">
-                    <ChatBubbleOutlineOutlinedIcon/>
-                   <Link to={`/freeboard/view/${free_seq}`}> <p>Comment</p></Link>
+                    
+                   <Link className="fbCommentBtn" to={`/freeboard/view/${free_seq}`}> <ChatBubbleOutlineOutlinedIcon/> </Link>
                 </div>
 
                 <div className="post__option">

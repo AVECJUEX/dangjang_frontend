@@ -98,7 +98,7 @@ function FreeBoardWrite( ){
       
 
       // 임시 변수
-      const user_id='test';
+      const userid ='test';
       const user_seq = '1';
 
       var frmData = new FormData(e.currentTarget); 
@@ -153,7 +153,7 @@ function FreeBoardWrite( ){
       <form name="myform" onSubmit={onSubmit}  encType="multipart/form-data">
 
       <div className="post__top">
-          <Avatar src = {image} className="post__avatar"/>
+          <Avatar  className="post__avatar"/>
           <div className="post__topInfo">
               <h3>{userid}</h3>
               <p>{wdate}</p>
