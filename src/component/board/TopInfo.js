@@ -4,6 +4,7 @@ import Axios from "axios";
 import styled from "styled-components";
 import Chat from "../../IMG/Chat.png";
 import Zzim_insert from "./util/Zzim_insert";
+import { useUserState } from "../member/UserContext";
 
 const PaneBox = styled.div`
   text-align: center;
@@ -251,8 +252,17 @@ const PaneBox = styled.div`
 `;
 
 function TopInfo(props, { match }) {
-  let login_id = "test2";
-  let history = useNavigate ();
+
+  const { user } = useUserState();
+  let history = useNavigate (); //자바스크립트 : history.go(-1)
+  let login_id = "";
+  let login_seq = "";
+  
+  if(user!=null){
+    login_id = user.userid;
+    login_seq = user.user_seq;
+  }
+  
   let { board_seq } = useParams();
   //값을 초기화 시키되는 값.
   const [inputs, setInputs] = useState({

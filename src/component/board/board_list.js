@@ -1,10 +1,13 @@
 import TableRow from './TableRow'
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import styled from "styled-components";
-import { Link, Routes } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import { useInView } from "react-intersection-observer"
 import Axios from "axios";
 import "../../page.css";
+import { useUserState } from '../member/UserContext';
+import LoginModal from "../Modal/LoginModal";
+
 
 const BoardBox = styled.div`
   .Category {
@@ -126,6 +129,8 @@ function BoardList(){
 
     const [ref, inView] = useInView()
 
+    let history = useNavigate ();
+
     const getboard = useCallback(async () => {
       console.log("getboard----", page, keyword)
       setLoading(true);
@@ -170,13 +175,30 @@ function BoardList(){
         setKeyword(keyword);
         setEmpty(false);
       }
+      // 세션 가져와서 사용하는 함수
+      const { user } = useUserState();
+      useEffect(()=>{
+        console.log(user);
+      },[user]);
 
+      const [openModal, setOpenModal] = useState(false);
+
+      const clickWrite = () =>{
+        if(user!=null){
+          history("/board/write");
+        } else {
+          alert("로그인하세요");
+          setOpenModal(true);
+        }
+      }
+      //여기까지
       return (
         <BoardBox>
           <div className="Category">
             <p>
               <strong>물품 목록</strong>
-              <Link className="btn" style={{float:'right'}} to="/board/write">글쓰기</Link>
+              <button style={{float:'right'}} onClick={clickWrite}>글쓰기</button>
+              {openModal && <LoginModal closeModal={setOpenModal} />}
             </p>
           </div>
           <hr style={{margin:'-5px'}}/>

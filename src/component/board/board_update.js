@@ -4,6 +4,7 @@ import Axios from "axios";
 import FileUpload from "./util/FileUpload";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useUserState } from "../member/UserContext";
 
 const MainInfoBackground = styled.div`
   width: 100%;
@@ -42,9 +43,11 @@ const MainInfoContainer = styled.div`
 function BoardUpdate( ){
     let { board_seq } = useParams();
 
+    const { user } = useUserState();
     let history = useNavigate (); //자바스크립트 : history.go(-1)
-    let login_id = "test1";
-    let login_seq = "1";
+    let login_id = user.userid;
+    let login_seq = user.user_seq;
+    
     // const [user_id, setUser_id] = useState(0);
     const [imageSrc, setImageSrc] = useState("");
     const [imageSrcList, setImageSrcList] = useState([]);

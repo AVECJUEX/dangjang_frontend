@@ -177,11 +177,13 @@ function Headers() {
   }, [user])
 
   const onClickLogout = () => {
-    sessionStorage.removeItem('userid');
+    sessionStorage.clear();
 
     dispatch({
       type: "LOGOUT",
     });
+
+    window.location.reload();
   }
   return (
     <HeaderContainer>

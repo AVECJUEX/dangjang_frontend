@@ -103,7 +103,7 @@ const MainInfoContainer = styled.div`
 `;
 
 function MainInfo(props, { match }) {
-  let history = useNavigate ();
+    let history = useNavigate ();
     let { board_seq } = useParams();
 
     const [inputs, setInputs] = useState({

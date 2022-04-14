@@ -29,7 +29,7 @@ import MyList from "./component/mypage/my_list"
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
 import FindIfModal from "./component/Modal/FindIdModal";
-import { useUserDispatch } from "./component/member/UserContext";
+import { useUserDispatch, useUserState } from "./component/member/UserContext";
 import RegisterPage from "./component/member/RegisterPage"
 
 import PZoomImage from "./component/board/util/PZoomImage";
@@ -66,18 +66,23 @@ const MainPageContainer = styled.div`
 `;
 
 function App() {
-  const dispatch = useUserDispatch();
+  //const dispatch = useUserDispatch();
+
+  // React.useEffect(()=>{
+  //   if( window.sessionStorage.getItem("userid")!=null){
+  //     dispatch({
+  //       type: "LOGIN",
+  //       userid: window.sessionStorage.getItem("userid"),
+  //     });
+  //   }
+  // },[]);  
+
+  const { user } = useUserState();
 
   React.useEffect(()=>{
-    if( window.sessionStorage.getItem("userid")!=null){
-      dispatch({
-        type: "LOGIN",
-        userid: window.sessionStorage.getItem("userid"),
-      });
-    }
-  },[]);  
-
-
+    console.log(user);
+  },[user]);
+  
   return (
     <>
       <div className="App">
@@ -96,7 +101,8 @@ function App() {
               <Route path="board/view/modal" element={<Modal />} />
 
               <Route path="freeboard" element={<FreeBoardList />} />
-              <Route path="freeboard/write" element={<FreeBoardWrite />} />
+              <Route path="freeboard/write" element={<FreeBoardWrite /> } />
+              
               <Route path="freeboard/view/:free_seq" element={<FreeBoardView/>}/>
 
 
@@ -108,7 +114,7 @@ function App() {
               
               
             
-
+              <Route path="/mypage/*" element={<MyList/>}/>
 
               <Route path="register" element={<RegisterPage />} />
               <Route path="loginmodal" element={<LoginModal />} />
