@@ -29,8 +29,10 @@ import MyList from "./component/mypage/my_list"
 import LoginModal from "./component/Modal/LoginModal";
 import LoginPage from "./component/member/LoginPage";
 import FindIfModal from "./component/Modal/FindIdModal";
+
 import { useUserDispatch, useUserState } from "./component/member/UserContext";
 import RegisterPage from "./component/member/RegisterPage"
+
 
 import PZoomImage from "./component/board/util/PZoomImage";
 import Modal from "./component/board/util/Modal";

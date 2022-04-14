@@ -163,6 +163,11 @@ const QnaContainer = styled.div`
   
  }
  }
+ .qna-image{
+   width : auto;
+   height : 400px;
+   object-fit: cover;
+ }
  
  
 

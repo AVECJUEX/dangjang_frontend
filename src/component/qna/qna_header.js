@@ -12,6 +12,7 @@ import QnaView from "./qna_view"
 import QnaOper from "./qna_oper";
 import QnaId from "./qna_id";
 import QnaSearchList from "./qna_searchList";
+import QnaEvent from "./qna_evnet";
 
 
 
@@ -50,6 +51,7 @@ function QnaHeader() {
               <Route path="qna/qna/qnafree"  element={<QnaFree />} />
               <Route path="qna/qna/qnaoper"  element={<QnaOper />} />
               <Route path="qna/qna/qnaid"  element={<QnaId />} />
+              <Route path="qna/qna/qnaEvent"  element={<QnaEvent />}/>
               
               <Route path="qna/view/:qna_seq/" element={<QnaView/>}/>
               
