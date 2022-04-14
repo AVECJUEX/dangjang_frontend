@@ -9,7 +9,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useUserDispatch, useUserState } from "./member/UserContext";
 // import styles from "styles/components/DropDown.module.scss";
 // import classNames from "classNames";
-import useDetectClose from "./hooks/useDetectCLose";
+import { useDetectOutsideClick } from "./useDetectOutsideClick";
+
+import "./dropDownStyles.css";
 
 
 
@@ -165,6 +167,7 @@ const HeaderBox = styled.div`
 ;
 
 function Headers() {
+  
   const [openModal, setOpenModal] = useState(false);
   const { user } = useUserState();
   const dispatch = useUserDispatch();
@@ -183,6 +186,11 @@ function Headers() {
       type: "LOGOUT",
     });
   }
+
+  
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const onClick = () => setIsActive(!isActive);
   return (
     <HeaderContainer>
       <HeaderBox>
@@ -268,27 +276,45 @@ function Headers() {
                 </li>
                 :
                 <>
+                 <li>
+                <div className="container">
+                  <div className="menu-container">
+                    <button onClick={onClick} className="menu-trigger">
+                    <span>메뉴</span>
+                    
+                    </button>
+                    <nav
+                      ref={dropdownRef}
+                      className={`menu ${isActive ? "active" : "inactive"}`}
+                    >
+                      <ul>
+                        <li>
+                          <a href="#">Messages</a>
+                        </li>
+                        <li>
+                          <a href="#">Trips</a>
+                        </li>
+                        <li>
+                          <a href="#">Saved</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+               </div>
+
+                </li>
                 <li>
-                <NavLink
-                to="/mypage"
-                // to={DropDown}
-                className={({ isActive }) =>
-                  "Header-Menu" + (isActive ? "-Active" : "")
-                }
-              >
-                {" "}
-                마이페이지
-              
-                </NavLink>
+                <NavLink to="/mypage" className={({ isActive }) => "Header-Menu" + (isActive ? "-Active" : "")}>마이페이지</NavLink>
                 </li>
                 <li onClick={onClickLogout}>로그아웃</li>
                 </>
                 }
                 
-                <li></li>
+               
               </ul>
             </div>
           </ul>
+          
         </div>
 
         {openModal && <LoginModal closeModal={setOpenModal} />}

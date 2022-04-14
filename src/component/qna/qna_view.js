@@ -101,7 +101,7 @@ const sessionAt = '1 ';
   
       <form name="myform">
         <h2 className="qnalist-title">Q. {inputs.title}</h2>
-        <img src={inputs.image} alt={inputs.filename}/>
+        <img className="qna-image" src={inputs.image} alt={inputs.filename}/>
         <div className="qnalist-contents">
           {inputs.content}
 
@@ -113,9 +113,9 @@ const sessionAt = '1 ';
         
         </form>
         <br></br>
-        <hr/>
         <br></br>
-        {
+        <hr/>
+        { inputs.category_code==='09' ?(
           inputs.user_seq==='3'? '':
          <form name="myform" >
          <h2 className="qnalist-title">💌답변 </h2>
@@ -132,7 +132,7 @@ const sessionAt = '1 ';
          <button  onClick={deleteItem} className="qnaDeleteBtn">🗑️삭제</button>) }
          </QnaDeleteBtn>
        
-         </form>
+         </form>) : ''
          
         }
      

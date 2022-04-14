@@ -35,7 +35,7 @@ function QnaMenu() {
     <NavLink to='/'  className="qnamenu" >당장채팅</NavLink>
     <NavLink to='/'  className="qnamenu" >이용제재</NavLink>
     <NavLink to='/'  className="qnamenu" >본인인증</NavLink>
-    <NavLink to='/'  className="qnamenu" >공지/이벤트</NavLink>
+    <NavLink className={({ isActive }) => 'qnamenu'+ (isActive ? '-active' : '')} to="qna/qna/qnaEvent"  >공지/이벤트</NavLink>
     <NavLink className={({ isActive }) => 'qnamenu'+ (isActive ? '-active' : '')} to="qna/qna/qnafree">자유질문</NavLink>
 
     
