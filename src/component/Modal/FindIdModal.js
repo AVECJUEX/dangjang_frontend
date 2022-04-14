@@ -4,6 +4,7 @@ import loginLogoPath from "../../IMG/logo.png";
 import closePath from "../../IMG/close.png";
 import "../member/LoginRegister.css";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
 const Container = styled.div`
   position: fixed;
@@ -216,6 +217,7 @@ function FindIdModal({ closeFindIdModal }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [msg, setMsg]=useState("");
   const [password, setPassword] = useState("");
 
   const onNameHandler = (event) => {
@@ -233,8 +235,44 @@ function FindIdModal({ closeFindIdModal }) {
     setPassword(event.currentTarget.value);
   };
 
+ 
+
   const onSubmit = (event) => {
     event.preventDefault();
+    if (!name || !phone || !email) {
+      alert("모든 값을 정확하게 입력해주세요");
+      return;
+    }
+ 
+    const userInfo = { name : name , phone: phone , email : email};
+    
+    //console.log("[로그인]", userInfo);
+    
+
+    axios.post( "http://127.0.0.1:9090/dangjang/member/findid", userInfo)
+    .then( (res)=>{
+
+      console.log(res.data);
+
+      const { result, userid} = res.data;
+       if (result === "success") {
+         console.log("[로그인 성공] 세션에 아이디 저장");
+         
+         setMsg("회원님의 아이디는 " + userid + " 입니다");
+         
+         //closeModal(false);
+
+         //window.location.reload();
+       
+
+        
+       } else {
+         setMsg("아이디를 찾을 수 없습니다.");
+       }
+     })
+    .catch ( error=>{
+      console.log(error);
+    })
 
   };
 
@@ -244,7 +282,7 @@ function FindIdModal({ closeFindIdModal }) {
         <Title></Title>
 
         <div className="findregister">
-          <form>
+          <form name="myform" onSubmit={onSubmit}>
             <img className="modalLogo" src={loginLogoPath} alt=""></img>
 
             <div>

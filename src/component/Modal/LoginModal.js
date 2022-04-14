@@ -257,32 +257,35 @@ function LoginModal({ closeModal }) {
  
     const userInfo = { userid: userid, password: password };
     console.log("[로그인]", userInfo);
-    try {
-      //const { data } = await axios.post( "http://127.0.0.1:9090/dangjang/member/login", userInfo);
-      //const { result, member, msg } = data;
+    
 
-      // 임시 데이터
-      const result="success";
-      const member = { userid:"test1"};
-      const msg = "로그인 성공!!!!"
+    axios.post( "http://127.0.0.1:9090/dangjang/member/login", userInfo)
+    .then( (res)=>{
 
-      alert(msg);
-      if (result === "success") {
-        console.log("[로그인 성공] 세션에 아이디 저장");
-        window.sessionStorage.setItem("userid", member.userid);
+      console.log(res.data);
 
-        dispatch({
-          type: "LOGIN",
-          userid: userid,
-        });
+      const { result, role, nickname , name , email } = res.data;
+       if (result === "success") {
+         console.log("[로그인 성공] 세션에 아이디 저장");
+         alert("로그인 성공");
+         window.sessionStorage.setItem("userid", userid);
+         window.sessionStorage.setItem("role", role);
+         window.sessionStorage.setItem("nickname", nickname);
+         window.sessionStorage.setItem("name", name);
+         window.sessionStorage.setItem("email", email);
+         closeModal(false);
 
-        navigate("/");
-      }
+         window.location.reload();
+       
 
-      closeModal(false);
-    } catch (error) {
+        
+       } else {
+         alert("로그인 실패");
+       }
+    })
+    .catch ( error=>{
       console.log(error);
-    }
+    })
 
   };
 
