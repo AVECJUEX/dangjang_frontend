@@ -45,8 +45,8 @@ function BoardUpdate( ){
 
     const { user } = useUserState();
     let history = useNavigate (); //자바스크립트 : history.go(-1)
-    let login_id = user.userid;
-    let login_seq = user.user_seq;
+    const [login_id, setLoginId] = useState("");
+    const [login_seq, setLoginSeq] = useState("");
     
     // const [user_id, setUser_id] = useState(0);
     const [imageSrc, setImageSrc] = useState("");
@@ -89,6 +89,13 @@ function BoardUpdate( ){
       });
     };
 
+    useEffect(()=>{
+      if(user!=null){
+        setLoginId(user.userid);
+        setLoginSeq(user.user_seq);
+      }
+    }, [user])
+    
     //db에서 가져와서 화면에 뿌려줌
     useEffect(() => { 
       console.log( board_seq );
@@ -195,7 +202,8 @@ function BoardUpdate( ){
                     readOnly
                     />
               </div>
-              <div className="form-group">
+              <div>
+              <div className="form-group" style={{width:'49%', float:"left"}}>
                   <label>가격: </label>
                   <input type="text"
                     name="price" 
@@ -204,16 +212,23 @@ function BoardUpdate( ){
                     onChange={onChange}
                     />
               </div>
-              <div className="form-group">
+              <div className="form-group" style={{width:"49%", float:"right"}}>
                   <label>분류: </label>
-                  <input type="text"
-                    name="category_code" 
-                    className="form-control"
-                    value={category_code}
-                    onChange={onChange}
-                    />
+                  <select name="category_code" style={{display:"block"}} >  
+                    <option value=""onChange={onChange}>선택하세요</option>                  
+                    <option value="01"onChange={onChange}>옷</option>
+                    <option value="02"onChange={onChange}>가전/전자제품</option>
+                    <option value="03"onChange={onChange}>생활용품</option>
+                    <option value="04"onChange={onChange}>식품</option>
+                    <option value="05"onChange={onChange}>뷰티/미용</option>
+                    <option value="06"onChange={onChange}>차량</option>
+                    <option value="07"onChange={onChange}>도서/음반</option>
+                    <option value="08"onChange={onChange}>기타</option>
+                  </select>
               </div>
-              <div className="form-group">    
+            </div>
+            <div>
+              <div className="form-group" style={{clear:"both"}}>    
                   <label>제목: </label>
                   <input 
                     type="text" 
@@ -223,6 +238,7 @@ function BoardUpdate( ){
                     onChange={onChange}
                     />
               </div>
+            </div>
               <div className="form-group">
                   <label>내용: </label>
                   <input type="text"
