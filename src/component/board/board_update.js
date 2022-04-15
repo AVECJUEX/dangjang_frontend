@@ -166,6 +166,9 @@ function BoardUpdate( ){
     // const Cancle{
 
     // }
+    const onCancle = ()=>{
+      history('/board');
+    }
 
     return (
       <MainInfoBackground>
@@ -258,7 +261,7 @@ function BoardUpdate( ){
               <hr/>
               <div className="form-group" >
                   <input type="submit" value="등록 " className="btn btn-primary"/>
-                  <input type="submit" value="취소 " className="btn btn-primary" style={{float:'right'}}/>
+                  <input onClick={onCancle} value="취소 " className="btn btn-primary" style={{float:'right', width:"55px"}}/>
               </div>
           </form>
       </div>
