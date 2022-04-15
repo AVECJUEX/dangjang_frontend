@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Headers from "./component/Headers";
 import EventContainer from "./component/EventContainer";
 import MarketList from "./component/MarketList";
@@ -21,6 +22,11 @@ import QnaWrite from'./component/qna/qna_write';
 import QnaCommentWrite from "./component/qna/qnacomment_write";
 import QnaUpdate from "./component/qna/qna_update"
 
+
+import MyBox from "./component/message/MyBox";
+import MySendBox from "./component/message/MySendBox";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import MyList from "./component/mypage/my_list"
 
@@ -81,13 +87,32 @@ function App() {
 
   const { user } = useUserState();
 
-  React.useEffect(()=>{
+  const notify = (cnt) => toast(`읽지 않은 메세지 ${cnt}건이 있습니다.`);
+  
+  useEffect(()=>{
     console.log(user);
+    
+    if(user!=null) {
+      var frmData = new FormData();
+      frmData.append("receiver",user.userid);
+      axios.post('http://localhost:9090/dangjang/box/count/', frmData)
+      .then(
+  
+          res =>{
+            console.log(res.data);
+            if(res.data>0){
+              notify(res.data);
+            }
+            
+          } 
+          );
+    }
   },[user]);
   
   return (
     <>
       <div className="App">
+      <ToastContainer />
         <Headers></Headers>
         <MainPageContainer>
           <MarketContainer>
@@ -115,7 +140,9 @@ function App() {
  
               <Route  path="/mypage/registerModify"  element={<RegisterModify />} />
 
-              
+               
+              <Route path="mybox" element={<MyBox/>}/>
+              <Route path="mysendbox" element={<MySendBox/>}/>
             
               <Route path="/mypage/*" element={<MyList/>}/>
 

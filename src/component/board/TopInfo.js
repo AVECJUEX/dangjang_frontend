@@ -5,6 +5,8 @@ import styled from "styled-components";
 import Chat from "../../IMG/Chat.png";
 import Zzim_insert from "./util/Zzim_insert";
 import { useUserState } from "../member/UserContext";
+import MessageModal from '../message/MessageModal';
+import '../message/MessageModal.css';
 
 const PaneBox = styled.div`
   text-align: center;
@@ -279,6 +281,21 @@ function TopInfo(props, { match }) {
     nick_name:'',
     address1:''
   });
+
+  const [modalOpen1, setModalOpen1] = useState(false);
+  
+
+  const openModal = () => {
+    setModalOpen1(true); 
+  };
+  const closeModal = () => {
+    setModalOpen1(false);
+  };
+  
+  useEffect(()=>{
+  console.log(modalOpen1);
+  }, [modalOpen1])
+
   const [zzim_cnt, setZzimCnt] = useState("");
 
   const { user_id, user_images, hit, my_cnt, nick_name, address1 } = inputs; // 비구조화 할당을 통해 값 추출
@@ -347,8 +364,12 @@ function TopInfo(props, { match }) {
                         <button className="StylelessButton-ActionButton">
                         <div className="contentActionStatusImage">
                         <img className="StatusImage" src={Chat} alt=""></img>
-                        <div onClick="" className="ActionStatus">
-                        대화하기
+                        <div onClick={openModal} className="ActionStatus">
+                            {
+                              modalOpen1 &&
+                              <MessageModal open={modalOpen1} setModalOpen1={setModalOpen1} header={"쪽지보내기"} receiver={inputs.user_id} board_seq={board_seq}/>
+                            }
+                            쪽지보내기
                         </div> 
                         </div>
                         </button> 

@@ -301,10 +301,10 @@ function Headers() {
                     >
                       <ul>
                         <li>
-                          <a href="#">Messages</a>
+                          <a href="/mybox">받은 쪽지함</a>
                         </li>
                         <li>
-                          <a href="#">Trips</a>
+                          <a href="/mysendbox">보낸 쪽지함</a>
                         </li>
                         <li>
                           <a href="#">Saved</a>
