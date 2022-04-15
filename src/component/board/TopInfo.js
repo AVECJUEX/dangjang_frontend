@@ -313,6 +313,7 @@ function TopInfo(props, { match }) {
           .then(
             ()=>{
               console.log('Deleted');
+              alert("삭제되었습니다.");
             }
           ).catch(err => console.log(err));
       refreshPage();

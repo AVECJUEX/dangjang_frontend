@@ -27,11 +27,15 @@ const BoardBox = styled.div`
     letter-spacing: -0.4px;
     line-height: 30px;
   }
-  .btn {
+
+  button {
     color: #fff;
     background-color: #6667ab;
     border-color: #6667ab;
+    border-radius: 5px;
+    font-size: 1rem;
   }
+
   a{
     font-size:10px;
   }

@@ -9,13 +9,18 @@ function Zzim_insert({board_seq, setZzimCnt} ){
 
     const { user } = useUserState();
     let history = useNavigate (); //자바스크립트 : history.go(-1)
-    let login_id = "";
-    let login_seq = "";
+    const [login_id, setLoginId] = useState("");
+    const [login_seq, setLoginSeq] = useState("");
     
-    if(user!=null){
-      login_id = user.userid;
-      login_seq = user.user_seq;
-    }
+    
+    useEffect(()=>{
+      if(user!=null){
+        setLoginId(user.userid);
+        setLoginSeq(user.user_seq);
+      }
+    }, [user])
+   
+
 
     const [zzim, setZZim] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
@@ -28,6 +33,7 @@ function Zzim_insert({board_seq, setZzimCnt} ){
 
     //서버로 정보를 전송하는 함수
     const onSubmit=()=> {
+      
       var frmData = new FormData();
       frmData.append("user_seq", login_seq);
       frmData.append("board_seq", board_seq);

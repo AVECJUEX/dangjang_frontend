@@ -5,7 +5,7 @@ import LogoPath from "../IMG/logo.png";
 import Input from "./Input";
 import Label from "./Label";
 import LoginModal from "./Modal/LoginModal";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useUserDispatch, useUserState } from "./member/UserContext";
 // import styles from "styles/components/DropDown.module.scss";
 // import classNames from "classNames";
@@ -93,7 +93,7 @@ const HeaderBox = styled.div`
     display: flex;
     position: absolute;
     justify-content: flex-end;
-    width: 50%;
+    width: 30%;
     right: 0px;
   }
 
@@ -171,6 +171,7 @@ function Headers() {
   const [openModal, setOpenModal] = useState(false);
   const { user } = useUserState();
   const dispatch = useUserDispatch();
+  const history = useNavigate();
  
 
 
@@ -186,7 +187,7 @@ function Headers() {
       type: "LOGOUT",
     });
 
-    window.location.reload();
+    history("/");
   }
 
   
