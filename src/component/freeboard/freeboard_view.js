@@ -12,6 +12,8 @@ import Like_insert from "./util/Like_insert";
 import { SettingsInputSvideo } from "@material-ui/icons";
 import { Avatar, Box } from "@material-ui/core";
 import { Button, TextField } from "@mui/material";
+import { useUserState } from "../member/UserContext";
+import ViewPost from "./freeboard_view_post";
 
 
 const BoardBox = styled.div`
@@ -110,6 +112,18 @@ color : #6667ab;
 
 
 function FreeBoardView( ){
+    const { user } = useUserState();
+    const [login_id, setLoginId] = useState("");
+    const [login_seq, setLoginSeq] = useState("");
+    const [change, setChange] = useState(0);
+
+    useEffect(()=>{
+      if(user!=null){
+        setLoginId(user.userid);
+        setLoginSeq(user.user_seq);
+      }
+    }, [user])
+
 
      const [post, setPost] = useState({
       free_seq:"",
@@ -121,6 +135,7 @@ function FreeBoardView( ){
       like_cnt:"",
       hit:"",
       user_seq:"",
+      click:""
     }
      );
 
@@ -165,8 +180,8 @@ function FreeBoardView( ){
 */
       const writeComment = async () =>{
         const frmData = new FormData();
-        frmData.append("user_seq", "1");
-        frmData.append("free_seq", "14");
+        frmData.append("user_seq", login_seq);
+        frmData.append("free_seq", post.free_seq);
         frmData.append("content", content2 );
         const res = await Axios.post(`http://localhost:9090/dangjang/fbcomment/insert`, frmData);
         console.log(res.data);
@@ -182,61 +197,46 @@ function FreeBoardView( ){
         
         <div style={{marginTop : '130px'}}>
           <BoardBox>
-        <h1>👨‍👨‍👧‍👧왁자지걸</h1>
+        <h1>👨‍👨‍👧‍👧왁자지껄</h1>
         <h4>댓글을 남겨주세요</h4>
           <Link className="fbBtn" style={{float:'right'}} to="/freeboard"> 📄글목록</Link>
           <br/>
           <br/>
         <hr/><br/><br/>
 
-                <Post style={{marginBottom:'0px'}}
-                    free_seq={post.free_seq}
-                    userid={post.userid}
-                    title= {post.title}
-                    content={post.content}
-                    image={post.image}
-                    wdate={post.wdate}
-                    like_cnt={post.like_cnt}
-                    hit={post.hit}
-                    user_seq={post.user_seq}
-                    
-                    >
+        <ViewPost 
+          style={{marginBottom:'0px'}}
+          post={post}
+          setPost={setPost}
+        > 
+
+        </ViewPost>
 
 
-                </Post>
+        <div style={replyStyle, {marginTop : '0px',height:'70%',paddingTop:'0px'} }>
+          <Box
+            sx={{
+              width: 550,
+              maxWidth: "100%"
+              
+            }}
+            >
 
-                <div style={replyStyle, {marginTop : '0px',height:'70%',paddingTop:'0px'} }>
-                  <Box
-                    sx={{
-                      width: 550,
-                      maxWidth: "100%"
-                      
-                    }}
-                    >
+          {
+            comments.map( (props)=> <PostReply props={props}/>)
+          } 
+          
+          <div>
+            <TextField fullWidth style={{width: "689.3px"}} value={content2} onChange={onChangeContent}/>
+          </div>
+          <div>   
+          <Button style={{ float: "right" }} onClick={writeComment}>댓글달기</Button>
+          </div>
 
-                
-                  
-                  {
-                    comments.map( (props)=> <PostReply props={props}/>)
-                  } 
-                  
-                  <div>
-                    <TextField fullWidth style={{width: "689.3px"}} value={content2} onChange={onChangeContent}/>
-                  </div>
-                  <div>   
-                  <Button style={{ float: "right" }} onClick={writeComment}>댓글달기</Button>
-                  </div>
-      
-              </Box>
-              </div>
+      </Box>
+      </div>
 
-                {/* <input name=""/>
-
-<button>댓글달기</button>
-
-{comments.map((data)=>{ return <><p>{data.content}</p><p>테스트</p></>})}
-*/}
-</BoardBox>
+      </BoardBox>
          
             </div>
           
