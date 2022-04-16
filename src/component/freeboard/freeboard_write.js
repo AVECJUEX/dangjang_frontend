@@ -14,6 +14,7 @@ import Post from './Post';
 import { ExpandMoreOutlined } from "@material-ui/icons";
 import styled from "styled-components";
 import FileUpload from "../board/util/FileUpload";
+import { useUserState } from '../member/UserContext';
 
 const BoardBox = styled.div`
   .Category {
@@ -44,6 +45,19 @@ const BoardBox = styled.div`
 function FreeBoardWrite( ){
 
     let history = useNavigate (); //자바스크립트 : history.go(-1)
+
+    const { user } = useUserState();
+
+    const [login_seq, setLoginSeq] = useState("");
+
+
+    useEffect(()=>{
+      if(user!=null){
+        setLoginSeq(user.user_seq);
+      }
+    }, [user])
+
+
 
     const [imageSrc, setImageSrc] = useState("");
     const [imageSrcList, setImageSrcList] = useState([]);
@@ -99,11 +113,11 @@ function FreeBoardWrite( ){
 
       // 임시 변수
       const userid ='test';
-      const user_seq = '1';
+      
 
       var frmData = new FormData(e.currentTarget); 
       frmData.append("file", fileList[0]);
-      frmData.append("user_seq", user_seq);
+      frmData.append("user_seq", login_seq);
       frmData.append("userid", userid);
       
 

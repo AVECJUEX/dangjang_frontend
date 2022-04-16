@@ -134,7 +134,10 @@ const QnaContainer = styled.div`
     text-align : center;  
     margin-left:90%;
     width : auto;
- }
+
+    background-color:white;
+    border-radius : 10px;
+   }
  .qnaBtn:hover{
   background-color:#e5e8eb;
   color : #6667ab;

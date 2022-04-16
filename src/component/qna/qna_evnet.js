@@ -78,7 +78,7 @@ function QnaEvent() {
           })
         }
        
-  </div>
+   </div>
   );
 }
 

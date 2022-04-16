@@ -1,12 +1,14 @@
 
 import TableRow from './TableRow'
 import React, { useState, useEffect} from "react";
-import {  Link, NavLink, Route, Routes } from "react-router-dom";
+import {  Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";
 import styled from "styled-components";
-import { useUserState } from "../member/UserContext";
+import { useUserState } from '../member/UserContext';
+import LoginModal from "../Modal/LoginModal";
+
 
 
 
@@ -14,6 +16,8 @@ import { useUserState } from "../member/UserContext";
 
 
 function QnaFree(){
+  
+  let history = useNavigate ();
       
     
   const { user } = useUserState();
@@ -87,6 +91,9 @@ function QnaFree(){
       loadData(1);    //첫번째 페이지 데이터 가져와서 화면에 뿌리기
         
       }, []);
+      useEffect(()=>{
+        console.log(user);
+      },[user]);
   
       //페이지 이동 버튼을 누르면 이 함수가 호출된다.
       const handlePageChange = (page) => {
@@ -97,8 +104,16 @@ function QnaFree(){
       };
       
      
-    
-      
+      const [openModal, setOpenModal] = useState(false);
+
+      const clickWrite = () =>{
+        if(user!=null){
+          history("/qna/write");
+        } else {
+          alert("로그인하세요");
+          setOpenModal(true);
+        }
+      }
       return (
     <div style={{display : 'inline-block', width : '78%', marginLeft:'7%', padding : '0px', verticalAlign: 'top'}}>
 
@@ -128,7 +143,8 @@ function QnaFree(){
             onChange={handlePageChange}
             />
          
-          <NavLink className="qnaBtn" to="/qna/write" > ✏️글쓰기</NavLink>
+        <button className="qnaBtn" to="/qna/write" onClick={clickWrite}  style={{border:'0px'}}> 글쓰기</button>
+          {openModal && <LoginModal closeModal={setOpenModal} />}
     </div>
     
    

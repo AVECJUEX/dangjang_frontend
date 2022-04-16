@@ -93,7 +93,8 @@ function QnaWrite( ){
           res =>{
             console.log(res.data);
             alert("등록되었습니다.");
-            history('/board');
+            history(-1);
+    
           } 
       );
     }
