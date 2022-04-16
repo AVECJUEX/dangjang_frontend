@@ -2,6 +2,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import Axios from "axios";
 import styled from "styled-components";
+import { useUserState } from "../member/UserContext";
 
 function QnaView(props, {match} ){
   const QnaDeleteBtn = styled.div`
@@ -32,6 +33,20 @@ function QnaView(props, {match} ){
     `;
   let history = useNavigate ();
   let { qna_seq } = useParams();
+  const {  user } = useUserState();
+  const [login_id,setLoginId] = useState("");
+  const [login_seq,setLoginSeq] = useState("");
+  const [login_role,setLoginRole] = useState("");
+
+  useEffect(()=>{
+    if(user!=null){
+      setLoginId(user.userid);
+      setLoginSeq(user.user_seq);
+      setLoginRole(user.role);
+      console.log(user.role);
+    }
+  }, [user])
+  
 
   const [inputs, setInputs] = useState({
     qna_seq:'',
@@ -64,8 +79,9 @@ function QnaView(props, {match} ){
                   category_code :res.data.category_code,
                   image:res.data.image,
                   answer:res.data.answer,
-                  at:res.data.at,
-                  qnaco_seq:res.data.qnaco_seq
+                  role:res.data.role,
+                  qnaco_seq:res.data.qnaco_seq,
+                  nick_name:res.data.nick_name
                 });
             }
           );
@@ -125,7 +141,7 @@ const sessionAt = '1 ';
          </div>
           <QnaDeleteBtn>
 
-         {sessionAt === '2' ? '' : 
+         {login_role === 'USER' ? '' : 
          (inputs.answer==='⏱️ 답변을 기다려주세요' ?
          (inputs.category_code === '09' ? 
          <NavLink className="qnaBtn" to={"/qnacommentwrite/"+inputs.qna_seq} > ✏️작성</NavLink>:  ' ' ):

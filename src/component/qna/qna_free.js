@@ -6,6 +6,7 @@ import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";
 import styled from "styled-components";
+import { useUserState } from "../member/UserContext";
 
 
 
@@ -15,7 +16,19 @@ import styled from "styled-components";
 function QnaFree(){
       
     
-    
+  const { user } = useUserState();
+  const [login_id, setLoginId] = useState("");
+  const [login_seq, setLoginSeq] = useState("");
+  const [login_role,setLoginRole] = useState("");
+
+  
+  useEffect(()=>{
+    if(user!=null){
+      setLoginId(user.userid);
+      setLoginSeq(user.user_seq);
+      setLoginRole(user.role);
+    }
+  }, [user])
 
      const [qna, setQna] = useState([]) //게시글
      const [page, setPage] = useState(1);   //페이징 정보
@@ -61,6 +74,10 @@ function QnaFree(){
         setQna(res.data.list);
         setLoading(false);
         console.log("자유게시판 : "+res.data.list.length);
+        console.log("회원 번호 :" + user.user_seq);
+        console.log("회원 등급 :" + user.role);
+        setLoginSeq(user.user_seq);
+        setLoginRole(user.role);
       }
 
       //페이지가 처음에 화면에 끌 때 이부분이 호출된다.
@@ -88,7 +105,7 @@ function QnaFree(){
         {
           
           qna.map(function(object, i){
-            return<TableRow obj={object} key={i} totalCnt={totalCnt}/>
+            return<TableRow obj={object} key={i} totalCnt={totalCnt} login_seq={login_seq} login_role={login_role}/>
           })
         }
          {/*

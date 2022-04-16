@@ -217,6 +217,9 @@ function QnaCommentWrite( props){
                             onChange={onChange}
                             rows="5" 
                             >
+          
+          <br></br>
+          <hr/>
 
                           </textarea>
                         

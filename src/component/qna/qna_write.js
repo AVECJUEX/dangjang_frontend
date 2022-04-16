@@ -1,11 +1,23 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate  } from "react-router-dom";
 import Axios from "axios";
 import styled from "styled-components";
+import { useUserState } from "../member/UserContext";
 
 function QnaWrite( ){
-  
+  const { user } = useUserState();
+
+  const [login_id, setLoginId] = useState("");
+  const [login_seq, setLoginSeq] = useState("");
+  const [login_nick, setLoginNick] = useState("");
+  useEffect(()=>{
+    if(user!=null){
+      setLoginId(user.userid);
+      setLoginSeq(user.user_seq);
+      setLoginNick(user.nickname);
+    }
+  }, [user])
   let history = useNavigate (); //자바스크립트 : history.go(-1)
   
   const [imageSrc, setImageSrc] = useState('');
@@ -72,7 +84,7 @@ function QnaWrite( ){
       //      .then(res => console.log(res.data));
       var frmData = new FormData(); 
       frmData.append("title", inputs.title);
-      frmData.append("user_seq", inputs.user_seq);
+      frmData.append("user_seq", login_seq);
       frmData.append("content", inputs.content);
       
       frmData.append("file", document.myform.filename.files[0]);
@@ -162,13 +174,14 @@ function QnaWrite( ){
                             color: '#292a32',
                             fontWeight: 'bolder',
                             letterSpacing: '-0.4px'
-                            }} >이름 </span>
+                            }} >별명 </span>
                 <input  type="text" 
                     className="form-control"
-                    name="user_seq"
-                    value={user_seq}
+                    name="nick_name"
+                    value={login_nick}
                     onChange={onChange}
                     />
+                  <input type="hidden" value={user_seq} onChange={onChange} name="user_seq"></input>
                     
               </div>
 
