@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, {useRef,useEffect, useState } from "react";
 
 import LogoPath from "../IMG/logo.png";
-import Input from "./Input";
 import Label from "./Label";
 import LoginModal from "./Modal/LoginModal";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -12,6 +11,7 @@ import { useUserDispatch, useUserState } from "./member/UserContext";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
 
 import "./dropDownStyles.css";
+import MainInput from "./MainInput";
 
 
 
@@ -220,7 +220,7 @@ function Headers() {
               </NavLink>
             </li>
             <li>
-              👨‍👨‍👧‍👧
+             👨‍👨‍👧‍👧
               <NavLink
                 to="/freeboard"
                 className={({ isActive }) =>
@@ -258,7 +258,7 @@ function Headers() {
               <ul className="MainUl">
                 <li>
                   <Label width="300px" padding="12px 15px 11px 46px">
-                    <Input
+                    <MainInput
                       name="search"
                       placeholder="물품을 검색해보세요."
                       autocomplete="off"

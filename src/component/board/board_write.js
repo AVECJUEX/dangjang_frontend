@@ -40,8 +40,8 @@ const MainInfoContainer = styled.div`
 `;
 
 function BoardWrite( ){
-    const { user } = useUserState();
     let history = useNavigate (); //자바스크립트 : history.go(-1)
+    const { user } = useUserState();
     // let login_id = user.userid;
     // let login_seq = user.user_seq;
     // 위에 let 함수를 useState 안에 담아줌

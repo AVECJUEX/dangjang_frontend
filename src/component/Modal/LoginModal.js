@@ -291,7 +291,12 @@ function LoginModal({ closeModal }) {
 
   };
 
-  
+  const onKeyPress=(e)=>{
+    if(e.key==='Enter'){
+    alert("");
+    
+    };
+  }
 
   return (
     <Container>
@@ -310,6 +315,8 @@ function LoginModal({ closeModal }) {
                 onChange={onUseridHandler}
                 className="loginregister__input"
                 autocomplete="off"
+                onKeyPress={onkeypress}
+                
               />
             </div>
             <div>

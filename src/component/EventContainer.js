@@ -193,10 +193,13 @@ function MoviesSliderContainer() {
         
           <div class="carousel-inner" >
             <div class="carousel-item active">
-              <img src={event1} alt="Los Angeles" class="d-block w-100"/>
+              <a href="/qna/qna/view/32">
+
+              <img src={event2} alt="Los Angeles" class="d-block w-100"/>
+              </a>
             </div>
             <div class="carousel-item">
-              <img src={event2} alt="Chicago" class="d-block w-100"/>
+              <img src={event1} alt="Chicago" class="d-block w-100"/>
             </div>
             <div class="carousel-item">
               <img src={event3} alt="New York" class="d-block w-100"/>

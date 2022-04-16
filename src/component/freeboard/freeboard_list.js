@@ -3,7 +3,7 @@ import TableRow from './TableRow'
 import React, { useState, useEffect, Fragment, useMemo} from "react";
 import { Routes, Route, Outlet, Link, NavLink, useNavigate } from "react-router-dom";
 import FreeBoardView from './freeboard_view'
-import FileUpload from "./util/FileUpload";
+//import FileUpload from "./util/FileUpload";
 import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";

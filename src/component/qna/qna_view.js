@@ -70,7 +70,7 @@ function QnaView(props, {match} ){
      Axios.get(`http://localhost:9090/dangjang/qna/view/${qna_seq}`)
           .then(
             res => {
-                console.log("!!!!"+res.data.qnaco_seq);  //f12 눌러서 확인하기 
+                console.log("!!!!"+user.role);  //f12 눌러서 확인하기 
                 setInputs({
                   qna_seq:qna_seq,
                   title: res.data.title,
@@ -108,8 +108,22 @@ function QnaView(props, {match} ){
       const refreshPage=()=>{ 
         window.location.reload(); 
       }
- 
-const sessionAt = '1 ';
+      // let login_id = user.userid;
+      // let login_seq = user.user_seq;
+      // 위에 let 함수를 useState 안에 담아줌
+      const [admin_code,setAdminCode] = useState("");
+
+      useEffect(()=>{
+        if(user!=null){
+          setLoginId(user.userid);
+          setLoginSeq(user.user_seq);
+          setAdminCode(user.role);
+          console.log("어드민코드 : "+admin_code);
+        }
+      }, [user])
+
+
+  
   
 
   return (
