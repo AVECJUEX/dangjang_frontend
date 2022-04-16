@@ -100,7 +100,7 @@ function QnaUpdate( props){
           res =>{
             console.log(res.data);
             alert("등록되었습니다.");
-            history('-1');
+            history(-1);
           } 
       );
     }
