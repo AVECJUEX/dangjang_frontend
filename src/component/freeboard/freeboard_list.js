@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import TableRow from './TableRow'
-import React, { useState, useEffect} from "react";
-import { Routes, Route, Outlet, Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect, Fragment, useMemo} from "react";
+import { Routes, Route, Outlet, Link, NavLink, useNavigate } from "react-router-dom";
 import FreeBoardView from './freeboard_view'
+import FileUpload from "./util/FileUpload";
 import Axios from "axios";
 import "../../page.css";
 import Pagination from "react-js-pagination";
 import Feed from './Feed'
 import Post from './Post';
+import { useUserState } from "../member/UserContext";
 
 const BoardBox = styled.div`
 
@@ -82,12 +84,25 @@ color : #6667ab;
 `;
 
 function FreeBoardList( ){
+     const { user } = useUserState();
+      
+     let history = useNavigate (); //자바스크립트 : history.go(-1)
+     const [login_id, setLoginId] = useState("");
+     const [login_seq, setLoginSeq] = useState("");
      const [freeboard, setFreeBoard] = useState([]) //게시글
      const [page, setPage] = useState(1);   //페이징 정보
      const [totalCnt, setTotalCnt] = useState(0); //전체 레코드 개수
      const [loading, setLoading]=useState(false); //로딩 중을 띄우고싶었지만 안씀
      const [change, setChange] = useState(0);
 
+        //새로고침 시 user_id, user_seq 사라지는거 방지
+        useEffect(()=>{
+          if(user!=null){
+            setLoginId(user.userid);
+            setLoginSeq(user.user_seq);
+          }
+        }, [user])
+       
     
           /*
          useEffect( function, deps )
@@ -155,7 +170,7 @@ function FreeBoardList( ){
         //비동기모드를 동기모드로 바꾸어서 데이터가 올 때 까지 기다리게 만들었음
         //그래서 값이 반환 될 때까지 기다린다.
         var frmData = new FormData();
-        frmData.append("user_seq", '1');
+        frmData.append("user_seq", login_seq);
 
         const res = await Axios.post(`http://localhost:9090/dangjang/freeboard/list/${page}`, frmData);
         console.log(res.data);
@@ -189,7 +204,7 @@ function FreeBoardList( ){
         <BoardBox>
           
         <div style={{marginTop : '130px'}}>
-          <h1>👨‍👨‍👧‍👧왁자지걸</h1>
+          <h1>👨‍👨‍👧‍👧왁자지껄</h1>
           <h4>즐거운 일상을 공유해보세요!!</h4>
             <Link className="fbBtn" style={{float:'right'}} to="/freeboard/write"> ✏️글쓰기</Link>
             <br/>
